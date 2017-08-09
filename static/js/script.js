@@ -2,7 +2,7 @@ function add_menu(menujson) {
     const menu = document.querySelector('.menu');
     menujson.map(function(restaurant) {
         var section = document.createElement('section');
-        var content = `<h2><a href="${ restaurant['url'] }">${ restaurant['name'] }</a></h2><p>${ restaurant['menu'] }</p><br>`;
+        var content = `<h2><a href="${ restaurant['url'] }">${ restaurant['name'] }</a></h2><p>${ restaurant['menu'] }</p><hr>`;
         section.innerHTML = content;
         menu.appendChild(section);
     })
