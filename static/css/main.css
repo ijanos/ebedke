@@ -1,0 +1,23 @@
+body {
+  margin: 0 auto;
+  max-width: 42em;
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, "Fira Sans", "Liberation Sans", Ubuntu, sans-serif;
+  line-height: 1.5;
+  padding: 2em 1em;
+  background: #fefefe;
+  color: #444;
+}
+
+a {
+  color: #2980b9;
+  text-decoration: none;
+}
+
+hr {
+  border-top: 1px dashed #8c8b8b;
+  border-bottom: 0;
+  border-right: 0;
+  border-left: 0;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
