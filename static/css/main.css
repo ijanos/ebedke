@@ -21,3 +21,9 @@ hr {
   margin-bottom: 1em;
   margin-top: 1em;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  font-size: 1.1em;
+}
