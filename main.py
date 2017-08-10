@@ -12,7 +12,7 @@ from provider import tenminutes
 FOODSOURCES = [
     bridges,
     pqs,
-    kompot
+    kompot,
     tenminutes
 ]
 
