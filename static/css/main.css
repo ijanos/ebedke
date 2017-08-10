@@ -13,6 +13,15 @@ a {
   text-decoration: none;
 }
 
+h2 {
+  margin: 1px;
+}
+
+p {
+  margin: 1px;
+}
+
+
 hr {
   border-top: 1px dashed #8c8b8b;
   border-bottom: 0;
