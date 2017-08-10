@@ -17,6 +17,7 @@ function get_menu() {
       }).then(function() {
         document.querySelector('.loading').remove()
       }).catch(function(ex) {
+        document.querySelector('.loading').innerText = "Something went wrong :("
         console.log('parsing failed', ex)
       });
 }
