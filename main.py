@@ -7,11 +7,13 @@ import config
 from provider import pqs
 from provider import kompot
 from provider import bridges
+from provider import tenminutes
 
 FOODSOURCES = [
     bridges,
     pqs,
     kompot
+    tenminutes
 ]
 
 def menuLoader(getMenu):
