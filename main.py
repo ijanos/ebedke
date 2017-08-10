@@ -8,12 +8,14 @@ from provider import pqs
 from provider import kompot
 from provider import bridges
 from provider import tenminutes
+from provider import opus
 
 FOODSOURCES = [
     bridges,
     pqs,
     kompot,
-    tenminutes
+    tenminutes,
+    opus,
 ]
 
 def menuLoader(getMenu):
