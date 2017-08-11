@@ -38,8 +38,5 @@ def getDailyMenu_parallel():
         all_menu = pool.map(menuLoader, [r.getMenu for r in FOODSOURCES])
         return all_menu
 
-def handler(_event, _context):
-    return getDailyMenu()
-
 if __name__ == "__main__":
     print(getDailyMenu())
