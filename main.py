@@ -10,6 +10,7 @@ from provider import bridges
 from provider import tenminutes
 from provider import opus
 from provider import burgerking
+from provider import subway
 
 FOODSOURCES = [
     bridges,
@@ -17,7 +18,8 @@ FOODSOURCES = [
     kompot,
     tenminutes,
     opus,
-    burgerking
+    burgerking,
+    subway
 ]
 
 def menuLoader(getMenu):
