@@ -36,3 +36,17 @@ hr {
   justify-content: center;
   font-size: 1.1em;
 }
+
+footer {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  font-size: 0.6em;
+  margin-top: 10px;
+}
+
+footer > a {
+  margin-right: 10px;
+}
