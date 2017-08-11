@@ -11,6 +11,7 @@ from provider import tenminutes
 from provider import opus
 from provider import burgerking
 from provider import subway
+from provider import dezso
 
 FOODSOURCES = [
     bridges,
@@ -18,6 +19,7 @@ FOODSOURCES = [
     kompot,
     tenminutes,
     opus,
+    dezso,
     burgerking,
     subway
 ]
