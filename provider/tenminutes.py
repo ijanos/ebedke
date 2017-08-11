@@ -1,4 +1,4 @@
-import base64
+from base64 import b64encode
 import urllib.request
 from io import BytesIO
 from math import floor
@@ -8,6 +8,7 @@ from PIL import Image
 
 WIDTH = 513
 HEIGHT = 284
+
 
 URL = "http://www.10minutes.hu/"
 IMG_PATH = "images/home_1_06.png"
@@ -29,11 +30,13 @@ def getMenu(_):
 
         new_im = new_im.point(lambda i: i < 100 and 255)
         new_im = new_im.convert('1')
-        new_im = new_im.resize((floor(WIDTH*2*0.80), floor(HEIGHT*0.80)), Image.BICUBIC)
+        zoom = 0.6
+        new_im = new_im.resize((floor(WIDTH * 2 * zoom ), floor(HEIGHT * zoom)), Image.ANTIALIAS)
 
         f = BytesIO()
-        new_im.save(f, format="png", optimize=True, compress_level=9, bits=4)
-        menu = "<img style='width:100%;' src='data:image/png;base64," + base64.b64encode(f.getvalue()).decode('ascii')       + "'/>"
+        new_im.save(f, format="png", optimize=True, compress_level=9, bits=1)
+        menu = "<img style='width:100%;' src='data:image/png;base64," + b64encode(f.getvalue()).decode('ascii') + "'>"
+
         return {
             'name': '10 minutes',
             'url' : URL,
