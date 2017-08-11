@@ -18,10 +18,14 @@ def getMenu(today):
                  if datetime.strptime(p['created_time'], '%Y-%m-%dT%H:%M:%S%z').date() == today.date()
                  and "menü" in p['message']), {'message': '-'})
 
+    menu = ' '.join(filter(lambda s: s[0] is not '#',  menu['message'].split()))
+    menu = menu.replace("A:", "<br>A:")
+    menu = menu.replace("B:", "<br>B:")
+
     return {
         'name': 'Kompót',
         'url': KOMPOT_FB_PAGE,
-        'menu': menu['message']
+        'menu': menu
     }
 
 if __name__ == "__main__":
