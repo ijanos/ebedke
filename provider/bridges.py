@@ -15,6 +15,8 @@ def getMenu(today):
         try:
             weekly_menu = tree.xpath('//*[@id="heti-menu"]//p')
             menu = weekly_menu[day].text_content()
+            menu = menu.replace('1.', '<br>1.')
+            menu = menu.replace('2.', '<br>2.')
             menu = menu + '<br>' + weekly_menu[6].text_content()
         except:
             menu = '-'
