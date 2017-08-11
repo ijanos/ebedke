@@ -15,6 +15,7 @@ def getMenu(today):
             for cell in cells:
                 ul = tree.xpath(f'//*[@id="menu"]/tbody/tr[{cell}]/td[{day}]/ul')[0]
                 menu += ul.text_content().strip() + '<br>'
+            menu = menu.replace("Választott leves","")
         except:
             menu = '-'
 
