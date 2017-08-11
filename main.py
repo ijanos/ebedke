@@ -12,14 +12,20 @@ from provider import opus
 from provider import burgerking
 from provider import subway
 from provider import dezso
+from provider import manga
+from provider import intenzo
+from provider import golvonal
 
 FOODSOURCES = [
     bridges,
     pqs,
     kompot,
     tenminutes,
-    opus,
     dezso,
+    golvonal,
+    opus,
+    manga,
+    intenzo,
     burgerking,
     subway
 ]
