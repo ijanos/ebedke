@@ -24,7 +24,7 @@ def getMenu(_):
         amenu = menu_img.crop(a_menu_box)
         bmenu = menu_img.crop(b_menu_box)
 
-        new_im = Image.new('RGB', (WIDTH * 2, HEIGHT))
+        new_im = Image.new('L', (WIDTH * 2, HEIGHT))
         new_im.paste(amenu, (0,0))
         new_im.paste(bmenu, (WIDTH,0))
 
