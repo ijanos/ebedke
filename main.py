@@ -15,11 +15,13 @@ from provider import dezso
 from provider import manga
 from provider import intenzo
 from provider import golvonal
+from provider import gilice
 
 FOODSOURCES = [
     bridges,
     pqs,
     kompot,
+    gilice,
     tenminutes,
     dezso,
     golvonal,
