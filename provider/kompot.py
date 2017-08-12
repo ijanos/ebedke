@@ -5,7 +5,7 @@ from datetime import datetime
 
 import config
 
-KOMPOT_FB_PAGE = "https://www.facebook.com/KompotBisztro/"
+FB_PAGE = "https://www.facebook.com/pg/KompotBisztro/posts/"
 FB_ID = "405687736167829"
 
 def getMenu(today):
@@ -24,7 +24,7 @@ def getMenu(today):
 
     return {
         'name': 'Kompót',
-        'url': KOMPOT_FB_PAGE,
+        'url': FB_PAGE,
         'menu': menu
     }
 
