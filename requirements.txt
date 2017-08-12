@@ -1,2 +1,3 @@
 lxml==3.8.0
-Flask==0.12.2.dev0
+Flask==0.12
+Pillow==4.2.1
