@@ -18,7 +18,8 @@ def getMenu(today):
                  if datetime.strptime(p['created_time'], '%Y-%m-%dT%H:%M:%S%z').date() == today.date()
                  and "menü" in p['message']), {'message': '-'})
 
-    menu = ' '.join(filter(lambda s: s[0] is not '#',  menu['message'].split()))
+    menu = ' '.join(filter(lambda s: s[0] is not '#', menu['message'].split())) # remove hashtags
+    menu = ''.join(char for char in menu if ord(char) < 1000) # remove emojis
     menu = menu.replace("A:", "<br>A:")
     menu = menu.replace("B:", "<br>B:")
 
