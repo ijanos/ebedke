@@ -9,7 +9,7 @@ def getMenu(today):
         r = response.read()
         tree = html.fromstring(r)
         weeklymenu = tree.xpath('//*[@id="tabs-0"]/div[7]/div/p[5]//text()')
-        weeklymenu = [item for item in weeklymenu if item.strip() is not '']
+        weeklymenu = [item.strip() for item in weeklymenu if not item.isspace()]
 
         try:
             add_separator = lambda s: "||" + s if ':' in s and not 'Hétfő' in s else s
