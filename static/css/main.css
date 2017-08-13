@@ -3,7 +3,7 @@ body {
   max-width: 42em;
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, "Fira Sans", "Liberation Sans", Ubuntu, sans-serif;
   line-height: 1.5;
-  padding: 2em 1em;
+  padding: 0.2em 0.2em;
   background: #fefefe;
   color: #444;
 }
@@ -14,12 +14,13 @@ a {
 }
 
 h2 {
-  margin-bottom: 1px;
+  margin: 0 0;
   font-size: 1.2em;
 }
 
 p {
-  margin-top: 1px;
+  margin-top: 0.1em;
+  margin-bottom: 0.3em;
 }
 
 
@@ -36,6 +37,7 @@ hr {
   display: flex;
   justify-content: center;
   font-size: 1.2em;
+  margin-top: 1.5em;
 }
 
 footer {
