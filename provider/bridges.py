@@ -1,8 +1,6 @@
-import json
 import urllib.parse
 import urllib.request
 from lxml import html
-from datetime import datetime
 
 
 URL = "http://bridges.hu/#heti-menu"
@@ -28,4 +26,5 @@ def getMenu(today):
     }
 
 if __name__ == "__main__":
+    from datetime import datetime
     print(getMenu(datetime.today()))
