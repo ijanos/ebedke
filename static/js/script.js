@@ -17,7 +17,7 @@ function get_menu() {
       }).then(function() {
         document.querySelector('.loading').remove()
       }).catch(function(ex) {
-        document.querySelector('.loading').innerText = "Something went wrong :("
+        document.querySelector('.loading').innerText = "Valami elromlott :("
         console.log('parsing failed', ex)
       });
 }
