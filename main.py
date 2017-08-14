@@ -15,6 +15,7 @@ from provider import manga
 from provider import intenzo
 from provider import golvonal
 from provider import gilice
+from provider import veranda
 
 FOODSOURCES = [
     bridges,
@@ -23,6 +24,7 @@ FOODSOURCES = [
     gilice,
     tenminutes,
     dezso,
+    veranda,
     golvonal,
     opus,
     manga,
