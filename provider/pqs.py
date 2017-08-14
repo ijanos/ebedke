@@ -9,13 +9,17 @@ def getMenu(today):
     with urllib.request.urlopen(PQS_MENU) as response:
         r = response.read()
         tree = html.fromstring(r)
-        cells = [2, 4, 6, 26, 28, 30]
+        menu = ""
         try:
-            menu = ""
-            for cell in cells:
-                ul = tree.xpath(f'//*[@id="menu"]/tbody/tr[{cell}]/td[{day}]/ul')[0]
-                menu += ul.text_content().strip() + '<br>'
-            menu = menu.replace("Választott leves","")
+            uls = tree.xpath('//*[@id="menu"]//tr[th[contains(text(),"enü") '
+                             'or contains(text(),"őztje") '
+                             'or contains(text(),"eves")]]'
+                             f'/following-sibling::tr[1]/td[{ day }]/ul')
+            for ul in uls:
+                menu += ul.text_content().strip()
+            menu = menu.replace("Választott leves", "")
+            menu = menu.replace("\n", "<br>")
+            menu = menu.replace("\t", "")
         except:
             menu = '-'
 
