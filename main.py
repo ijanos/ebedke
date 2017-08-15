@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime as dt
 from multiprocessing import Pool
 
 import config
@@ -34,18 +34,17 @@ FOODSOURCES = [
 ]
 
 def menuLoader(getMenu):
-    today = datetime.datetime.today()
-    return getMenu(today)
+    today = dt.today()
+    if config.OFFSET:
+        from datetime import timedelta
+        today = today + timedelta(days=config.OFFSET)
+    menu = getMenu(today)
+    return menu
 
-def getDailyMenu():
-    all_menu = list(map(menuLoader, [r.getMenu for r in FOODSOURCES]))
+def getDailyMenuParallel():
+    with Pool(config.POOL_SIZE) as pool:
+        all_menu = pool.map(menuLoader, [r.getMenu for r in FOODSOURCES])
     return all_menu
 
-def getDailyMenu_parallel():
-    with Pool(config.POOL_SIZE) as pool:
-        print("downloading menu")
-        all_menu = pool.map(menuLoader, [r.getMenu for r in FOODSOURCES])
-        return all_menu
-
 if __name__ == "__main__":
-    print(getDailyMenu())
+    print(getDailyMenuParallel())

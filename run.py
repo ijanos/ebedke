@@ -1,6 +1,6 @@
 from functools import wraps
 
-from main import getDailyMenu_parallel
+from main import getDailyMenuParallel
 
 from flask import Flask, jsonify, request
 from werkzeug.contrib.cache import SimpleCache
@@ -30,4 +30,4 @@ def root():
 @app.route('/menu')
 @cached(timeout=15 * 60)
 def dailymenu():
-    return jsonify(getDailyMenu_parallel())
+    return jsonify(getDailyMenuParallel())
