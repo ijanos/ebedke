@@ -16,6 +16,7 @@ from provider import intenzo
 from provider import golvonal
 from provider import gilice
 from provider import veranda
+from provider import otszaz
 
 FOODSOURCES = [
     bridges,
@@ -30,7 +31,8 @@ FOODSOURCES = [
     manga,
     intenzo,
     burgerking,
-    subway
+    subway,
+    otszaz
 ]
 
 def menuLoader(getMenu):
