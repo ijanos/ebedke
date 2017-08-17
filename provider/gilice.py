@@ -71,4 +71,4 @@ def getMenu(today):
 
 if __name__ == "__main__":
     from datetime import datetime
-    getMenu(datetime.today())
+    print(getMenu(datetime.today()))
