@@ -24,7 +24,7 @@ token](https://developers.facebook.com/docs/facebook-login/access-tokens#apptoke
 is required to read posts from facebook pages.
 
 To test individual  providers invoke them as a separate script. For providers
-that use settings from the config use `python -m config provider/provider.py` to
+that use settings from the config use `python -m provider.providername` to
 run.
 
 ## License
