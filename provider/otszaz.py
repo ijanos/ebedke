@@ -3,6 +3,7 @@ import urllib.parse
 import urllib.request
 from io import BytesIO
 from base64 import b64encode
+from datetime import timedelta, datetime
 from PIL import Image
 
 import config
@@ -24,7 +25,7 @@ COL_0 = 0.1597
 WIDTH = 1000
 HEIGHT = 150
 
-def cuttable(img,x,y,w,h):
+def cuttable(img, x, y, w, h):
     return img.crop((
         (COL_0 + COL_W * x) * img.width,
         (ROW_0 + ROW_H * y) * img.height,
@@ -60,7 +61,7 @@ def cutimage(url, day):
         new_im.save(f, format="png", optimize=True, compress_level=9, bits=4)
         return "<img style='width:100%;' src='data:image/png;base64," + b64encode(f.getvalue()).decode('ascii') + "'>"
 
-def getFBMenu(day):
+def getFBMenu(today):
     params = urllib.parse.urlencode({"access_token": config.FB_ACCESS_TOKEN})
     url = f"https://graph.facebook.com/v2.10/{FB_ID}/photos?type=uploaded&fields=created_time,images&{params}"
     resp = urllib.request.urlopen(url).read()
@@ -68,24 +69,22 @@ def getFBMenu(day):
 
     img_src = None
     # Best guess: let's hope that the ratio of the menu will always be around the same
+    parse_date = lambda d: datetime.strptime(d, '%Y-%m-%dT%H:%M:%S%z').date()
     for img in resp['data']:
-        if len(img['images']) > 0:
+        if img['images']:
             ratio = int(img['images'][0]['width']) / int(img['images'][0]['height'])
-            if abs(ratio - MENU_RATIO) < MENU_RATIO_THRESHOLD:
+            if abs(ratio - MENU_RATIO) < MENU_RATIO_THRESHOLD and parse_date(img['created_time']) > today.date() - timedelta(days=7):
                 img_src = img['images'][0]['source']
-                # TODO maybe check created time if current image selection turns out to be ambiguous
-                # print(img['created_time'])
                 break
 
     if img_src is None:
         return "-"
 
-    return cutimage(img_src, day)
+    return cutimage(img_src, today.weekday())
 
 def getMenu(today):
-    day = today.weekday()
-    if day < 5:
-        menu = getFBMenu(day)
+    if today.weekday() < 5:
+        menu = getFBMenu(today)
     else:
         menu = "Svédasztal lehetőség hétvégén"
 
@@ -96,5 +95,4 @@ def getMenu(today):
     }
 
 if __name__ == "__main__":
-    from datetime import datetime
     print(getMenu(datetime.today()))
