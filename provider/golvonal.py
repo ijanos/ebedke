@@ -17,7 +17,7 @@ def getMenu(today):
         r = response.read()
         tree = html.fromstring(r)
         try:
-            menu = tree.xpath(f'//div[@class="fck"]//h3[contains(text(), "{ weekdays[day] }")]/following-sibling::p[position() >= 1 and position() < 3]')
+            menu = tree.xpath(f'//div[@class="fck"]//h3[contains(*[text()], "{ weekdays[day] }")]/following-sibling::p[position() >= 1 and position() < 3]')
             menu = '<br>'.join(p.text for p in menu)
         except:
             menu = '-'
