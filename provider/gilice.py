@@ -4,6 +4,7 @@ import urllib.request
 from io import BytesIO
 from math import floor
 from base64 import b64encode
+from datetime import timedelta, datetime
 
 from PIL import Image
 
@@ -37,15 +38,19 @@ def cutimage(url, day):
         new_im.save(f, format="png", optimize=True, compress_level=9, bits=4)
         return "<img style='width:100%;' src='data:image/png;base64," + b64encode(f.getvalue()).decode('ascii') + "'>"
 
-def getFBMenu(day):
+def getFBMenu(today):
+    day = today.weekday()
     params = urllib.parse.urlencode({"access_token": config.FB_ACCESS_TOKEN})
     url = f"https://graph.facebook.com/v2.10/{FB_ID}/posts?{params}"
 
     resp = urllib.request.urlopen(url).read()
     posts = json.loads(resp)
-    menu = next((p for p in posts['data']
-                 if "jelmagyarázat" in p['message']), {'message': '-'})
+    parse_date = lambda d: datetime.strptime(d, '%Y-%m-%dT%H:%M:%S%z').date()
     try:
+        menu = next((p for p in posts['data']
+                     if "jelmagyarázat" in p['message']
+                     and parse_date(p['created_time']) > today.date() - timedelta(days=7)),
+                    {'message': '-'})
         url = f"https://graph.facebook.com/v2.10/{ menu['id'] }/attachments?{ params }"
         resp = urllib.request.urlopen(url).read()
         attachments = json.loads(resp)
@@ -57,9 +62,8 @@ def getFBMenu(day):
     return menu
 
 def getMenu(today):
-    day = today.weekday()
-    if day < 5:
-        menu = getFBMenu(day)
+    if today.weekday() < 5:
+        menu = getFBMenu(today)
     else:
         menu = "-"
 
