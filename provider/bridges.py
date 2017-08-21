@@ -1,5 +1,7 @@
 import urllib.parse
 import urllib.request
+from datetime import timedelta
+
 from lxml import html
 
 
@@ -10,14 +12,18 @@ def getMenu(today):
     with urllib.request.urlopen(URL) as response:
         r = response.read()
         tree = html.fromstring(r)
+        menu = '-'
         try:
             weekly_menu = tree.xpath('//*[@id="heti-menu"]//p')
-            menu = weekly_menu[day].text_content()
-            menu = menu.replace('1.', '<br>1.')
-            menu = menu.replace('2.', '<br>2.')
-            menu = menu + '<br>' + weekly_menu[6].text_content()
+            date = weekly_menu[0].text_content().strip()[0:10]
+            parse_date = lambda d: datetime.strptime(d, '%Y.%m.%d').date()
+            if parse_date(date) > today.date() - timedelta(days=6):
+                menu = weekly_menu[day].text_content()
+                menu = menu.replace('1.', '<br>1.')
+                menu = menu.replace('2.', '<br>2.')
+                menu = menu + '<br>' + weekly_menu[6].text_content()
         except:
-            menu = '-'
+            pass
 
     return {
         'name': 'Bridges',
