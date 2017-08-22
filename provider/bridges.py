@@ -1,6 +1,6 @@
 import urllib.parse
 import urllib.request
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from lxml import html
 
@@ -32,5 +32,4 @@ def getMenu(today):
     }
 
 if __name__ == "__main__":
-    from datetime import datetime
     print(getMenu(datetime.today()))
