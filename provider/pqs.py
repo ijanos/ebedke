@@ -18,8 +18,8 @@ def getMenu(today):
             for ul in uls:
                 menu += ul.text_content().strip()
             menu = menu.replace("Választott leves", "")
-            menu = menu.replace("\n", "<br>")
             menu = menu.replace("\t", "")
+            menu = '<br>'.join((i for i in menu.split('\n') if i))
         except:
             menu = '-'
 
