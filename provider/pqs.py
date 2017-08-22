@@ -11,12 +11,11 @@ def getMenu(today):
         tree = html.fromstring(r)
         menu = ""
         try:
-            uls = tree.xpath('//*[@id="menu"]//tr[th[contains(text(),"enü") '
+            texts = tree.xpath('//*[@id="menu"]//tr[th[contains(text(),"enü") '
                              'or contains(text(),"őztje") '
                              'or contains(text(),"eves")]]'
-                             f'/following-sibling::tr[1]/td[{ day }]/ul')
-            for ul in uls:
-                menu += ul.text_content().strip()
+                             f'/following-sibling::tr[1]/td[{ day }]/ul//text()')
+            menu = ''.join(texts)
             menu = menu.replace("Választott leves", "")
             menu = menu.replace("\t", "")
             menu = '<br>'.join((i for i in menu.split('\n') if i))
