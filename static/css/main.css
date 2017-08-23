@@ -18,6 +18,17 @@ h2 {
   font-size: 1.2em;
 }
 
+.close {
+  cursor: pointer;
+  color: #ccc;
+}
+
+section > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 p {
   margin-top: 0.1em;
   margin-bottom: 0.3em;
