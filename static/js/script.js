@@ -7,9 +7,7 @@ function add_menu(menujson) {
       items = new Set()
     }
     menujson.map(function(restaurant) {
-      if (items.has(restaurant['name'])) {
-        console.log(restaurant['name'] + "skipped");
-      } else {
+      if (!items.has(restaurant['name'])) {
         var section = document.createElement('section');
         var content = `<header><h2><a href="${ restaurant['url'] }">${ restaurant['name'] }</a></h2><span class="close" data-name="${ restaurant['name'] }">❌</span></header><p>${ restaurant['menu'] }</p><hr>`;
         section.innerHTML = content;
@@ -38,7 +36,7 @@ function get_menu() {
       });
 }
 
-close_func = function(){
+function close_func() {
   name = this.dataset.name;
   this.parentElement.parentElement.remove();
   if (window.location.hash) {
@@ -50,7 +48,6 @@ close_func = function(){
 
 function init_close() {
   var Xes = document.getElementsByClassName("close");
-  console.log(Xes);
   Array.from(Xes).forEach(function(element) {
     element.addEventListener('click', close_func);
   });
