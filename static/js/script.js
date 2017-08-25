@@ -1,13 +1,13 @@
 function add_menu(menujson) {
     const menu = document.querySelector('.menu');
-    var items;
     if (window.location.hash) {
-      items = new Set(window.location.href.split('=')[1].split(';'));
+      hidden = new Set(decodeURIComponent(window.location.href).split('=')[1].split(';'));
     } else {
-      items = new Set()
+      hidden = new Set()
     }
+    console.log(hidden)
     menujson.map(function(restaurant) {
-      if (!items.has(restaurant['name'])) {
+      if (!hidden.has(restaurant['name'])) {
         var section = document.createElement('section');
         var content = `<header><h2><a href="${ restaurant['url'] }">${ restaurant['name'] }</a></h2><span class="close" data-name="${ restaurant['name'] }">❌</span></header><p>${ restaurant['menu'] }</p><hr>`;
         section.innerHTML = content;
