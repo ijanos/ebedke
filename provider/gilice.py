@@ -26,17 +26,18 @@ def cutimage(url, day):
         dailybox = (X, Y, X + WIDTH, Y + HEIGHT)
 
         menu = menu_img.crop(dailybox)
+        (menu, _, _) = menu.split()
 
         new_im = Image.new('L', (WIDTH, HEIGHT))
         new_im.paste(menu, (0, 0))
 
         new_im = new_im.point(lambda i: i > 85 and 255)
+        new_im = new_im.resize((WIDTH, floor(HEIGHT * 0.55)), Image.BOX)
         new_im = new_im.convert('1')
-        new_im = new_im.resize((WIDTH, floor(HEIGHT * 0.61)), Image.ANTIALIAS)
 
         f = BytesIO()
         new_im.save(f, format="png", optimize=True, compress_level=9, bits=4)
-        return "<img style='width:100%;' src='data:image/png;base64," + b64encode(f.getvalue()).decode('ascii') + "'>"
+        return f"<img style='width:100%;' src='data:image/png;base64,{ b64encode(f.getvalue()).decode('ascii') }'>"
 
 def getFBMenu(today):
     day = today.weekday()
