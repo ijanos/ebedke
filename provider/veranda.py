@@ -10,7 +10,7 @@ def getMenu(today):
         r = response.read()
         tree = html.fromstring(r)
         try:
-            tds = tree.xpath(f'//div[@id="main-content"]//table[1]//tr[position() > 1 and position() < 6]/td[{ day }]')
+            tds = tree.xpath(f'(//div[@id="main-content"]//table)[1]//tr[position() > 1 and position() < 6]/td[{ day }]')
             menu = "<br>".join(td.text_content().strip() for td in tds)
         except:
             menu = '-'
