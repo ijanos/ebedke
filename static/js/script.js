@@ -5,7 +5,6 @@ function add_menu(menujson) {
     } else {
       hidden = new Set()
     }
-    console.log(hidden)
     menujson.map(function(restaurant) {
       if (!hidden.has(restaurant['name'])) {
         var section = document.createElement('section');
