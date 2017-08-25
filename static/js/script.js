@@ -9,7 +9,7 @@ function add_menu(menujson) {
     menujson.map(function(restaurant) {
       if (!hidden.has(restaurant['name'])) {
         var section = document.createElement('section');
-        var content = `<header><h2><a href="${ restaurant['url'] }">${ restaurant['name'] }</a></h2><span class="close" data-name="${ restaurant['name'] }">❌</span></header><p>${ restaurant['menu'] }</p><hr>`;
+        var content = `<header><h2><a href="${ restaurant['url'] }">${ restaurant['name'] }</a></h2><span class="close" data-name="${ restaurant['name'] }">✕</span></header><p>${ restaurant['menu'] }</p><hr>`;
         section.innerHTML = content;
         menu.appendChild(section);
       }
