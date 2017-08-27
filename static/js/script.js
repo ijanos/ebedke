@@ -1,15 +1,14 @@
 function add_menu(menujson) {
     const menu = document.querySelector('.menu');
-    if (window.location.hash) {
-      hidden = new Set(decodeURIComponent(window.location.href).split('=')[1].split(';'));
-    } else {
-      hidden = new Set()
-    }
+    const hidden = new Set(decodeURIComponent(window.location.hash || '=').split('=')[1].split(';'));
     menujson.map(function(restaurant) {
-      if (!hidden.has(restaurant['name'])) {
-        var section = document.createElement('section');
-        var content = `<header><h2><a href="${ restaurant['url'] }">${ restaurant['name'] }</a></h2><span class="close" data-name="${ restaurant['name'] }">✕</span></header><p>${ restaurant['menu'] }</p><hr>`;
-        section.innerHTML = content;
+      if (!hidden.has(restaurant.name)) {
+        let section = document.createElement('section');
+        section.innerHTML = `<header>
+           <h2><a href="${ restaurant.url }">${ restaurant.name }</a></h2>
+           <span class="close" data-name="${ restaurant.name }">✕</span>
+           </header>
+           <p>${ restaurant.menu }</p><hr>`;
         menu.appendChild(section);
       }
     });
@@ -20,36 +19,31 @@ function add_menu(menujson) {
     }
 }
 
-function get_menu() {
-    fetch(new Request('/menu'))
-      .then(function(response) {
-        return response.json()
-      }).then(function(json) {
-        add_menu(json)
-      }).then(function() {
-        init_close();
-        document.querySelector('.loading').remove();
-      }).catch(function(ex) {
-        document.querySelector('.loading').innerText = "Valami elromlott :("
-        console.log('parsing failed', ex)
-      });
-}
-
-function close_func() {
-  name = this.dataset.name;
-  this.parentElement.parentElement.remove();
-  if (window.location.hash) {
-    window.location.hash += `;${ name }`
-  } else {
-    window.location.hash = `hide=${ name }`
-  }
-}
-
-function init_close() {
-  var Xes = document.getElementsByClassName("close");
-  Array.from(Xes).forEach(function(element) {
-    element.addEventListener('click', close_func);
+function add_close_listeners() {
+  const spans = document.querySelectorAll(".close");
+  spans.forEach(function(element) {
+    element.addEventListener('click', function() {
+      name = this.dataset.name;
+      this.parentElement.parentElement.remove();
+      window.location.hash = `${ window.location.hash || "hide=" }${ name };`
+    });
   });
 }
 
-get_menu();
+function main() {
+  let infobox = document.querySelector('.loading');
+  fetch(new Request('/menu'))
+    .then(function(response) {
+      return response.json()
+    }).then(function(json) {
+      add_menu(json)
+    }).then(function() {
+      add_close_listeners();
+      infobox.remove();
+    }).catch(function(ex) {
+      infobox.innerText = "Valami elromlott :("
+      console.log('parsing failed', ex)
+    });
+}
+
+main();
