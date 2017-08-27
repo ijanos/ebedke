@@ -23,6 +23,25 @@ h2 {
   color: #ccc;
 }
 
+h1 {
+  margin: 0 0;
+  font-size: 1.3em;
+}
+
+body > header {
+  display: none;
+  padding: 0.2em;
+  border-radius: 5px;
+  background: #F5F5F5;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5em;
+}
+
+header > a {
+  display: none;
+}
+
 section > header {
   display: flex;
   justify-content: space-between;

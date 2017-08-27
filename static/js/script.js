@@ -13,10 +13,17 @@ function add_menu(menujson) {
       }
     });
     if (window.location.hash) {
-        var section = document.createElement('section');
-        section.innerHTML = '<a href="/">mutass mindent</a>';
-        menu.appendChild(section)
+      document.querySelector('body > header > a').style.display = "block";
     }
+}
+
+function init_header() {
+  const today = new Date();
+  const options = { weekday: "long", year: "numeric", month: "numeric", day: "numeric" };
+  const [date, day] = today.toLocaleDateString('hu-HU', options).split(', ');
+  document.querySelector("body > header h1").innerText = day;
+  document.querySelector("body > header span").innerText = date;
+  document.querySelector("body > header").style.display = "flex";
 }
 
 function add_close_listeners() {
@@ -40,6 +47,7 @@ function main() {
     }).then(function() {
       add_close_listeners();
       infobox.remove();
+      init_header();
     }).catch(function(ex) {
       infobox.innerText = "Valami elromlott :("
       console.log('parsing failed', ex)
