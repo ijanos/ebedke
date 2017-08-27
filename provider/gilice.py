@@ -6,7 +6,7 @@ from math import floor
 from base64 import b64encode
 from datetime import timedelta, datetime
 
-from PIL import Image
+from PIL import Image, ImageEnhance
 
 import config
 
@@ -31,8 +31,11 @@ def cutimage(url, day):
         new_im = Image.new('L', (WIDTH, HEIGHT))
         new_im.paste(menu, (0, 0))
 
-        new_im = new_im.point(lambda i: i > 85 and 255)
-        new_im = new_im.resize((WIDTH, floor(HEIGHT * 0.55)), Image.BOX)
+        enhancer = ImageEnhance.Contrast(new_im)
+        new_im = enhancer.enhance(0.85)
+
+        new_im = new_im.point(lambda i: i > 90 and 255)
+        new_im = new_im.resize((WIDTH, floor(HEIGHT * 0.56)), Image.BOX)
         new_im = new_im.convert('1')
 
         f = BytesIO()
