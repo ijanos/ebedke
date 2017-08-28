@@ -47,11 +47,12 @@ def menuLoader(getMenu):
         return menu
     except:
         print(f"Exception when downloading { getMenu.__module__ }")
+        return None
 
 def getDailyMenuParallel():
     with Pool(config.POOL_SIZE) as pool:
         all_menu = pool.map(menuLoader, [r.getMenu for r in FOODSOURCES])
-    return all_menu
+    return [i for i in all_menu if i]
 
 if __name__ == "__main__":
     print(getDailyMenuParallel())
