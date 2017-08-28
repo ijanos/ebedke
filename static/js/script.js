@@ -33,6 +33,7 @@ function add_close_listeners() {
       name = this.dataset.name;
       this.parentElement.parentElement.remove();
       window.location.hash = `${ window.location.hash || "hide=" }${ name };`
+      document.querySelector('body > header > a').style.display = "block";
     });
   });
 }
