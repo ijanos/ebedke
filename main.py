@@ -42,8 +42,11 @@ def menuLoader(getMenu):
     if config.OFFSET:
         from datetime import timedelta
         today = today + timedelta(days=config.OFFSET)
-    menu = getMenu(today)
-    return menu
+    try:
+        menu = getMenu(today)
+        return menu
+    except:
+        print(f"Exception when downloading { getMenu.__module__ }")
 
 def getDailyMenuParallel():
     with Pool(config.POOL_SIZE) as pool:
