@@ -5,6 +5,8 @@ from datetime import datetime
 
 from PIL import Image
 
+from provider.utils import create_img
+
 
 WIDTH = 513
 HEIGHT = 284
@@ -37,9 +39,9 @@ def getMenu(today):
 
             f = BytesIO()
             new_im.save(f, format="png", optimize=True, compress_level=9, bits=1)
-            menu = "<img style='width:100%;' src='data:image/png;base64," + b64encode(f.getvalue()).decode('ascii') + "'>"
+            menu = create_img(f)
         else:
-            menu = "-"
+            menu = ""
 
         return {
             'name': '10 minutes',

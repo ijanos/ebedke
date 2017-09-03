@@ -1,26 +1,22 @@
-import urllib.request
-from lxml import html
-
+from datetime import datetime as dt
+from provider.utils import get_dom
 
 URL = "http://cafeintenzo.hu/#hetimenu"
 
 def getMenu(today):
     day = today.weekday()
-    with urllib.request.urlopen(URL) as response:
-        r = response.read()
-        tree = html.fromstring(r)
-        menu = tree.xpath('//*[@id="hetimenu"]//div[contains(@class, "text_box")]')
-        try:
-            menu = '<br>'.join(menu[day].xpath("p/text()"))
-        except:
-            menu = '-'
+    try:
+        dom = get_dom(URL)
+        menu = dom.xpath('//*[@id="hetimenu"]//div[contains(@class, "text_box")]')
+        menu = '<br>'.join(menu[day].xpath("p/text()"))
+    except:
+        menu = ''
 
-        return {
-            'name': 'Intenzo',
-            'url': URL,
-            'menu': menu
-        }
+    return {
+        'name': 'Intenzo',
+        'url': URL,
+        'menu': menu
+    }
 
 if __name__ == "__main__":
-    import datetime
-    print(getMenu(datetime.datetime.today()))
+    print(getMenu(dt.today()))

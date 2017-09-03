@@ -1,5 +1,5 @@
-import urllib.request
-from lxml import html
+from datetime import datetime as dt
+from provider.utils import get_dom
 
 
 URL = "http://www.golvonalbisztro.hu/heti-menuajanlat.html"
@@ -13,21 +13,19 @@ def getMenu(today):
         3: "CSÜTÖRTÖK",
         4: "PÉNTEK"
     }
-    with urllib.request.urlopen(URL) as response:
-        r = response.read()
-        tree = html.fromstring(r)
-        try:
-            menu = tree.xpath(f'//div[@class="fck"]//h3[contains(node(), "{ weekdays[day] }")]/following-sibling::p[position() >= 1 and position() < 3]')
-            menu = '<br>'.join(p.text for p in menu)
-        except:
-            menu = '-'
+    try:
+        dom = get_dom(URL)
+        menu = dom.xpath(f'//div[@class="fck"]//h3[contains(node(), "{ weekdays[day] }")]/'
+                         'following-sibling::p[position() >= 1 and position() < 3]')
+        menu = '<br>'.join(p.text for p in menu)
+    except:
+        menu = ''
 
-        return {
-            'name': 'Gólvonal',
-            'url': URL,
-            'menu': menu
-        }
+    return {
+        'name': 'Gólvonal',
+        'url': URL,
+        'menu': menu
+    }
 
 if __name__ == "__main__":
-    import datetime
-    print(getMenu(datetime.datetime.today()))
+    print(getMenu(dt.today()))

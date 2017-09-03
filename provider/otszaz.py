@@ -78,7 +78,7 @@ def getFBMenu(today):
                 break
 
     if img_src is None:
-        return "-"
+        return ""
 
     return cutimage(img_src, today.weekday())
 

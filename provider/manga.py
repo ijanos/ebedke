@@ -13,9 +13,11 @@ def getMenu(today):
     except:
         menu = ''
 
-    return {'name': 'Manga',
-            'url': URL,
-            'menu': menu}
+    return {
+        'name': 'Manga',
+        'url': URL,
+        'menu': menu
+    }
 
 if __name__ == "__main__":
     print(getMenu(dt.today()))

@@ -19,7 +19,7 @@ def getMenu(today):
     menu = next((p for p in posts['data']
                  if parse_date(p['created_time']) > today.date() - timedelta(days=7)
                  and "menü" in p['message'].lower()),
-                {'message': '-'})
+                {'message': ''})
 
     menu = '<br>'.join((i for i in menu['message'].split('\n') if i))
 

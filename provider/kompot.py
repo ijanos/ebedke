@@ -18,7 +18,7 @@ def getMenu(today):
     menu = next((p for p in posts['data']
                  if parse_date(p['created_time']) == today.date()
                  and "menü" in p['message']),
-                {'message': '-'})
+                {'message': ''})
 
     menu = ' '.join(filter(lambda s: s[0] is not '#', menu['message'].split())) # remove hashtags
     menu = ''.join(char for char in menu if ord(char) < 1000) # remove emojis

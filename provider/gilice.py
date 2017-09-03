@@ -3,12 +3,11 @@ import urllib.parse
 import urllib.request
 from io import BytesIO
 from math import floor
-from base64 import b64encode
 from datetime import timedelta, datetime
 
 from PIL import Image, ImageEnhance
 
-import config
+from provider.utils import get_facebook_posts, get_post_attachments, create_img
 
 FB_PAGE = "https://www.facebook.com/pg/gilicekonyha/posts/"
 FB_ID = "910845662306901"
@@ -40,28 +39,23 @@ def cutimage(url, day):
 
         f = BytesIO()
         new_im.save(f, format="png", optimize=True, compress_level=9, bits=4)
-        return f"<img style='width:100%;' src='data:image/png;base64,{ b64encode(f.getvalue()).decode('ascii') }'>"
+        return create_img(f)
 
 def getFBMenu(today):
     day = today.weekday()
-    params = urllib.parse.urlencode({"access_token": config.FB_ACCESS_TOKEN})
-    url = f"https://graph.facebook.com/v2.10/{FB_ID}/posts?{params}"
-
-    resp = urllib.request.urlopen(url).read()
-    posts = json.loads(resp)
     parse_date = lambda d: datetime.strptime(d, '%Y-%m-%dT%H:%M:%S%z').date()
     try:
+        posts = get_facebook_posts(FB_ID)
         menu = next((p for p in posts['data']
                      if "jelmagyarázat" in p['message']
                      and parse_date(p['created_time']) > today.date() - timedelta(days=7)),
                     {'message': '-'})
-        url = f"https://graph.facebook.com/v2.10/{ menu['id'] }/attachments?{ params }"
-        resp = urllib.request.urlopen(url).read()
-        attachments = json.loads(resp)
+        attachments = get_post_attachments(menu['id'])
         menu_pic_url = attachments['data'][0]['media']['image']['src']
         menu = cutimage(menu_pic_url, day)
     except:
-        menu = '-'
+        menu = ''
+
 
     return menu
 
@@ -69,7 +63,7 @@ def getMenu(today):
     if today.weekday() < 5:
         menu = getFBMenu(today)
     else:
-        menu = "-"
+        menu = ""
 
     return {
         'name': 'Gólya',
