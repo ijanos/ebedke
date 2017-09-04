@@ -48,10 +48,16 @@ def getFBMenu(today):
         menu = next((p for p in posts['data']
                      if "jelmagyarázat" in p['message']
                      and parse_date(p['created_time']) > today.date() - timedelta(days=7)),
-                    {'message': '-'})
-        attachments = get_post_attachments(menu['id'])
-        menu_pic_url = attachments['data'][0]['media']['image']['src']
-        menu = cutimage(menu_pic_url, day)
+                    {'message': ''})
+        post_parts = menu['message'].split("HETI MENÜ")
+        if len(post_parts) > 1:
+            weekly_menu = post_parts[1]
+            menu = weekly_menu.strip().split("\n\n")[day]
+            menu = menu.replace("\n","<br>")
+        else:
+            attachments = get_post_attachments(menu['id'])
+            menu_pic_url = attachments['data'][0]['media']['image']['src']
+            menu = cutimage(menu_pic_url, day)
     except:
         menu = ''
 
