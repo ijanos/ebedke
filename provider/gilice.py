@@ -17,15 +17,14 @@ def cutimage(url, day):
         r = response.read()
         menu_img = Image.open(BytesIO(r))
 
-        WIDTH = 485
-        HEIGHT = 125
-        X = 140
-        Y = 81
+        WIDTH = 370
+        HEIGHT = 123
+        X = 110
+        Y = 67
         Y = Y + (HEIGHT * day)
         dailybox = (X, Y, X + WIDTH, Y + HEIGHT)
 
         menu = menu_img.crop(dailybox)
-        (menu, _, _) = menu.split()
 
         new_im = Image.new('L', (WIDTH, HEIGHT))
         new_im.paste(menu, (0, 0))
