@@ -18,6 +18,7 @@ from provider import gilice
 from provider import veranda
 from provider import otszaz
 from provider import portum
+from provider import muzikum
 
 FOODSOURCES = [
     bridges,
@@ -32,6 +33,7 @@ FOODSOURCES = [
     opus,
     manga,
     intenzo,
+    muzikum,
     burgerking,
     subway,
     otszaz
