@@ -24,7 +24,7 @@ def getMenu(today):
     menu = menu['message']
     if "Előételek:" in menu:
         menu = menu.split("Előételek:")[1].strip()
-    menu = '<br>'.join((i for i in menu.split('\n') if i))
+    menu = '<br>'.join(i for i in menu.split('\n') if i)
 
     return {
         'name': 'Portum',
