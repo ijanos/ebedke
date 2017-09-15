@@ -35,8 +35,7 @@ FOODSOURCES = [
     intenzo,
     muzikum,
     burgerking,
-    subway,
-    otszaz
+    subway
 ]
 
 def menuLoader(getMenu):
