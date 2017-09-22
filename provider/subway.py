@@ -2,18 +2,18 @@ import urllib
 import urllib.request
 from datetime import datetime
 
-URL = "http://www.subway.hu/hu/page_menu_SOTD.html"
-IMAGE_URL = "http://www.subway.hu/images/menu/WEB_NYITO_SOTD_644x360px.jpg"
-EXPECTED_CONTENT_LENGTH = "418570"
+URL = "http://www.subwayhungary.com/hu/page_menu_SOTD.html"
+IMAGE_URL = "http://www.subwayhungary.com/images/menu/WEB_NYITO_SOTD_644x360.jpg"
+EXPECTED_CONTENT_LENGTH = "1511684"
 
 foodMap = {
-    0: "Roston sült csirke", # monday
+    0: "Csirke", # monday
     1: "Olasz fűszeres",
     2: "Sonka",
     3: "B.L.T.",
     4: "Falafel",
     5: "Omlett & Bacon",
-    6: "Italian B.M.T." # sunday
+    6: "Big Beef Melt" # sunday
 }
 
 def getMenu(today):
@@ -22,7 +22,7 @@ def getMenu(today):
         if response.getheader('content-length') == EXPECTED_CONTENT_LENGTH:
             menu = foodMap[today.weekday()] + " (Sub of the Day)"
         else:
-            menu = 'Cache outdated. Please visit <a href="http://www.subway.hu/">http://www.subway.hu/</a> !'
+            menu = 'Tekintse meg a <a href="' + URL + '">Subway honlapján</a>!'
 
         return {
             'name': 'Subway',
