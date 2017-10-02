@@ -2,13 +2,13 @@ from datetime import datetime as dt
 from provider.utils import get_dom
 
 
-URL = "http://verandaetterem.hu/"
+URL = "http://verandaetterem.hu/heti-menu/"
 
 def getMenu(today):
-    day = today.weekday() + 2
+    day = today.weekday() + 3
     try:
         dom = get_dom(URL)
-        tds = dom.xpath(f'(//div[@id="main-content"]//table)[1]//tr[position() > 1 and position() < 6]/td[{ day }]')
+        tds = dom.xpath(f'(//div[@id="main-content"]//table)[1]//tr[position() > 0 and position() < 5]/td[{ day }]')
         menu = "<br>".join(td.text_content().strip() for td in tds)
     except:
         menu = '-'
