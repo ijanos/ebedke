@@ -40,7 +40,7 @@ function add_close_listeners() {
 
 function main() {
   let infobox = document.querySelector('.loading');
-  fetch(new Request('/menu'))
+  fetch('menu')
     .then(function(response) {
       return response.json()
     }).then(function(json) {
