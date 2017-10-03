@@ -9,7 +9,7 @@ def getMenu(today):
     try:
         dom = get_dom(URL)
         menu = dom.xpath(f'//div[@class="fck"]//h3[{ day }]/'
-                         'following-sibling::p[position() >= 1 and position() < 3]/text()')
+                         'following-sibling::p[position() >= 1 and position() < 3]//text()')
         menu = [m.strip() for m in menu if m.strip()]
         menu = '<br>'.join(menu)
     except:
