@@ -42,6 +42,7 @@ def cutimage(url, day):
 
 def getFBMenu(today):
     day = today.weekday()
+    day_names = ["hétfő", "kedd", "szerda", "csütörtök", "péntek"]
     parse_date = lambda d: datetime.strptime(d, '%Y-%m-%dT%H:%M:%S%z').date()
     try:
         posts = get_facebook_posts(FB_ID)
@@ -53,7 +54,8 @@ def getFBMenu(today):
         if len(post_parts) > 1:
             weekly_menu = post_parts[1]
             menu = weekly_menu.strip().split("\n\n")[day]
-            menu = menu.replace("\n","<br>")
+            menu = menu.replace(day_names[day], '')
+            menu = '<br>'.join(menu.strip().split('\n'))
         else:
             attachments = get_post_attachments(menu['id'])
             menu_pic_url = attachments['data'][0]['media']['image']['src']
