@@ -8,7 +8,7 @@ function add_menu(menujson) {
            <h2><a href="${ restaurant.url }">${ restaurant.name }</a></h2>
            <span class="close" data-name="${ restaurant.name }">✕</span>
            </header>
-           <p>${ restaurant.menu }</p><hr>`;
+           <p>${ restaurant.menu }</p>`;
         menu.appendChild(section);
       }
     });
