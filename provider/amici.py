@@ -11,7 +11,7 @@ def getMenu(today):
     try:
         posts = get_facebook_posts(FB_ID)
         parse_date = lambda d: datetime.strptime(d, '%Y-%m-%dT%H:%M:%S%z').date()
-        weekly_menu = next((p for p in posts['data']
+        weekly_menu = next((p for p in posts
                             if all(day in p['message'].lower() for day in day_names)
                             and parse_date(p['created_time']) > today.date() -  timedelta(days=7)), None)
         menu = weekly_menu['message']

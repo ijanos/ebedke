@@ -21,10 +21,10 @@ def clean_up_daily_menu(menu):
 def getMenu(today):
     posts = get_facebook_posts(FB_ID)
     parse_date = lambda d: datetime.strptime(d, '%Y-%m-%dT%H:%M:%S%z').date()
-    weekly_menu = next((p for p in posts['data']
+    weekly_menu = next((p for p in posts
                         if "heti menü" in p['message'].lower()
                         and parse_date(p['created_time']) > today.date() - timedelta(days=6)), None)
-    daily_menu = next((p for p in posts['data']
+    daily_menu = next((p for p in posts
                        if parse_date(p['created_time']) == today.date()
                        and "étvágyat" in p['message'].lower()
                        and "heti" not in p['message'].lower()), None)

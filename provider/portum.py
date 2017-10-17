@@ -16,7 +16,7 @@ def getMenu(today):
     resp = urllib.request.urlopen(url).read()
     posts = json.loads(resp)
     parse_date = lambda d: datetime.strptime(d, '%Y-%m-%dT%H:%M:%S%z').date()
-    menu = next((p for p in posts['data']
+    menu = next((p for p in posts
                  if parse_date(p['created_time']) > today.date() - timedelta(days=7)
                  and "message" in p
                  and "menü" in p['message'].lower()),
