@@ -1,24 +1,15 @@
-import json
-import urllib.parse
-import urllib.request
 from datetime import datetime, timedelta
-
-import config
+from provider.utils import get_facebook_posts
 
 
 URL = "https://www.facebook.com/PortumCorvin/posts/"
 FB_ID = "728866253985071"
 
 def getMenu(today):
-    params = urllib.parse.urlencode({"access_token": config.FB_ACCESS_TOKEN})
-    url = f"https://graph.facebook.com/v2.10/{FB_ID}/posts?{params}"
-
-    resp = urllib.request.urlopen(url).read()
-    posts = json.loads(resp)
+    posts = get_facebook_posts(FB_ID)
     parse_date = lambda d: datetime.strptime(d, '%Y-%m-%dT%H:%M:%S%z').date()
     menu = next((p for p in posts
                  if parse_date(p['created_time']) > today.date() - timedelta(days=7)
-                 and "message" in p
                  and "menü" in p['message'].lower()),
                 {'message': ''})
 
