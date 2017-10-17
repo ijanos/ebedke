@@ -28,11 +28,10 @@ def getMenu(today):
                        if parse_date(p['created_time']) == today.date()
                        and "étvágyat" in p['message'].lower()
                        and "heti" not in p['message'].lower()), None)
-
-    if daily_menu:
-        menu = clean_up_daily_menu(daily_menu['message'])
-    elif weekly_menu:
+    if weekly_menu:
         menu = clean_up_weekly_menu(weekly_menu['message'], today.weekday())
+    elif daily_menu:
+        menu = clean_up_daily_menu(daily_menu['message'])
     else:
         menu = ''
 
