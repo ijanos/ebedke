@@ -47,7 +47,7 @@ def getFBMenu(today):
     try:
         posts = get_facebook_posts(FB_ID)
         menu = next((p for p in posts['data']
-                     if "jelmagyarázat" in p['message']
+                     if "message" in p and "jelmagyarázat" in p['message']
                      and parse_date(p['created_time']) > today.date() - timedelta(days=7)),
                     {'message': ''})
         post_parts = menu['message'].split("HETI MENÜ")
