@@ -19,6 +19,7 @@ from provider import veranda
 from provider import otszaz
 from provider import portum
 from provider import muzikum
+from provider import amici
 
 FOODSOURCES = [
     bridges,
@@ -27,6 +28,7 @@ FOODSOURCES = [
     gilice,
     tenminutes,
     dezso,
+    amici,
     veranda,
     golvonal,
     portum,
