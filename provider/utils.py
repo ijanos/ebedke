@@ -7,6 +7,8 @@ import config
 
 FB_TOKEN = urllib.parse.urlencode({"access_token": config.FB_ACCESS_TOKEN})
 
+days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek"]
+
 def get_dom(URL):
     response = urllib.request.urlopen(URL)
     r = response.read()
