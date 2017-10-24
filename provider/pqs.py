@@ -10,7 +10,6 @@ def getMenu(today):
         for i, th in enumerate(dom.xpath('//table[@id="menu"]/thead//th')):
             text = ''.join(th.xpath('text()'))
             if today in text:
-                print(i, text)
                 column = i + 1
         texts = dom.xpath('//*[@id="menu"]//tr[th[contains(text(),"enü") '
                           'or contains(text(),"őztje") '
