@@ -10,9 +10,8 @@ def getMenu(today):
     parse_date = lambda d: datetime.strptime(d, '%Y-%m-%dT%H:%M:%S%z').date()
     menu = next((p for p in posts
                  if parse_date(p['created_time']) > today.date() - timedelta(days=7)
-                 and "menü" in p['message'].lower()),
+                 and "főételek" in p['message'].lower()),
                 {'message': ''})
-
     menu = menu['message']
     if "Előételek:" in menu:
         menu = menu.split("Előételek:")[1].strip()
