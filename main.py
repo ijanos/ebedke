@@ -20,6 +20,7 @@ from provider import otszaz
 from provider import portum
 from provider import muzikum
 from provider import amici
+from provider import foodie
 
 FOODSOURCES = [
     bridges,
@@ -32,6 +33,7 @@ FOODSOURCES = [
     veranda,
     golvonal,
     portum,
+    foodie,
     opus,
     manga,
     intenzo,

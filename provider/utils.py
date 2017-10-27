@@ -20,6 +20,15 @@ def get_facebook_posts(page_id):
     posts = json.loads(resp)['data']
     return [post for post in posts if "message" in post]
 
+def get_filtered_fb_post(page_id, post_filter):
+    url = f"https://graph.facebook.com/v2.10/{ page_id }/posts?{ FB_TOKEN }"
+    resp = urllib.request.urlopen(url).read()
+    posts = json.loads(resp)['data']
+    for post in posts:
+        if "message" in post and post_filter(post):
+            return post["message"]
+    return ""
+
 def get_post_attachments(post_id):
     url = f"https://graph.facebook.com/v2.10/{ post_id }/attachments?{ FB_TOKEN }"
     resp = urllib.request.urlopen(url).read()
