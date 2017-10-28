@@ -9,10 +9,10 @@ def getMenu(today):
     menu = ''
     try:
         dom = get_dom(URL)
-        weekly_menu = dom.xpath('//*[@id="heti-menu"]//p')
+        weekly_menu = dom.xpath('//section[@id="heti-menu"]//p')
         date = weekly_menu[0].text_content().strip()[0:10]
-        parse_date = lambda d: datetime.strptime(d, '%Y.%m.%d').date()
-        if parse_date(date) > today.date() - timedelta(days=6):
+        this_week = lambda date: datetime.strptime(date, '%Y.%m.%d').date() > today.date() - timedelta(days=6)
+        if this_week(date)  and today.weekday() < 5:
             menu = weekly_menu[day].text_content()
             menu = menu.replace('1.', '<br>1.')
             menu = menu.replace('2.', '<br>2.')
