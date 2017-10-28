@@ -21,8 +21,10 @@ from provider import portum
 from provider import muzikum
 from provider import amici
 from provider import foodie
+from provider import weekend
 
 FOODSOURCES = [
+    weekend,
     bridges,
     pqs,
     kompot,
