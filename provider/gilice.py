@@ -1,4 +1,3 @@
-import json
 import urllib.parse
 import urllib.request
 from io import BytesIO
@@ -7,7 +6,7 @@ from datetime import timedelta, datetime
 
 from PIL import Image, ImageEnhance
 
-from provider.utils import get_facebook_posts, get_post_attachments, create_img
+from provider.utils import get_facebook_posts, get_post_attachments, create_img, days_lower
 
 FB_PAGE = "https://www.facebook.com/pg/gilicekonyha/posts/"
 FB_ID = "910845662306901"
@@ -42,7 +41,6 @@ def cutimage(url, day):
 
 def getFBMenu(today):
     day = today.weekday()
-    day_names = ["hétfő", "kedd", "szerda", "csütörtök", "péntek"]
     parse_date = lambda d: datetime.strptime(d, '%Y-%m-%dT%H:%M:%S%z').date()
     try:
         posts = get_facebook_posts(FB_ID)
@@ -54,7 +52,7 @@ def getFBMenu(today):
         if len(post_parts) > 1:
             weekly_menu = post_parts[1]
             menu = weekly_menu.strip().split("\n\n")[day]
-            menu = menu.replace(day_names[day], '')
+            menu = menu.replace(days_lower[day], '')
             menu = '<br>'.join(menu.strip().split('\n'))
         else:
             attachments = get_post_attachments(menu['id'])
