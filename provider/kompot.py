@@ -25,6 +25,7 @@ def clean_up_daily_menu(menu):
     return menu
 
 def getMenu(today):
+    menu = ''
     try:
         posts = get_facebook_posts(FB_ID)
         parse_date = lambda d: datetime.strptime(d, '%Y-%m-%dT%H:%M:%S%z').date()
@@ -40,7 +41,7 @@ def getMenu(today):
         elif weekly_menu:
             menu = clean_up_weekly_menu(weekly_menu['message'], today.weekday())
     except:
-        menu = ''
+        pass
 
     return {
         'name': 'Kompót',
