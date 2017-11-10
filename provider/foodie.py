@@ -12,8 +12,8 @@ def getMenu(today):
         is_today = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() == today.date()
         menu_filter = lambda post: is_today(post['created_time']) and "leveseink" in post['message'].lower()
         dailymenu = get_filtered_fb_post(FB_ID, menu_filter)
-        select = lambda line: len(line) > 1 and (line[0] == '-' or line[-1] == ':')
-        menu = [line for line in dailymenu.split('\n') if select(line.strip())]
+        starts_with_dash = lambda line: len(line) > 1 and (line[0] == '-')
+        menu = [line for line in dailymenu.split('\n') if starts_with_dash(line.strip())]
         menu = '<br>'.join(menu)
     except:
         menu = ''
