@@ -22,5 +22,4 @@ def getMenu(today):
 
 if __name__ == "__main__":
     import datetime
-    from datetime import timedelta
     print(getMenu(datetime.datetime.today()))
