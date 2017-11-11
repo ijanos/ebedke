@@ -1,25 +1,16 @@
+import locale
 from provider.utils import get_dom
 
-URL = "http://opusjazzclub.hu/napimenu"
+URL = "https://opusjazzclub.hu/etlap"
 
 def getMenu(today):
-    day = today.weekday()
     menu = ''
     try:
         dom = get_dom(URL)
-        dayname = {
-            0: "Hétfő",
-            1: "Kedd",
-            2: "Szerda",
-            3: "Csütörtök",
-            4: "Péntek"
-        }
-        if day in dayname:
-            menu = dom.xpath('//div[@id="hetimenu"]//'
-                            f'div[contains(text(),"{ dayname[day] }")]/'
-                             'following-sibling::div[position() >= 1 and position() < 4]'
-                             '/div[@class="etel_title_2" and string-length(normalize-space(text())) > 0]')
-            menu = "<br>".join(div.text_content().strip() for div in menu)
+        locale.setlocale(locale.LC_TIME, "hu_HU.UTF-8")
+        date = today.strftime("%Y.%b.%d.").lower()
+        menu = dom.xpath(f"//div[contains(@class, 'dailymenudish') and contains(preceding-sibling::div, '{ date }')]//text()")
+        menu = "<br>".join(dish.strip() for dish in menu)
     except:
         pass
 
@@ -31,4 +22,5 @@ def getMenu(today):
 
 if __name__ == "__main__":
     import datetime
+    from datetime import timedelta
     print(getMenu(datetime.datetime.today()))
