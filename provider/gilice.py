@@ -1,4 +1,3 @@
-import urllib.parse
 import urllib.request
 from io import BytesIO
 from math import floor
@@ -6,7 +5,7 @@ from datetime import timedelta, datetime
 
 from PIL import Image, ImageEnhance
 
-from provider.utils import get_facebook_posts, get_post_attachments, create_img, days_lower
+from provider.utils import get_filtered_fb_post, get_post_attachments, create_img, days_lower
 
 FB_PAGE = "https://www.facebook.com/pg/gilicekonyha/posts/"
 FB_ID = "910845662306901"
@@ -41,14 +40,11 @@ def cutimage(url, day):
 
 def getFBMenu(today):
     day = today.weekday()
-    parse_date = lambda d: datetime.strptime(d, '%Y-%m-%dT%H:%M:%S%z').date()
     try:
-        posts = get_facebook_posts(FB_ID)
-        menu = next((p for p in posts
-                     if "jelmagyarázat" in p['message']
-                     and parse_date(p['created_time']) > today.date() - timedelta(days=7)),
-                    {'message': ''})
-        post_parts = menu['message'].split("HETI MENÜ")
+        is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
+        menu_filter = lambda post: is_this_week(post['created_time']) and "jelmagyarázat" in post['message'].lower()
+        menu = get_filtered_fb_post(FB_ID, menu_filter)
+        post_parts = menu.split("HETI MENÜ")
         if len(post_parts) > 1:
             weekly_menu = post_parts[1]
             menu = weekly_menu.strip().split("\n\n")[day]
@@ -77,5 +73,4 @@ def getMenu(today):
     }
 
 if __name__ == "__main__":
-    from datetime import datetime
     print(getMenu(datetime.today()))
