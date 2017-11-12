@@ -1,5 +1,4 @@
 from datetime import datetime
-from itertools import dropwhile
 from provider.utils import get_filtered_fb_post
 
 
