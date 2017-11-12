@@ -11,6 +11,7 @@ if config.PERSISTENT_CACHE:
 
 
 FB_TOKEN = urlencode({"access_token": config.FB_ACCESS_TOKEN})
+FB_API_ROOT = "https://graph.facebook.com/v2.11"
 USER_AGENT = "Mozilla/5.0 (compatible; Ebedkebot; +http://ebed.today)"
 HEADERS = {
     'User-Agent': USER_AGENT,
@@ -25,8 +26,7 @@ def get_dom(URL):
     return html.fromstring(response.text)
 
 def get_filtered_fb_post(page_id, post_filter):
-    API_ROOT = "https://graph.facebook.com/v2.10"
-    url = f"{ API_ROOT }/{ page_id }/posts?{ FB_TOKEN }"
+    url = f"{ FB_API_ROOT }/{ page_id }/posts?{ FB_TOKEN }"
     response = requests.get(url)
     posts = response.json()['data']
     for post in posts:
@@ -35,7 +35,7 @@ def get_filtered_fb_post(page_id, post_filter):
     return ""
 
 def get_post_attachments(post_id):
-    url = f"https://graph.facebook.com/v2.10/{ post_id }/attachments?{ FB_TOKEN }"
+    url = f"{ FB_API_ROOT }/{ post_id }/attachments?{ FB_TOKEN }"
     return requests.get(url).json()
 
 def create_img(filelike):
