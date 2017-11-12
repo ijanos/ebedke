@@ -1,29 +1,34 @@
-import urllib.request
+from  urllib.parse import urlencode
 from base64 import b64encode
-import json
+import requests
 from lxml import html
 
 import config
 
-FB_TOKEN = urllib.parse.urlencode({"access_token": config.FB_ACCESS_TOKEN})
+if config.PERSISTENT_CACHE:
+    import requests_cache
+    requests_cache.install_cache('debug_cache')
+
+
+FB_TOKEN = urlencode({"access_token": config.FB_ACCESS_TOKEN})
+USER_AGENT = "Mozilla/5.0 (compatible; Ebedkebot; +http://ebed.today)"
+HEADERS = {
+    'User-Agent': USER_AGENT,
+}
+
 
 days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek"]
 
-def get_dom(URL):
-    response = urllib.request.urlopen(URL)
-    r = response.read()
-    return html.fromstring(r)
 
-def get_facebook_posts(page_id):
-    url = f"https://graph.facebook.com/v2.10/{ page_id }/posts?{ FB_TOKEN }"
-    resp = urllib.request.urlopen(url).read()
-    posts = json.loads(resp)['data']
-    return [post for post in posts if "message" in post]
+def get_dom(URL):
+    response = requests.get(URL, HEADERS)
+    return html.fromstring(response.text)
 
 def get_filtered_fb_post(page_id, post_filter):
-    url = f"https://graph.facebook.com/v2.10/{ page_id }/posts?{ FB_TOKEN }"
-    resp = urllib.request.urlopen(url).read()
-    posts = json.loads(resp)['data']
+    API_ROOT = "https://graph.facebook.com/v2.10"
+    url = f"{ API_ROOT }/{ page_id }/posts?{ FB_TOKEN }"
+    response = requests.get(url)
+    posts = response.json()['data']
     for post in posts:
         if "message" in post and post_filter(post):
             return post["message"]
@@ -31,8 +36,7 @@ def get_filtered_fb_post(page_id, post_filter):
 
 def get_post_attachments(post_id):
     url = f"https://graph.facebook.com/v2.10/{ post_id }/attachments?{ FB_TOKEN }"
-    resp = urllib.request.urlopen(url).read()
-    return json.loads(resp)
+    return requests.get(url).json()
 
 def create_img(filelike):
     return f"<img style='width:100%;' src='data:image/png;base64,{ b64encode(filelike.getvalue()).decode('ascii') }'>"
