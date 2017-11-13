@@ -42,7 +42,7 @@ def getMenu(today):
         if daily_menu:
             menu = clean_up_daily_menu(daily_menu)
         elif weekly_menu:
-            menu = clean_up_weekly_menu(weekly_menu['message'], today.weekday())
+            menu = clean_up_weekly_menu(weekly_menu, today.weekday())
     except:
         pass
 
