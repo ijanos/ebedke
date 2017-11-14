@@ -3,12 +3,26 @@ from provider.utils import get_dom
 
 URL = "https://opusjazzclub.hu/etlap"
 
+hungarian_month = {
+    1: "jan",
+    2: "feb",
+    3: "már",
+    4: "ápr",
+    5: "máj",
+    6: "jún",
+    7: "júl",
+    8: "aug",
+    9: "szept",
+    10: "okt",
+    11: "nov",
+    12: "dec"
+}
+
 def getMenu(today):
     menu = ''
     try:
         dom = get_dom(URL)
-        locale.setlocale(locale.LC_TIME, "hu_HU.UTF-8")
-        date = today.strftime("%Y.%b.%d.").lower()
+        date = f"{ today.year }.{ hungarian_month[today.month] }.{ today.day }"
         menu = dom.xpath(f"//div[contains(@class, 'dailymenudish') and contains(preceding-sibling::div, '{ date }')]//text()")
         menu = "<br>".join(dish.strip() for dish in menu)
     except:
