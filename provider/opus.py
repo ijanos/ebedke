@@ -22,7 +22,7 @@ def getMenu(today):
     menu = ''
     try:
         dom = get_dom(URL)
-        date = f"{ today.year }.{ hungarian_month[today.month] }.{ today.day }"
+        date = f"{ today.year }.{ hungarian_month[today.month] }.{today.day:02}"
         menu = dom.xpath(f"//div[contains(@class, 'dailymenudish') and contains(preceding-sibling::div, '{ date }')]//text()")
         menu = "<br>".join(dish.strip() for dish in menu)
     except:
