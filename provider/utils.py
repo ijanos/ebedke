@@ -40,3 +40,7 @@ def get_post_attachments(post_id):
 
 def create_img(filelike):
     return f"<img style='width:100%;' src='data:image/png;base64,{ b64encode(filelike.getvalue()).decode('ascii') }'>"
+
+def content_size_match(url, excpected_size):
+    response = requests.head(url)
+    return response.headers['content-length'] == excpected_size
