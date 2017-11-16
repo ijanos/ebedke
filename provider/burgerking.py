@@ -1,16 +1,22 @@
-from provider.utils import get_dom
+from provider.utils import content_size_match
 
-URL = "http://burgerking.hu/cikkek/friss-hirek/uj-hetkoznapi-burger-king-menu"
+URL = "http://burgerking.hu/offers"
+IMG_URL = "http://burgerking.hu/sites/burgerking.hu/files/HetkozNapiBKmenu_Mindentermek_lista_1000x550px.jpg"
+
+burgerking_menu = {
+    0: "Whopper",
+    1: "Big King",
+    2: "Western Whopper",
+    3: "Whopper",
+    4: "Deluxe csirkemell"
+}
 
 def getMenu(today):
     day = today.weekday()
-    try:
-        dom = get_dom(URL)
-        weeklymenu = dom.xpath('//*[@id="tabs-0"]/div[7]/div/p[5]//text()')
-        weeklymenu = [item.strip() for item in weeklymenu if not item.isspace()]
-        add_separator = lambda s: "||" + s if ':' in s and not 'Hétfő' in s else s
-        menu = ' '.join([add_separator(i) for i in weeklymenu]).split('||')[day]
-    except:
+    IMG_SIZE = "181621"
+    if content_size_match(IMG_URL, IMG_SIZE) and day < 5:
+        menu = burgerking_menu[day]
+    else:
         menu = ''
 
     return {
