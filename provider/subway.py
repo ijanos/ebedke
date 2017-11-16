@@ -1,9 +1,8 @@
-import urllib
-import urllib.request
 from datetime import datetime
+from provider.utils import content_size_match
 
 URL = "http://www.subwayhungary.com/hu/page_menu_SOTD.html"
-IMAGE_URL = "http://www.subwayhungary.com/images/menu/WEB_NYITO_SOTD_644x360.jpg"
+IMAGE_URL = "https://www.subwayhungary.com/images/menu/WEB_NYITO_SOTD_644x360.jpg"
 EXPECTED_CONTENT_LENGTH = "1511684"
 
 foodMap = {
@@ -17,18 +16,16 @@ foodMap = {
 }
 
 def getMenu(today):
-    # We trust that the foodMap is up-to-date if the image URL & size did not change
-    with urllib.request.urlopen(urllib.request.Request(IMAGE_URL, method="HEAD")) as response:
-        if response.getheader('content-length') == EXPECTED_CONTENT_LENGTH:
-            menu = foodMap[today.weekday()] + " (Sub of the Day)"
-        else:
-            menu = 'Tekintse meg a <a href="' + URL + '">Subway honlapján</a>!'
+    if content_size_match(IMAGE_URL, EXPECTED_CONTENT_LENGTH):
+        menu = foodMap[today.weekday()] + " (Sub of the Day)"
+    else:
+        menu = 'Tekintse meg a <a href="' + URL + '">Subway honlapján</a>!'
 
-        return {
-            'name': 'Subway',
-            'url': URL,
-            'menu': menu
-        }
+    return {
+        'name': 'Subway',
+        'url': URL,
+        'menu': menu
+    }
 
 if __name__ == "__main__":
     print(getMenu(datetime.today()))
