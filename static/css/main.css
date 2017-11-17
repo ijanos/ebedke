@@ -87,12 +87,18 @@ p {
 
 footer {
   display: flex;
-  flex-flow: row;
+  flex-flow: column;
   justify-content: center;
   font-size: 0.6em;
   padding: 1.5em;
 }
 
-footer > a {
+footer > div {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+}
+
+footer > div > a {
   margin-left: 10px;
 }
