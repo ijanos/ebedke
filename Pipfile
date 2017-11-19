@@ -1,0 +1,20 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[requires]
+python_version = '3.6'
+
+[packages]
+
+lxml = "~=4.1.1"
+Flask = "~=0.12.2"
+Pillow = "~=4.3.0"
+requests = "~=2.18.4"
+
+
+[dev-packages]
+
+requests-cache = "~=0.4.13"

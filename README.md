@@ -12,12 +12,20 @@ servers**
 
 ## Development
 
-Use flask to run the development server, it will serve the static content as
-well as the service.
+[Pipenv](https://docs.pipenv.org) is the recommended tool to manage dependencies.
+
+First install the dependencies, `--dev` is optional.
+
+```
+pipenv install --dev
+```
+
+Copy `config.py.example` as `config.py` then use flask to run the development
+server:
 
 ```
 export FLASK_APP=run.py
-flask run
+pipenv run flask run
 ```
 
 A [Facebook app
@@ -25,8 +33,8 @@ token](https://developers.facebook.com/docs/facebook-login/access-tokens#apptoke
 is required to read posts from facebook pages, add yours in `config.py`.
 
 To test individual  providers invoke them as a separate script. For providers
-that use settings from the config use `python -m provider.providername` to run
-them.
+that use settings from the config use `pipenv run python -m provider.name` command structure.
+
 
 ## License
 
