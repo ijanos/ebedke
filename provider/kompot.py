@@ -12,21 +12,22 @@ def getMenu(today):
         day = today.weekday()
         is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
         is_today = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() == today.date()
-        line_filter = lambda line: "leves" in line or \
-                                   "a:" in line or \
-                                   "b:" in line
         daily_menu_filter = lambda post: is_today(post['created_time']) \
                                 and "menü" in post['message'].lower()
         weekly_menu_filter = lambda post: is_this_week(post['created_time']) \
                                 and days_lower[day] in post['message'].lower()
         weekly_menu = get_filtered_fb_post(FB_ID, weekly_menu_filter)
+
         if weekly_menu:
-            menu = dropwhile(lambda line: days_lower[day] not in line.lower(), skip_empty_lines(weekly_menu.split('\n')))
+            menu_post = dropwhile(lambda line: days_lower[day] not in line.lower(), skip_empty_lines(weekly_menu.split('\n')))
         else:
-            menu = get_filtered_fb_post(FB_ID, daily_menu_filter).split('\n')
-        menu = filter(lambda line: line_filter(line.lower()), menu)
-        menu = islice(menu, 3)
-        menu = "<br>".join(menu)
+            menu_post = get_filtered_fb_post(FB_ID, daily_menu_filter).split('\n')
+
+        menu_post = list(menu_post)
+        for i, line in enumerate(menu_post):
+            if "A:" in line:
+                menu = "<br>".join((menu_post[i-1], menu_post[i], menu_post[i+1]))
+                break
     except:
         pass
 
