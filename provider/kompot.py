@@ -1,4 +1,3 @@
-import re
 from datetime import datetime, timedelta
 from itertools import dropwhile, islice
 from provider.utils import get_filtered_fb_post, days_lower, skip_empty_lines
