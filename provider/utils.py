@@ -44,3 +44,9 @@ def create_img(filelike):
 def content_size_match(url, excpected_size):
     response = requests.head(url)
     return response.headers['content-length'] == excpected_size
+
+def skip_empty_lines(text):
+    for line in text:
+        line = line.strip()
+        if line:
+            yield line
