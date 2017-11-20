@@ -1,5 +1,6 @@
 from datetime import datetime as dt
-from provider.utils import get_dom, days_lower
+from itertools import dropwhile, islice
+from provider.utils import get_dom, days_lower, skip_empty_lines
 
 
 URL = "http://www.golvonalbisztro.hu/heti-menuajanlat.html"
@@ -8,13 +9,9 @@ def getMenu(today):
     day = today.weekday()
     try:
         dom = get_dom(URL)
-        days = dom.xpath('//div[@class="fck"]//h3')
-        for i, dayname in enumerate([h3.text_content() for h3 in days]):
-            if days_lower[day] in str.lower(dayname):
-                select = i + 1
-        menu = dom.xpath(f'//div[@class="fck"]//h3[{ select }]/'
-                         'following-sibling::p[position() >= 1 and position() < 3]//text()')
-        menu = [m.strip() for m in menu if m.strip()]
+        menu = dom.xpath("/html/body//div[@class='fck']/*[self::h3 or self::p]//text()")
+        menu = dropwhile(lambda line: days_lower[day] not in line.lower(), menu)
+        menu = islice(skip_empty_lines(menu), 1, 3)
         menu = '<br>'.join(menu)
     except:
         menu = ''
