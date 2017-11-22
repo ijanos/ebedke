@@ -12,9 +12,9 @@ if config.PERSISTENT_CACHE:
 
 FB_TOKEN = urlencode({"access_token": config.FB_ACCESS_TOKEN})
 FB_API_ROOT = "https://graph.facebook.com/v2.11"
-USER_AGENT = "Mozilla/5.0 (compatible; Ebedkebot; +http://ebed.today)"
+
 HEADERS = {
-    'User-Agent': USER_AGENT,
+    'User-Agent': config.USER_AGENT,
 }
 
 

@@ -3,4 +3,5 @@ POOL_SIZE = 4
 OFFSET = None
 # Offset the current date for debug purposes
 # OFFSET = -2
+USER_AGENT = ""
 PERSISTENT_CACHE = False
