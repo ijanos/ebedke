@@ -2,12 +2,12 @@ from  urllib.parse import urlencode
 from base64 import b64encode
 import requests
 from lxml import html
-
 import config
 
 if config.PERSISTENT_CACHE:
     import requests_cache
-    requests_cache.install_cache('debug_cache')
+    from datetime import timedelta
+    requests_cache.install_cache('debug_cache', expire_after=timedelta(days=1))
 
 
 FB_TOKEN = urlencode({"access_token": config.FB_ACCESS_TOKEN})
