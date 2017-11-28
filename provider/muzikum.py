@@ -15,6 +15,8 @@ def getMenu(today):
         date = datetime.strptime(f'{ today.year }.{ date }', '%Y.%m.%d').date()
         if date > today.date() - timedelta(days=7) and day < 5:
             menu = weekly_menu[day].text_content().replace('\n', '<br>')
+            if len(menu) < 5:
+                menu = ""
     except:
         pass
 
