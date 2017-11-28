@@ -3,7 +3,7 @@ from itertools import dropwhile, islice
 from provider.utils import get_filtered_fb_post, days_lower, skip_empty_lines
 
 
-FB_PAGE = "https://www.facebook.com/pg/amicimieicorvin/posts"
+FB_PAGE = "https://www.facebook.com/pg/amicimieicorcin/posts"
 FB_ID = "1861078894105248"
 
 
