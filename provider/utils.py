@@ -38,6 +38,12 @@ def get_post_attachments(post_id):
     url = f"{ FB_API_ROOT }/{ post_id }/attachments?{ FB_TOKEN }"
     return requests.get(url).json()
 
+def get_fb_cover_url(page_id):
+    url = f"{ FB_API_ROOT }/{ page_id }?fields=cover&{ FB_TOKEN }"
+    response = requests.get(url)
+    cover_url = response.json()['cover']['source']
+    return cover_url
+
 def create_img(filelike):
     return f"<img style='width:100%;' src='data:image/png;base64,{ b64encode(filelike.getvalue()).decode('ascii') }'>"
 

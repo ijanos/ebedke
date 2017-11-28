@@ -5,7 +5,7 @@ from datetime import timedelta, datetime
 
 from PIL import Image, ImageEnhance
 
-from provider.utils import get_filtered_fb_post, get_post_attachments, create_img, days_lower
+from provider.utils import get_filtered_fb_post, get_post_attachments, create_img, days_lower, get_fb_cover_url
 
 FB_PAGE = "https://www.facebook.com/pg/gilicekonyha/posts/"
 FB_ID = "910845662306901"
@@ -51,9 +51,7 @@ def getFBMenu(today):
             menu = menu.replace(days_lower[day], '')
             menu = '<br>'.join(menu.strip().split('\n'))
         else:
-            attachments = get_post_attachments(menu['id'])
-            menu_pic_url = attachments['data'][0]['media']['image']['src']
-            menu = cutimage(menu_pic_url, day)
+            menu = f'<a href="{get_fb_cover_url(FB_ID)}">heti menü</a>'
     except:
         menu = ''
 
