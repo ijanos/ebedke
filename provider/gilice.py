@@ -41,17 +41,18 @@ def cutimage(url, day):
 def getFBMenu(today):
     day = today.weekday()
     try:
-        is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
-        menu_filter = lambda post: is_this_week(post['created_time']) and "jelmagyarázat" in post['message'].lower()
-        menu = get_filtered_fb_post(FB_ID, menu_filter)
-        post_parts = menu.split("HETI MENÜ")
-        if len(post_parts) > 1:
-            weekly_menu = post_parts[1]
-            menu = weekly_menu.strip().split("\n\n")[day]
-            menu = menu.replace(days_lower[day], '')
-            menu = '<br>'.join(menu.strip().split('\n'))
-        else:
-            menu = f'<a href="{get_fb_cover_url(FB_ID)}">heti menü</a>'
+        if day < 5:
+            is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
+            menu_filter = lambda post: is_this_week(post['created_time']) and "jelmagyarázat" in post['message'].lower()
+            menu = get_filtered_fb_post(FB_ID, menu_filter)
+            post_parts = menu.split("HETI MENÜ")
+            if len(post_parts) > 1:
+                weekly_menu = post_parts[1]
+                menu = weekly_menu.strip().split("\n\n")[day]
+                menu = menu.replace(days_lower[day], '')
+                menu = '<br>'.join(menu.strip().split('\n'))
+            else:
+                menu = f'<a href="{get_fb_cover_url(FB_ID)}">heti menü</a>'
     except:
         menu = ''
 
