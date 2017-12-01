@@ -12,10 +12,11 @@ def getMenu(today):
         day = today.weekday()
         is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
         is_today = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() == today.date()
+        ignore_hashtags = lambda post: " ".join(word.lower() for word in post.split() if word[0] != "#")
         daily_menu_filter = lambda post: is_today(post['created_time']) \
                                 and "menü" in post['message'].lower()
         weekly_menu_filter = lambda post: is_this_week(post['created_time']) \
-                                and days_lower[day] in post['message'].lower()
+                                and days_lower[day] in ignore_hashtags(post['message'])
         weekly_menu = get_filtered_fb_post(FB_ID, weekly_menu_filter)
 
         if weekly_menu:
