@@ -40,6 +40,7 @@ def cutimage(url, day):
 
 def getFBMenu(today):
     day = today.weekday()
+    menu = ''
     try:
         if day < 5:
             is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
@@ -54,8 +55,7 @@ def getFBMenu(today):
             else:
                 menu = f'<a href="{get_fb_cover_url(FB_ID)}">heti menü</a>'
     except:
-        menu = ''
-
+        pass
 
     return menu
 
