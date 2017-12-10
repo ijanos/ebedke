@@ -3,11 +3,11 @@ body {
   max-width: 42em;
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, "Fira Sans", "Liberation Sans", Ubuntu, sans-serif;
   line-height: 1.5;
-  background: #D1CEC5;
-  background-color: #D1CEC5;
+  background: #d2d2d4;
+  background-color: #d2d2d4;
   /* background image source: http://www.heropatterns.com/ */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
-  color: #313131;
+  color: #2c4786;
 }
 
 .menu {
@@ -17,7 +17,7 @@ body {
 }
 
 section > header::before {
-  background: #DBA72E;
+  background: #7b9bc3;
   content: "";
   flex-grow: 1;
   order: 1;
@@ -31,7 +31,7 @@ span {
 }
 
 a {
-  color: #B0703C;
+  color: #2c4786;
   text-decoration: none;
 }
 
