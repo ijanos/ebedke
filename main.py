@@ -22,6 +22,7 @@ from provider import muzikum
 from provider import amici
 from provider import foodie
 from provider import weekend
+from provider import emi
 
 FOODSOURCES = [
     weekend,
@@ -36,6 +37,7 @@ FOODSOURCES = [
     golvonal,
     portum,
     foodie,
+    emi,
     opus,
     manga,
     intenzo,
