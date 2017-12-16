@@ -1,16 +1,17 @@
 from datetime import datetime as dt
 from provider.utils import get_dom
-from lxml import etree as ET
 
 URL = "http://www.emikifozte.hu/menuk.php"
 
-def getMenu(_):
+def getMenu(today):
+    menu = ''
     try:
-        dom = get_dom(URL)
-        menu = dom.xpath('/html/body//tr[@class="menutablasor"]/td[3]')
-        menu = '<br>'.join(e.text_content().strip('(, )') for e in menu)
+        if today.weekday() < 5:
+            dom = get_dom(URL)
+            menu = dom.xpath('/html/body//tr[@class="menutablasor"]/td[3]')
+            menu = '<br>'.join(e.text_content().strip('(, )') for e in menu)
     except:
-        menu = ''
+        pass
 
     return {
         'name': 'Emi kifőzte',
