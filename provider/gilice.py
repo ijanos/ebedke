@@ -2,10 +2,10 @@ import urllib.request
 from io import BytesIO
 from math import floor
 from datetime import timedelta, datetime
-
+from itertools   import takewhile, dropwhile, islice
 from PIL import Image, ImageEnhance
 
-from provider.utils import get_filtered_fb_post, get_post_attachments, create_img, days_lower, get_fb_cover_url
+from provider.utils import get_filtered_fb_post, create_img, days_lower, get_fb_cover_url, skip_empty_lines
 
 FB_PAGE = "https://www.facebook.com/pg/gilicekonyha/posts/"
 FB_ID = "910845662306901"
@@ -49,9 +49,10 @@ def getFBMenu(today):
             post_parts = menu.split("HETI MENÜ")
             if len(post_parts) > 1:
                 weekly_menu = post_parts[1]
-                menu = weekly_menu.strip().split("\n\n")[day]
-                menu = menu.replace(days_lower[day], '')
-                menu = '<br>'.join(menu.strip().split('\n'))
+                menu = weekly_menu.strip().split("\n")
+                menu = islice(dropwhile(lambda l: days_lower[day] not in l, menu), 1, None)
+                menu = takewhile(lambda l: not any(day in l for day in days_lower), menu)
+                menu = '<br>'.join(skip_empty_lines(menu))
             else:
                 menu = f'<a href="{get_fb_cover_url(FB_ID)}">heti menü</a>'
     except:
