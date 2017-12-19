@@ -1,3 +1,5 @@
+## Rename this file to config.py
+
 FB_ACCESS_TOKEN=""
 POOL_SIZE = 4
 OFFSET = None
