@@ -25,6 +25,8 @@ def getMenu(today):
         date = f"{ today.year }.{ hungarian_month[today.month] }.{today.day:02}"
         menu = dom.xpath(f"//div[contains(@class, 'dailymenudish') and contains(preceding-sibling::div, '{ date }')]//text()")
         menu = "<br>".join(dish.strip() for dish in menu)
+        if "nincs menü" in menu.lower():
+            menu = ""
     except:
         pass
 
