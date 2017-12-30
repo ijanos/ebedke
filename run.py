@@ -8,6 +8,10 @@ from main import getDailyMenuParallel
 cache = SimpleCache()
 
 app = Flask(__name__, static_url_path='')
+app.config.update(
+    JSON_AS_ASCII=False,
+    JSONIFY_PRETTYPRINT_REGULAR=False
+)
 
 def cached(timeout=5 * 60, key='view/%s'):
     def decorator(f):
