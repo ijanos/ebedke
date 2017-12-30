@@ -1,9 +1,9 @@
 from functools import wraps
 
-from main import getDailyMenuParallel
-
 from flask import Flask, jsonify, request
 from werkzeug.contrib.cache import SimpleCache
+
+from main import getDailyMenuParallel
 
 cache = SimpleCache()
 
