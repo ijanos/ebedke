@@ -1,4 +1,3 @@
-import locale
 from provider.utils import get_dom
 
 URL = "https://opusjazzclub.hu/etlap"
