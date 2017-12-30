@@ -1,6 +1,6 @@
 from functools import wraps
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from werkzeug.contrib.cache import SimpleCache
 
 from main import getDailyMenuParallel
@@ -29,7 +29,8 @@ def cached(timeout=5 * 60, key='view/%s'):
 
 @app.route('/')
 def root():
-    return app.send_static_file('index.html')
+    menus = getDailyMenuParallel()
+    return render_template("index.html", menus=menus)
 
 @app.route('/menu')
 @cached(timeout=15 * 60)

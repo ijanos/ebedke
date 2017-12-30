@@ -1,20 +1,12 @@
-function add_menu(menujson) {
-    const menu = document.querySelector('.menu');
-    const hidden = new Set(decodeURIComponent(window.location.hash || '=').split('=')[1].split(';'));
-    menujson.map(function(restaurant) {
-      if (!hidden.has(restaurant.name)) {
-        let section = document.createElement('section');
-        section.innerHTML = `<header>
-           <h2><a href="${ restaurant.url }">${ restaurant.name }</a></h2>
-           <span class="close" data-name="${ restaurant.name }">✕</span>
-           </header>
-           <p>${ restaurant.menu }</p>`;
-        menu.appendChild(section);
-      }
-    });
-    if (window.location.hash) {
+function remove_hidden() {
+  const hidden = new Set(decodeURIComponent(window.location.hash || '=').split('=')[1].split(';'));
+  const sections = document.querySelectorAll(".menu > section");
+  sections.forEach(function(section) {
+    if (hidden.has(section.querySelector("span").dataset.name)) {
+      section.remove();
       document.querySelector('body > header > a').style.display = "block";
     }
+  });
 }
 
 function init_header() {
@@ -39,20 +31,9 @@ function add_close_listeners() {
 }
 
 function main() {
-  let infobox = document.querySelector('.loading');
-  fetch('menu')
-    .then(function(response) {
-      return response.json()
-    }).then(function(json) {
-      add_menu(json)
-    }).then(function() {
-      add_close_listeners();
-      infobox.remove();
-      init_header();
-    }).catch(function(ex) {
-      infobox.innerText = "Valami elromlott :("
-      console.log('parsing failed', ex)
-    });
+  remove_hidden();
+  add_close_listeners();
+  init_header();
 }
 
 main();

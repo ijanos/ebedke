@@ -14,13 +14,20 @@
 </head>
 
 <body>
-  <noscript>JavaScript nélkül sajnos nincs ebédmenü :(</noscript>
   <header>
     <div><h1></h1><span></span></div>
     <a href="/">Mutass mindent</a>
   </header>
   <div class="menu">
-    <div class="loading">Egy pillanat türelmet...</div>
+    {% for menu in menus %}
+        <section>
+          <header>
+              <h2><a href="{{ menu.url }}">{{ menu.name }}</a></h2>
+              <span class="close" data-name="{{ menu.name }}">✕</span>
+          </header>
+          <p>{{ menu.menu | safe }}</p>
+      </section>
+    {% endfor %}
   </div>
   <footer>
     <div>
