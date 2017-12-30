@@ -31,3 +31,6 @@ def root():
 @cached(timeout=15 * 60)
 def dailymenu():
     return jsonify(getDailyMenuParallel())
+
+if __name__ == '__main__':
+    app.run(debug=True, use_reloader=True)
