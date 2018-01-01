@@ -13,6 +13,7 @@ lxml = "~=4.1.1"
 Flask = "~=0.12.2"
 Pillow = "~=4.3.0"
 requests = "~=2.18.4"
+redis = "~=2.10.6"
 
 
 [dev-packages]

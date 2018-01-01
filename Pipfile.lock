@@ -1,18 +1,18 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e10b7867b8209c66f879552eadf183b7ab15874b9a04853a00050bf157a34461"
+            "sha256": "2756d340042770f848d5fa522aea398bfbe634cbf7911dc2385d397361c5cebb"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
-            "implementation_version": "3.6.3",
+            "implementation_version": "3.6.4",
             "os_name": "posix",
             "platform_machine": "x86_64",
             "platform_python_implementation": "CPython",
-            "platform_release": "4.13.13-1-ck-skylake",
+            "platform_release": "4.14.10-1-ck-skylake",
             "platform_system": "Linux",
-            "platform_version": "#1 SMP PREEMPT Wed Nov 15 16:20:38 EST 2017",
-            "python_full_version": "3.6.3",
+            "platform_version": "#1 SMP PREEMPT Fri Dec 29 15:45:27 EST 2017",
+            "python_full_version": "3.6.4",
             "python_version": "3.6",
             "sys_platform": "linux"
         },
@@ -174,6 +174,13 @@
             ],
             "version": "==4.3.0"
         },
+        "redis": {
+            "hashes": [
+                "sha256:8a1900a9f2a0a44ecf6e8b5eb3e967a9909dfed219ad66df094f27f7d6f330fb",
+                "sha256:a22ca993cea2962dbb588f9f30d0015ac4afcc45bee27d3978c0dbe9e97c6c0f"
+            ],
+            "version": "==2.10.6"
+        },
         "requests": {
             "hashes": [
                 "sha256:6a1b267aa90cac58ac3a765d067950e7dbbf75b1da07e895d1f594193a40a38b",
@@ -190,10 +197,10 @@
         },
         "werkzeug": {
             "hashes": [
-                "sha256:e8549c143af3ce6559699a01e26fa4174f4c591dbee0a499f3cd4c3781cdec3d",
-                "sha256:903a7b87b74635244548b30d30db4c8947fe64c5198f58899ddcd3a13c23bb26"
+                "sha256:f3000aa146ce8a9da8ca3e978e0e931c2a58eb56c323a5efb6b4307f7832b549",
+                "sha256:6246e5fc98a505824113fb6aca993d45ea284a2bcffdc2c65d0c538e53e4abd3"
             ],
-            "version": "==0.12.2"
+            "version": "==0.13"
         }
     },
     "develop": {
