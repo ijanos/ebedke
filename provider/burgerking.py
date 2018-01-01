@@ -1,4 +1,5 @@
 from provider.utils import content_size_match
+from datetime import timedelta
 
 URL = "http://burgerking.hu/offers"
 IMG_URL = "http://burgerking.hu/sites/burgerking.hu/files/HetkozNapiBKmenu_Mindentermek_lista_1000x550px.jpg"
@@ -19,11 +20,14 @@ def getMenu(today):
     else:
         menu = ''
 
-    return {
-        'name': 'Burger King',
-        'url': URL,
-        'menu': menu
-    }
+    return menu
+
+menu = {
+    'name': 'Burger King',
+    'url': URL,
+    'get': getMenu,
+    'ttl': timedelta(hours=4)
+}
 
 if __name__ == "__main__":
     from datetime import datetime

@@ -1,6 +1,6 @@
 import urllib.request
 from io import BytesIO
-from datetime import datetime
+from datetime import datetime, timedelta
 from PIL import Image
 from provider.utils import create_img
 
@@ -42,11 +42,14 @@ def getMenu(today):
             new_im.save(f, format="png", optimize=True, compress_level=9, bits=1)
             menu = create_img(f)
 
-    return {
-        'name': '10 minutes',
-        'url' : URL,
-        'menu': menu
-    }
+    return menu
+
+menu = {
+    'name': '10 minutes',
+    'url' : URL,
+    'get': getMenu,
+    'ttl': timedelta(hours=4)
+}
 
 if __name__ == "__main__":
     print(getMenu(datetime.today()))

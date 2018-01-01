@@ -35,11 +35,14 @@ def getMenu(today):
     except:
         pass
 
-    return {
-        'name': 'Kompót',
-        'url': FB_PAGE,
-        'menu': menu
-    }
+    return menu
+
+menu = {
+    'name': 'Kompót',
+    'url': FB_PAGE,
+    'get': getMenu,
+    'ttl': timedelta(hours=4)
+}
 
 if __name__ == "__main__":
     print(getMenu(datetime.today()))

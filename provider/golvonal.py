@@ -1,4 +1,4 @@
-from datetime import datetime as dt
+from datetime import datetime as dt, timedelta
 from itertools import dropwhile, islice
 from provider.utils import get_dom, days_lower, skip_empty_lines
 
@@ -16,11 +16,14 @@ def getMenu(today):
     except:
         menu = ''
 
-    return {
-        'name': 'Gólvonal',
-        'url': URL,
-        'menu': menu
-    }
+    return menu
+
+menu = {
+    'name': 'Gólvonal',
+    'url': URL,
+    'get': getMenu,
+    'ttl': timedelta(hours=1)
+}
 
 if __name__ == "__main__":
     print(getMenu(dt.today()))

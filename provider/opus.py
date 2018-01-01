@@ -1,3 +1,4 @@
+from datetime import timedelta
 from provider.utils import get_dom
 
 URL = "https://opusjazzclub.hu/etlap"
@@ -29,11 +30,14 @@ def getMenu(today):
     except:
         pass
 
-    return {
-        'name': 'Opus',
-        'url': URL,
-        'menu': menu
-    }
+    return menu
+
+menu = {
+    'name': 'Opus',
+    'url': URL,
+    'get': getMenu,
+    'ttl': timedelta(hours=5)
+}
 
 if __name__ == "__main__":
     import datetime

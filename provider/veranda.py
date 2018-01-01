@@ -1,4 +1,4 @@
-from datetime import datetime as dt
+from datetime import datetime as dt, timedelta
 from provider.utils import get_dom
 
 
@@ -15,11 +15,14 @@ def getMenu(today):
     except:
         menu = ''
 
-    return {
-        'name': 'Veranda',
-        'url': URL,
-        'menu': menu
-    }
+    return menu
+
+menu = {
+    'name': 'Veranda',
+    'url': URL,
+    'get': getMenu,
+    'ttl': timedelta(minutes=35)
+}
 
 if __name__ == "__main__":
     print(getMenu(dt.today()))

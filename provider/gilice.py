@@ -38,11 +38,14 @@ def getMenu(today):
     else:
         menu = ""
 
-    return {
-        'name': 'Gólya',
-        'url': FB_PAGE,
-        'menu': menu
-    }
+    return menu
+
+menu = {
+    'name': 'Gólya',
+    'url': FB_PAGE,
+    'get': getMenu,
+    'ttl': timedelta(hours=3)
+}
 
 if __name__ == "__main__":
     print(getMenu(datetime.today()))

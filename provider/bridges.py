@@ -20,11 +20,14 @@ def getMenu(today):
     except:
         pass
 
-    return {
-        'name': 'Bridges',
-        'url':URL,
-        'menu': menu
-    }
+    return menu
+
+menu = {
+    'name': 'Bridges',
+    'url': URL,
+    'get': getMenu,
+    'ttl': timedelta(hours=6)
+}
 
 if __name__ == "__main__":
     print(getMenu(datetime.today()))

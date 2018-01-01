@@ -15,11 +15,14 @@ def getMenu(today):
             menu = menu.split("Előételek:")[1].strip()
         menu = '<br>'.join(i for i in menu.split('\n') if i)
 
-    return {
-        'name': 'Portum',
-        'url': URL,
-        'menu': menu
-    }
+    return menu
+
+menu ={
+    'name': 'Portum',
+    'url': URL,
+    'get': getMenu,
+    'ttl': timedelta(hours=6)
+}
 
 if __name__ == "__main__":
     print(getMenu(datetime.today()))

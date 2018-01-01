@@ -7,6 +7,7 @@ FB_PAGE = "https://www.facebook.com/pg/amicimieicorcin/posts"
 FB_ID = "1861078894105248"
 
 
+
 def getMenu(today):
     day = today.weekday()
     try:
@@ -19,11 +20,15 @@ def getMenu(today):
     except:
         menu = ''
 
-    return {
-        'name': 'Amici Miei',
-        'url': FB_PAGE,
-        'menu': menu
-    }
+    return menu
+
+
+menu = {
+    'name': 'Amici Miei',
+    'url': FB_PAGE,
+    'get': getMenu,
+    'ttl': timedelta(hours=5)
+}
 
 if __name__ == "__main__":
     print(getMenu(datetime.today()))

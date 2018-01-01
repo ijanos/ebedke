@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from provider.utils import content_size_match
 
 URL = "http://www.subwayhungary.com/hu/page_menu_SOTD.html"
@@ -21,11 +21,14 @@ def getMenu(today):
     else:
         menu = 'Tekintse meg a <a href="' + URL + '">Subway honlapján</a>!'
 
-    return {
-        'name': 'Subway',
-        'url': URL,
-        'menu': menu
-    }
+    return menu
+
+menu = {
+    'name': 'Subway',
+    'url': URL,
+    'get': getMenu,
+    'ttl': timedelta(hours=4)
+}
 
 if __name__ == "__main__":
     print(getMenu(datetime.today()))
