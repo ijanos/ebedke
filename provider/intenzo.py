@@ -10,7 +10,8 @@ def getMenu(today):
         if day < 5:
             dom = get_dom(URL)
             menu = dom.xpath('//section[@id="hetimenu"]//div[contains(@class, "text_box")]')
-            menu = '<br>'.join(menu[day].xpath("p/text()"))
+            menu = filter(lambda l: "menü ára" not in l, menu[day].xpath("p/text()"))
+            menu = '<br>'.join(menu)
     except:
         pass
 
