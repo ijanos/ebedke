@@ -21,7 +21,7 @@ menu = {
     'name': 'Intenzo',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(hours=1)
+    'ttl': timedelta(minutes=30)
 }
 
 if __name__ == "__main__":
