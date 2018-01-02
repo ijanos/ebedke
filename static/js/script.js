@@ -9,15 +9,6 @@ function remove_hidden() {
   });
 }
 
-function init_header() {
-  const today = new Date();
-  const options = { weekday: "long", year: "numeric", month: "numeric", day: "numeric" };
-  const [date, day] = today.toLocaleDateString('hu-HU', options).split(', ');
-  document.querySelector("body > header h1").innerText = day;
-  document.querySelector("body > header span").innerText = date;
-  document.querySelector("body > header").style.display = "flex";
-}
-
 function add_close_listeners() {
   const spans = document.querySelectorAll(".close");
   spans.forEach(function(element) {
@@ -33,7 +24,6 @@ function add_close_listeners() {
 function main() {
   remove_hidden();
   add_close_listeners();
-  init_header();
 }
 
 main();

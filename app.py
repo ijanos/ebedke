@@ -11,6 +11,7 @@ from provider import (pqs, kompot, bridges, tenminutes, opus, burgerking,
                       portum, muzikum, amici, foodie, emi)
 
 import config
+from provider.utils import days_lower
 
 MENU_ORDER = [
     bridges,
@@ -41,8 +42,8 @@ app.config.update(
 
 cache = redis.StrictRedis(host='localhost', port=6379, decode_responses=True)
 
-def load_menu(menu):
-    today = dt.today()
+def load_menu(args):
+    menu, today = args
     if config.OFFSET:
         today = today + timedelta(days=config.OFFSET)
     try:
@@ -70,17 +71,21 @@ def load_menu(menu):
     }
 
 
-def load_menus():
+def load_menus(today):
     with ThreadPoolExecutor(max_workers=config.POOL_SIZE) as executor:
-        return executor.map(load_menu, [r.menu for r in MENU_ORDER])
+        return executor.map(load_menu, [(r.menu, today) for r in MENU_ORDER])
 
 @app.route('/')
 def root():
-    return render_template("index.html", menus=load_menus())
+    today = dt.today()
+    date = {}
+    date['day'] = days_lower[today.weekday()]
+    date['date'] = today.strftime("%Y. %m. %d.")
+    return render_template("index.html", menus=load_menus(today), date=date)
 
 @app.route('/menu')
 def dailymenu():
-    return jsonify(list(load_menus()))
+    return jsonify(list(load_menus(dt.today())))
 
 
 if __name__ == '__main__':

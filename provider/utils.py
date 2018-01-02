@@ -18,7 +18,7 @@ HEADERS = {
 }
 
 
-days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek"]
+days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat", "vasárnap"]
 
 
 def get_dom(URL):
