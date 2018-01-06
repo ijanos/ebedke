@@ -7,3 +7,4 @@ OFFSET = None
 # OFFSET = -2
 USER_AGENT = ""
 PERSISTENT_CACHE = False
+REQUEST_TIMEOUT = 5 # seconds

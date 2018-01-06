@@ -17,17 +17,18 @@ HEADERS = {
     'User-Agent': config.USER_AGENT,
 }
 
+GET = lambda url: requests.get(url, HEADERS, timeout=config.REQUEST_TIMEOUT)
 
 days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat", "vasárnap"]
 
 
 def get_dom(URL):
-    response = requests.get(URL, HEADERS)
+    response = GET(URL)
     return html.fromstring(response.text)
 
 def get_filtered_fb_post(page_id, post_filter):
     url = f"{ FB_API_ROOT }/{ page_id }/posts?{ FB_TOKEN }"
-    response = requests.get(url)
+    response = GET(url)
     posts = response.json()['data']
     for post in posts:
         if "message" in post and post_filter(post):
@@ -36,11 +37,11 @@ def get_filtered_fb_post(page_id, post_filter):
 
 def get_post_attachments(post_id):
     url = f"{ FB_API_ROOT }/{ post_id }/attachments?{ FB_TOKEN }"
-    return requests.get(url).json()
+    return GET(url).json()
 
 def get_fb_cover_url(page_id):
     url = f"{ FB_API_ROOT }/{ page_id }?fields=cover&{ FB_TOKEN }"
-    response = requests.get(url)
+    response = GET(url)
     cover_url = response.json()['cover']['source']
     return cover_url
 
