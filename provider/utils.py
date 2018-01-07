@@ -12,6 +12,7 @@ if config.PERSISTENT_CACHE:
 
 FB_TOKEN = urlencode({"access_token": config.FB_ACCESS_TOKEN})
 FB_API_ROOT = "https://graph.facebook.com/v2.11"
+VISION_API_ROOT = "https://vision.googleapis.com/v1/images:annotate"
 
 HEADERS = {
     'User-Agent': config.USER_AGENT,
@@ -57,3 +58,21 @@ def skip_empty_lines(text):
         line = line.strip()
         if line:
             yield line
+
+def ocr_image(image):
+    img_request = {
+        "requests": [{
+            "image": {
+                "content": b64encode(image.getvalue()).decode('ascii')
+            },
+            "features": [{
+                "type": "TEXT_DETECTION"
+            }]
+        }]}
+    response = requests.post(VISION_API_ROOT, json=img_request,
+                             params={'key': config.GCP_API_KEY},
+                             headers={'Content-Type': 'application/json'})
+    if response.status_code != 200 or response.json().get('error'):
+        print("Google OCR error", response.text)
+        return ""
+    return response.json()['responses'][0]['textAnnotations'][0]['description']

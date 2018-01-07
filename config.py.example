@@ -1,6 +1,7 @@
 ## Rename this file to config.py
 
 FB_ACCESS_TOKEN=""
+GCP_API_KEY = ""
 POOL_SIZE = 4
 OFFSET = None
 # Offset the current date for debug purposes
