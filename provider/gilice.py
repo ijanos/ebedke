@@ -30,6 +30,9 @@ def getFBMenu(today):
     except:
         pass
 
+    if "zárva" in menu.lower():
+        menu = ''
+
     return menu
 
 def getMenu(today):
