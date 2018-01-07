@@ -1,11 +1,7 @@
-import urllib.request
-from io import BytesIO
-from math import floor
 from datetime import timedelta, datetime
 from itertools   import takewhile, dropwhile, islice
-from PIL import Image, ImageEnhance
 
-from provider.utils import get_filtered_fb_post, create_img, days_lower, get_fb_cover_url, skip_empty_lines
+from provider.utils import get_filtered_fb_post, days_lower, get_fb_cover_url, skip_empty_lines
 
 FB_PAGE = "https://www.facebook.com/pg/gilicekonyha/posts/"
 FB_ID = "910845662306901"
