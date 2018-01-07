@@ -2,7 +2,7 @@ import urllib.request
 from io import BytesIO
 from datetime import datetime, timedelta
 from PIL import Image
-from provider.utils import create_img
+from provider.utils import create_img, ocr_image
 
 
 URL = "http://www.10minutes.hu/"
@@ -16,8 +16,8 @@ def getMenu(today):
             r = response.read()
             menu_img = Image.open(BytesIO(r))
 
-            WIDTH = 526
-            HEIGHT = 171
+            WIDTH, HEIGHT = 526, 171
+
             x = 224
             a_y = 162
             b_y = 549
@@ -28,27 +28,35 @@ def getMenu(today):
             amenu = menu_img.crop(a_menu_box)
             bmenu = menu_img.crop(b_menu_box)
 
-            new_im = Image.new('L', (WIDTH * 2, HEIGHT))
-            new_im.paste(amenu, (0, 0))
-            new_im.paste(bmenu, (WIDTH, 0))
+            img = Image.new('L', (WIDTH, HEIGHT * 2))
+            img.paste(amenu, (0, 0))
+            img.paste(bmenu, (0, HEIGHT))
 
-            zoom = 0.6
-            new_im = new_im.resize((int(WIDTH * 2 * zoom), int(HEIGHT * zoom)), Image.ANTIALIAS)
-
-            new_im = new_im.point(lambda i: i < 100 and 255)
-            new_im = new_im.convert('1')
+            img = img.point(lambda i: i < 100 and 255)
+            img = img.convert('1')
 
             f = BytesIO()
-            new_im.save(f, format="png", optimize=True, compress_level=9, bits=1)
-            menu = create_img(f)
-
+            img.save(f, format="png", optimize=True, compress_level=9, bits=1)
+            menu = ocr_image(f)
+            if not menu:
+                img = Image.new('L', (WIDTH * 2, HEIGHT))
+                img.paste(amenu, (0, 0))
+                img.paste(bmenu, (WIDTH, 0))
+                zoom = 0.55
+                img = img.resize((int(WIDTH * 2 * zoom), int(HEIGHT * zoom)), Image.ANTIALIAS)
+                img = img.point(lambda i: i < 100 and 255).convert('1')
+                f = BytesIO()
+                img.save(f, format="png", optimize=True, compress_level=9, bits=1)
+                menu = create_img(f)
+            else:
+                menu = '<br>'.join(menu.splitlines())
     return menu
 
 menu = {
     'name': '10 minutes',
     'url' : URL,
     'get': getMenu,
-    'ttl': timedelta(hours=4)
+    'ttl': timedelta(hours=18)
 }
 
 if __name__ == "__main__":
