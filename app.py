@@ -44,8 +44,6 @@ cache = redis.StrictRedis(host='localhost', port=6379, decode_responses=True)
 
 def load_menu(args):
     menu, today = args
-    if config.OFFSET:
-        today = today + timedelta(days=config.OFFSET)
     try:
         m = cache.get(menu['name'])
         while m is None:
@@ -72,6 +70,8 @@ def load_menu(args):
 
 
 def load_menus(today):
+    if config.OFFSET:
+        today = today + timedelta(days=config.OFFSET)
     with ThreadPoolExecutor(max_workers=config.POOL_SIZE) as executor:
         return executor.map(load_menu, [(r.menu, today) for r in MENU_ORDER])
 
