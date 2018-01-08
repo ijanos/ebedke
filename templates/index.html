@@ -19,15 +19,15 @@
     <a href="/">Mutass mindent</a>
   </header>
   <div class="menu">
-    {% for menu in menus %}
-        <section>
-          <header>
-            <h2><span translate="no"><a href="{{ menu.url }}">{{ menu.name }}</a></span></h2>
-            <span class="close" data-name="{{ menu.name }}">✕</span>
-          </header>
-          <p>{{ menu.menu | safe }}</p>
+    {%- for menu in menus %}
+      <section>
+        <header>
+          <h2><span translate="no"><a href="{{ menu.url }}">{{ menu.name }}</a></span></h2>
+          <span class="close" data-name="{{ menu.name }}">✕</span>
+        </header>
+        <p>{{ menu.menu | safe }}</p>
       </section>
-    {% endfor %}
+    {%- endfor -%}
   </div>
   <footer>
     <div>
