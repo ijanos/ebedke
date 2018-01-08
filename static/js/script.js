@@ -2,7 +2,7 @@ function remove_hidden() {
   const hidden = new Set(decodeURIComponent(window.location.hash || '=').split('=')[1].split(';'));
   const sections = document.querySelectorAll(".menu > section");
   sections.forEach(function(section) {
-    if (hidden.has(section.querySelector("span").dataset.name)) {
+    if (hidden.has(section.querySelector("span.close").dataset.name)) {
       section.remove();
       document.querySelector('body > header > a').style.display = "block";
     }
