@@ -71,7 +71,8 @@ def ocr_image(image):
         }]}
     response = requests.post(VISION_API_ROOT, json=img_request,
                              params={'key': config.GCP_API_KEY},
-                             headers={'Content-Type': 'application/json'})
+                             headers={'Content-Type': 'application/json'},
+                             timeout=10)
     if response.status_code != 200 or response.json().get('error'):
         print("Google OCR error", response.text)
         return ""
