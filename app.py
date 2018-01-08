@@ -61,6 +61,7 @@ def load_menu(args):
     except:
         print(f"Exception when downloading { menu['get'].__module__ }\n\t{ sys.exc_info() }")
         m = ''
+        cache.set(menu['name'], '', ex=14 * 60)
 
     return {
         "name": menu['name'],
