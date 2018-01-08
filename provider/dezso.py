@@ -13,13 +13,16 @@ def getMenu(today):
     except:
         menu = ''
 
+    if len(menu) < 10:
+        menu = ''
+
     return menu
 
 menu = {
     'name': 'Dezső bá',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(minutes=15)
+    'ttl': timedelta(minutes=20)
 }
 
 if __name__ == "__main__":

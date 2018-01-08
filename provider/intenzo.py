@@ -15,13 +15,16 @@ def getMenu(today):
     except:
         pass
 
+    if len(menu) < 20:
+        menu = ''
+
     return menu
 
 menu = {
     'name': 'Intenzo',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(minutes=30)
+    'ttl': timedelta(minutes=25)
 }
 
 if __name__ == "__main__":

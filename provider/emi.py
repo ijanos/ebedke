@@ -20,7 +20,7 @@ menu =  {
     'name': 'Emi kifőzte',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(minutes=20),
+    'ttl': timedelta(minutes=25),
     'cards': {
         'bank': True,
         'szep': True,

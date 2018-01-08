@@ -21,7 +21,7 @@ menu ={
     'name': 'Portum',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(hours=6)
+    'ttl': timedelta(minutes=30)
 }
 
 if __name__ == "__main__":
