@@ -59,10 +59,11 @@ def skip_empty_lines(text):
         if line:
             yield line
 
-def ocr_image(image):
+def ocr_image(image, langHint="hu"):
     img_request = {"requests": [{
         "image": {"content": b64encode(image.getvalue()).decode('ascii')},
-        "features": [{"type": "TEXT_DETECTION"}]
+        "features": [{"type": "DOCUMENT_TEXT_DETECTION"}],
+        "imageContext": {"languageHints": [langHint]}
     }]}
     response = requests.post(VISION_API_ROOT, json=img_request,
                              params={'key': config.GCP_API_KEY},
