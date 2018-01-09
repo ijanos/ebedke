@@ -6,12 +6,12 @@ import sys
 import redis
 from flask import Flask, jsonify, render_template
 
+from provider.utils import days_lower
 from provider import (pqs, kompot, bridges, tenminutes, opus, burgerking,
                       subway, dezso, manga, intenzo, golvonal, gilice, veranda,
                       portum, muzikum, amici, foodie, emi)
 
 import config
-from provider.utils import days_lower
 
 MENU_ORDER = [
     bridges,
@@ -46,29 +46,28 @@ cache = redis.StrictRedis(host=config.REDIS_HOST,
 
 def load_menu(args):
     menu, today = args
-    try:
-        m = cache.get(menu['name'])
-        while m is None:
-            if cache.set(f"{menu['name']}:lock", 1, ex=20, nx=True):
-                m = menu['get'](today)
-                if not m:
-                    cache.set(menu['name'], '', ex=14 * 60)
-                else:
-                    seconds_to_midnight = (23 - today.hour) * 3600 + (60 - today.minute) * 60
-                    ttl = min(menu['ttl'].seconds, seconds_to_midnight)
-                    cache.set(menu['name'], m, ex=ttl)
-                break
-            sleep(0.1)
-            m = cache.get(menu['name'])
-    except:
-        print(f"Exception when downloading { menu['get'].__module__ }\n\t{ sys.exc_info() }")
-        m = ''
-        cache.set(menu['name'], '', ex=14 * 60)
+    daily_menu = cache.get(menu['name'])
+    while daily_menu is None:
+        if cache.set(f"{menu['name']}:lock", 1, ex=20, nx=True):
+            daily_menu = ""
+            try:
+                daily_menu = menu['get'](today)
+            except:
+                print(f"Exception when downloading { menu['get'].__module__ }\n\t{ sys.exc_info() }")
+            if daily_menu is not "":
+                seconds_to_midnight = (23 - today.hour) * 3600 + (60 - today.minute) * 60
+                ttl = min(menu['ttl'].seconds, seconds_to_midnight)
+            else:
+                ttl = 15 * 60
+            cache.set(menu['name'], daily_menu, ex=ttl)
+        else:
+            sleep(0.05)
+            daily_menu = cache.get(menu['name'])
 
     return {
         "name": menu['name'],
         "url": menu['url'],
-        "menu": m
+        "menu": daily_menu
     }
 
 
