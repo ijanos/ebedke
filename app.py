@@ -40,7 +40,9 @@ app.config.update(
     JSONIFY_PRETTYPRINT_REGULAR=False
 )
 
-cache = redis.StrictRedis(host='localhost', port=6379, decode_responses=True)
+cache = redis.StrictRedis(host=config.REDIS_HOST,
+                          port=config.REDIS_PORT,
+                          decode_responses=True)
 
 def load_menu(args):
     menu, today = args
