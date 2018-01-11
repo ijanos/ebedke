@@ -1,5 +1,6 @@
 from  urllib.parse import urlencode
 from base64 import b64encode
+from datetime import datetime
 import requests
 from lxml import html
 import config
@@ -26,6 +27,15 @@ days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat",
 def get_dom(URL):
     response = GET(URL)
     return html.fromstring(response.text)
+
+def get_fresh_image(URL, fresh_date):
+    with requests.get(URL, headers=HEADERS, stream=True, timeout=config.REQUEST_TIMEOUT) as response:
+        lastmod = response.headers['last-modified']
+        lastmod = datetime.strptime(lastmod, '%a, %d %b %Y %H:%M:%S %Z').date()
+        if lastmod >= fresh_date:
+            return response.content
+        else:
+            return None
 
 def get_filtered_fb_post(page_id, post_filter):
     url = f"{ FB_API_ROOT }/{ page_id }/posts?{ FB_TOKEN }"
