@@ -83,3 +83,10 @@ def ocr_image(image, langHint="hu"):
         print("Google OCR error", response.text)
         return ""
     return response.json()['responses'][0]['textAnnotations'][0]['description']
+
+def normalize_menu(text):
+    if len(text.strip()) < 16:
+        return ""
+    if any(word in text.lower() for word in ("zárva", "ünnep", "nincs menü")):
+        return ""
+    return text.strip()

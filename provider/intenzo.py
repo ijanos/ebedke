@@ -11,8 +11,6 @@ def getMenu(today):
         menu = dom.xpath('//section[@id="hetimenu"]//div[contains(@class, "text_box")]')
         menu = filter(lambda l: "menü ára" not in l, menu[day].xpath("p/text()"))
         menu = '<br>'.join(menu)
-        if len(menu) < 20:
-            menu = ''
 
     return menu
 

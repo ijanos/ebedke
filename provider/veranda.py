@@ -9,8 +9,6 @@ def getMenu(today):
     dom = get_dom(URL)
     tds = dom.xpath(f'(//div[@id="main-content"]//table)[1]//tr[position() > 0 and position() < 5]/td[{ day }]')
     menu = "<br>".join(td.text_content().strip() for td in tds)
-    if "zárva" in menu.lower():
-        menu = ''
 
     return menu
 

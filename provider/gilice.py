@@ -22,9 +22,6 @@ def getFBMenu(today):
         else:
             menu = f'<a href="{get_fb_cover_url(FB_ID)}">heti menü</a>'
 
-    if "zárva" in menu.lower():
-        menu = ''
-
     return menu
 
 def getMenu(today):

@@ -6,7 +6,7 @@ import sys
 import redis
 from flask import Flask, jsonify, render_template
 
-from provider.utils import days_lower
+from provider.utils import days_lower, normalize_menu
 from provider import (kompot, bridges, tenminutes, opus, burgerking, subway,
                       dezso, manga, intenzo, golvonal, gilice, veranda, portum,
                       muzikum, amici, foodie, emi)
@@ -48,11 +48,12 @@ def load_menu(args):
     daily_menu = cache.get(menu['name'])
     while daily_menu is None:
         if cache.set(f"{menu['name']}:lock", 1, ex=20, nx=True):
-            daily_menu = ""
             try:
                 daily_menu = menu['get'](today)
             except:
                 print(f"Exception when downloading { menu['get'].__module__ }\n\t{ sys.exc_info() }")
+                daily_menu = ""
+            daily_menu = normalize_menu(daily_menu)
             if daily_menu is not "":
                 seconds_to_midnight = (23 - today.hour) * 3600 + (60 - today.minute) * 60
                 ttl = min(menu['ttl'].seconds, seconds_to_midnight)
