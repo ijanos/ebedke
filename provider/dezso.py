@@ -6,13 +6,9 @@ URL = "http://dezsoba.hu/hu/heti-menue"
 
 def getMenu(today):
     day = today.weekday()
-    try:
-        dom = get_dom(URL)
-        menu = dom.xpath('//div[@class="sppb-menu-text"]')
-        menu = '<br>'.join(menu[day].xpath("text()"))
-    except:
-        menu = ''
-
+    dom = get_dom(URL)
+    menu = dom.xpath('/html/body//div[@class="sppb-menu-text"]')
+    menu = '<br>'.join(menu[day].xpath("text()"))
     if len(menu) < 10:
         menu = ''
 

@@ -6,17 +6,13 @@ URL = "http://cafeintenzo.hu/#hetimenu"
 def getMenu(today):
     day = today.weekday()
     menu = ''
-    try:
-        if day < 5:
-            dom = get_dom(URL)
-            menu = dom.xpath('//section[@id="hetimenu"]//div[contains(@class, "text_box")]')
-            menu = filter(lambda l: "menü ára" not in l, menu[day].xpath("p/text()"))
-            menu = '<br>'.join(menu)
-    except:
-        pass
-
-    if len(menu) < 20:
-        menu = ''
+    if day < 5:
+        dom = get_dom(URL)
+        menu = dom.xpath('//section[@id="hetimenu"]//div[contains(@class, "text_box")]')
+        menu = filter(lambda l: "menü ára" not in l, menu[day].xpath("p/text()"))
+        menu = '<br>'.join(menu)
+        if len(menu) < 20:
+            menu = ''
 
     return menu
 

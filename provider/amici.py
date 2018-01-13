@@ -10,15 +10,12 @@ FB_ID = "1861078894105248"
 
 def getMenu(today):
     day = today.weekday()
-    try:
-        is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
-        menu_filter = lambda post: is_this_week(post['created_time']) and sum(day in post['message'].lower() for day in days_lower) >= 2
-        menu = get_filtered_fb_post(FB_ID, menu_filter)
-        menu = dropwhile(lambda line: days_lower[day] not in line.lower(), skip_empty_lines(menu.split('\n')))
-        menu = islice(menu, 1, 4)
-        menu = '<br>'.join(menu)
-    except:
-        menu = ''
+    is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
+    menu_filter = lambda post: is_this_week(post['created_time']) and sum(day in post['message'].lower() for day in days_lower) >= 2
+    menu = get_filtered_fb_post(FB_ID, menu_filter)
+    menu = dropwhile(lambda line: days_lower[day] not in line.lower(), skip_empty_lines(menu.split('\n')))
+    menu = islice(menu, 1, 4)
+    menu = '<br>'.join(menu)
 
     return menu
 
