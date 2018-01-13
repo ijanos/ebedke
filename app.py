@@ -7,15 +7,14 @@ import redis
 from flask import Flask, jsonify, render_template
 
 from provider.utils import days_lower
-from provider import (pqs, kompot, bridges, tenminutes, opus, burgerking,
-                      subway, dezso, manga, intenzo, golvonal, gilice, veranda,
-                      portum, muzikum, amici, foodie, emi)
+from provider import (kompot, bridges, tenminutes, opus, burgerking, subway,
+                      dezso, manga, intenzo, golvonal, gilice, veranda, portum,
+                      muzikum, amici, foodie, emi)
 
 import config
 
 MENU_ORDER = [
     bridges,
-    pqs,
     kompot,
     gilice,
     tenminutes,
