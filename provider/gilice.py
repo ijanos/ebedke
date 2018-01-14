@@ -32,4 +32,4 @@ menu = {
 }
 
 if __name__ == "__main__":
-    print(getMenu(datetime.today()))
+    print(get_menu(datetime.today()))
