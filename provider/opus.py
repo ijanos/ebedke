@@ -1,5 +1,5 @@
 from datetime import timedelta
-from provider.utils import get_dom
+from provider.utils import get_dom, on_workdays
 
 URL = "https://opusjazzclub.hu/etlap"
 
@@ -18,13 +18,12 @@ hungarian_month = {
     12: "dec"
 }
 
+@on_workdays
 def getMenu(today):
     dom = get_dom(URL)
     date = f"{ today.year }.{ hungarian_month[today.month] }.{today.day:02}"
     menu = dom.xpath(f"//div[contains(@class, 'dailymenudish') and contains(preceding-sibling::div, '{ date }')]//text()")
     menu = "<br>".join(dish.strip() for dish in menu)
-    if "nincs menü" in menu.lower():
-        menu = ""
 
     return menu
 

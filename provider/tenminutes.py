@@ -1,12 +1,13 @@
 from io import BytesIO
 from datetime import datetime, timedelta
 from PIL import Image
-from provider.utils import create_img, ocr_image, get_fresh_image
+from provider.utils import create_img, ocr_image, get_fresh_image, on_workdays
 
 
 URL = "http://www.10minutes.hu/"
 IMG_PATH = "images/home_1_06.png"
 
+@on_workdays
 def getMenu(today):
     image = get_fresh_image(URL + IMG_PATH, today.date())
     if image:

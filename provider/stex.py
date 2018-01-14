@@ -2,11 +2,12 @@ from datetime import datetime, timedelta
 from io import BytesIO
 from itertools import islice, takewhile, dropwhile
 from PIL import Image
-from provider.utils import get_dom, get_fresh_image, ocr_image, skip_empty_lines, days_lower
+from provider.utils import get_dom, get_fresh_image, ocr_image, skip_empty_lines, days_lower, on_workdays
 
 URL_ROOT = "http://stexhaz.hu"
 MENU_SUFFIX = "/napimenu"
 
+@on_workdays
 def get_menu(today):
     dom = get_dom(URL_ROOT + MENU_SUFFIX)
     menu_url = dom.xpath("/html/body//div[@class='art-post-body']//img/@src").pop()

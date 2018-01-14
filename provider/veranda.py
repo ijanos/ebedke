@@ -1,9 +1,10 @@
 from datetime import datetime as dt, timedelta
-from provider.utils import get_dom
+from provider.utils import get_dom, on_workdays
 
 
 URL = "http://verandaetterem.hu/heti-menu/"
 
+@on_workdays
 def getMenu(today):
     day = today.weekday() + 3
     dom = get_dom(URL)

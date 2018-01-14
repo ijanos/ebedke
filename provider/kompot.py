@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta
 from itertools import dropwhile
-from provider.utils import get_filtered_fb_post, days_lower, skip_empty_lines
+from provider.utils import get_filtered_fb_post, days_lower, skip_empty_lines, on_workdays
 
 
 FB_PAGE = "https://www.facebook.com/pg/KompotBisztro/posts/"
 FB_ID = "405687736167829"
 
+@on_workdays
 def getMenu(today):
     day = today.weekday()
     is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
@@ -26,6 +27,7 @@ def getMenu(today):
         if "A:" in line:
             menu = "<br>".join((menu_post[i-1], menu_post[i], menu_post[i+1]))
             break
+
     if menu == '':
         skipfilter = lambda l:  not any(i in l.lower() for i in ["sütiket", "#", "jó étvágyat", "mai menü"])
         menu = "<br>".join(filter(skipfilter, menu_post))

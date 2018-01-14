@@ -90,3 +90,33 @@ def normalize_menu(text):
     if any(word in text.lower() for word in ("zárva", "ünnep", "nincs menü")):
         return ""
     return text.strip()
+
+def workday(date):
+    datestr = date.strftime("%Y-%m-%d")
+    extra_workdays_2018 = [
+        "2018-03-10", "2018-04-21", "2018-10-13", "2018-11-10", "2018-12-01",
+        "2018-12-15"
+    ]
+
+    if datestr in extra_workdays_2018:
+        return True
+
+    holidays_2018 = [
+        "2018-01-01", "2018-03-15", "2018-03-16", "2018-03-30", "2018-04-01",
+        "2018-04-02", "2018-04-30", "2018-05-01", "2018-05-20", "2018-05-21",
+        "2018-08-20", "2018-10-22", "2018-10-23", "2018-11-01", "2018-11-02",
+        "2018-12-24", "2018-12-25", "2018-12-26", "2018-12-31"
+    ]
+
+    if datestr in holidays_2018:
+        return False
+
+    return date.weekday() < 5
+
+def on_workdays(func):
+    def wrapper(*args, **kwargs):
+        if not workday(args[0]):
+            return ""
+        else:
+            return func(*args, **kwargs)
+    return wrapper

@@ -1,9 +1,10 @@
 from datetime import datetime as dt, timedelta
-from provider.utils import get_dom
+from provider.utils import get_dom, on_workdays
 
 
 URL = "http://mangacowboy.hu/"
 
+@on_workdays
 def getMenu(today):
     dom = get_dom(URL)
     date = today.strftime("%Y. %m. %d.")

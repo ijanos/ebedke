@@ -1,10 +1,11 @@
 from datetime import datetime as dt, timedelta
 from itertools import dropwhile, islice
-from provider.utils import get_dom, days_lower, skip_empty_lines
+from provider.utils import get_dom, days_lower, skip_empty_lines, on_workdays
 
 
 URL = "http://www.golvonalbisztro.hu/heti-menuajanlat.html"
 
+@on_workdays
 def getMenu(today):
     day = today.weekday()
     dom = get_dom(URL)

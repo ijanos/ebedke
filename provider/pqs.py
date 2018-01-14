@@ -1,8 +1,9 @@
 from datetime import datetime as dt, timedelta
-from provider.utils import get_dom
+from provider.utils import get_dom, on_workdays
 
 PQS_MENU = "http://pqs.hu/hu/etlapok?e=56"
 
+@on_workdays
 def getMenu(today):
     today = today.strftime("%Y-%m-%d")
     dom = get_dom(PQS_MENU)

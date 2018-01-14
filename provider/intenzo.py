@@ -1,16 +1,15 @@
 from datetime import datetime as dt, timedelta
-from provider.utils import get_dom
+from provider.utils import get_dom, on_workdays
 
 URL = "http://cafeintenzo.hu/#hetimenu"
 
+@on_workdays
 def getMenu(today):
     day = today.weekday()
-    menu = ''
-    if day < 5:
-        dom = get_dom(URL)
-        menu = dom.xpath('//section[@id="hetimenu"]//div[contains(@class, "text_box")]')
-        menu = filter(lambda l: "menü ára" not in l, menu[day].xpath("p/text()"))
-        menu = '<br>'.join(menu)
+    dom = get_dom(URL)
+    menu = dom.xpath('//section[@id="hetimenu"]//div[contains(@class, "text_box")]')
+    menu = filter(lambda l: "menü ára" not in l, menu[day].xpath("p/text()"))
+    menu = '<br>'.join(menu)
 
     return menu
 
