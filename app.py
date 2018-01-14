@@ -1,3 +1,4 @@
+import traceback
 from datetime import datetime as dt, timedelta
 from concurrent.futures import ThreadPoolExecutor
 from time import sleep
@@ -52,7 +53,7 @@ def load_menu(args):
             try:
                 daily_menu = menu['get'](today)
             except:
-                print(f"Exception when downloading { menu['get'].__module__ }\n\t{ sys.exc_info() }")
+                print(traceback.format_exc())
                 daily_menu = ""
             daily_menu = normalize_menu(daily_menu)
             if daily_menu is not "":
