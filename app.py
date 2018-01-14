@@ -9,7 +9,7 @@ from flask import Flask, jsonify, render_template
 from provider.utils import days_lower, normalize_menu
 from provider import (kompot, bridges, tenminutes, opus, burgerking, subway,
                       dezso, manga, intenzo, golvonal, gilice, veranda, portum,
-                      muzikum, amici, foodie, emi)
+                      muzikum, amici, foodie, emi, stex)
 
 import config
 
@@ -25,6 +25,7 @@ MENU_ORDER = [
     portum,
     foodie,
     emi,
+    stex,
     opus,
     manga,
     intenzo,
