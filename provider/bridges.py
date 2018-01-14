@@ -11,11 +11,13 @@ def getMenu(today):
     weekly_menu = dom.xpath('//section[@id="heti-menu"]//p')
     date = weekly_menu[0].text_content().strip()[0:10]
     this_week = lambda date: datetime.strptime(date, '%Y.%m.%d').date() > today.date() - timedelta(days=6)
-    if this_week(date)  and today.weekday() < 5:
+    if this_week(date):
         menu = weekly_menu[day].text_content()
         menu = menu.replace('1.', '<br>1.')
         menu = menu.replace('2.', '<br>2.')
         menu = menu + '<br>' + weekly_menu[6].text_content()
+    else:
+        menu = ''
 
     return menu
 

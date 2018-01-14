@@ -10,7 +10,10 @@ def getMenu(today):
     date = today.strftime("%Y. %m. %d.")
     menu = dom.xpath(f'//section[@id="weekly_menu"]/ul/li[.//time[contains(text(), "{ date }")]]'
                      '//div[@class="weeklyMenuPreview-content"]')
-    menu = '<br>'.join(menu[0].xpath("./p/text()"))
+    if menu:
+        menu = '<br>'.join(menu[0].xpath("./p/text()"))
+    else:
+        menu = ''
 
     return menu
 

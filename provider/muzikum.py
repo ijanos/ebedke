@@ -14,6 +14,8 @@ def getMenu(today):
     if date > today.date() - timedelta(days=7):
         menu = dom.xpath('//div[@class="content-right"]//div/p[not(span)]')
         menu = menu[day].text_content().replace('\n', '<br>')
+    else:
+        menu = ''
 
     return menu
 
