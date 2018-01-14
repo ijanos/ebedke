@@ -34,7 +34,7 @@ menu = {
     'name': 'Stex',
     'url' : URL_ROOT + MENU_SUFFIX,
     'get': get_menu,
-    'ttl': timedelta(hours=24)
+    'ttl': timedelta(hours=23)
 }
 
 if __name__ == "__main__":
