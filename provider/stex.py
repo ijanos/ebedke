@@ -24,6 +24,9 @@ def get_menu(today):
     image.save(f, format="png", optimize=True, compress_level=9, bits=1)
 
     menu = ocr_image(f).splitlines()
+    if not menu:
+        return ""
+
     menu = islice(dropwhile(lambda l: days_lower[today.weekday()] not in l.lower(), menu), 1, None)
     menu = takewhile(lambda l: not any(day in l.lower() for day in days_lower), menu)
     menu = '<br>'.join(skip_empty_lines(menu))
