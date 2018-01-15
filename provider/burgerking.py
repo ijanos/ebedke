@@ -16,7 +16,7 @@ def getMenu(today):
     day = today.weekday()
     IMG_SIZE = "181621"
     if content_size_match(IMG_URL, IMG_SIZE) and day < 5:
-        menu = burgerking_menu[day]
+        menu = f"Akciós napi menü: {burgerking_menu[day]}"
     else:
         menu = ''
 
