@@ -58,7 +58,7 @@ def load_menu(args):
             daily_menu = normalize_menu(daily_menu)
             if daily_menu is not "":
                 seconds_to_midnight = (23 - today.hour) * 3600 + (60 - today.minute) * 60
-                ttl = min(menu['ttl'].seconds, seconds_to_midnight)
+                ttl = min(menu['ttl'].total_seconds(), seconds_to_midnight)
             else:
                 ttl = 15 * 60
             cache.set(menu['name'], daily_menu, ex=ttl)
