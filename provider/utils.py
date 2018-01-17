@@ -1,6 +1,7 @@
 from  urllib.parse import urlencode
 from base64 import b64encode
 from datetime import datetime
+import operator
 import requests
 from lxml import html
 import config
@@ -49,6 +50,33 @@ def get_filtered_fb_post(page_id, post_filter):
 def get_post_attachments(post_id):
     url = f"{ FB_API_ROOT }/{ post_id }/attachments?{ FB_TOKEN }"
     return GET(url).json()
+
+def get_fb_post_attached_image(page_id, post_filter):
+    payload = {
+        "fields": "message,created_time,attachments{target{id}}",
+        "limit": 8,
+        "access_token": config.FB_ACCESS_TOKEN
+    }
+    response = requests.get(f"{ FB_API_ROOT }/{ page_id }/posts", params=payload)
+    posts = response.json()['data']
+    post = None
+    for p in posts:
+        if "message" in p and post_filter(p):
+            post = p
+            break
+    if post:
+        attachments_id = post["attachments"]["data"][0]["target"]["id"]
+        payload = {
+            "fields": "images",
+            "access_token": config.FB_ACCESS_TOKEN
+        }
+        response = requests.get(f"{ FB_API_ROOT }/{ attachments_id }", params=payload)
+        images = response.json()["images"]
+        large_image = max(images, key=operator.itemgetter("height"))
+        return GET(large_image["source"]).content
+    else:
+        return None
+
 
 def get_fb_cover_url(page_id):
     url = f"{ FB_API_ROOT }/{ page_id }?fields=cover&{ FB_TOKEN }"
