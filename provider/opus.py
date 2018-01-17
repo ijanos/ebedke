@@ -31,7 +31,7 @@ menu = {
     'name': 'Opus',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(hours=5)
+    'ttl': timedelta(hours=8)
 }
 
 if __name__ == "__main__":

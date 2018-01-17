@@ -38,7 +38,7 @@ menu = {
     'name': 'Kompót',
     'url': FB_PAGE,
     'get': getMenu,
-    'ttl': timedelta(hours=4)
+    'ttl': timedelta(hours=10)
 }
 
 if __name__ == "__main__":

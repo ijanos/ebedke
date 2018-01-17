@@ -26,7 +26,7 @@ menu = {
     'name': 'Burger King',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(hours=4)
+    'ttl': timedelta(hours=12)
 }
 
 if __name__ == "__main__":

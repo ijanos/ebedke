@@ -17,7 +17,7 @@ menu = {
     'name': 'Dezső bá',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(minutes=20)
+    'ttl': timedelta(minutes=26)
 }
 
 if __name__ == "__main__":
