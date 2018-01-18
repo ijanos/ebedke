@@ -18,12 +18,16 @@ def get_menu(today):
         f = BytesIO()
         image.save(f, format="png", optimize=True)
         menu = ocr_image(f).splitlines()
+        if not menu:
+            return ""
 
         day = today.weekday()
         menu = dropwhile(lambda l: days_lower[day] not in l.lower(), menu)
         head = next(menu)
-        menu = takewhile(lambda l: not any(day in l.lower() for day in days_lower), menu)
-        menu = f'{head} {" ".join(menu)}'.split(":")[1].strip()
+        stopwords = days_lower + ["falatozz", "práter"]
+        menu = takewhile(lambda l: not any(word in l.lower() for word in stopwords), menu)
+        menu = f'{head} {" ".join(menu)}'
+        menu = menu.split(":")[1].strip() if ":" in menu else menu
         return menu
     else:
         return ""
