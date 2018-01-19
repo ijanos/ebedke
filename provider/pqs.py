@@ -18,7 +18,7 @@ def getMenu(today):
     menu = ''.join(texts)
     menu = menu.replace("Választott leves", "")
     menu = menu.replace("\t", "")
-    menu = '<br>'.join((i for i in menu.split('\n') if i))
+    menu = '<br>'.join((i for i in menu.splitlines() if i))
 
     return menu
 

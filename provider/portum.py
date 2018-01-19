@@ -12,7 +12,7 @@ def getMenu(today):
     menu = get_filtered_fb_post(FB_ID, menu_filter)
     if "Előételek:" in menu:
         menu = menu.split("Előételek:")[1].strip()
-    menu = '<br>'.join(i for i in menu.split('\n') if i)
+    menu = '<br>'.join(i for i in menu.splitlines() if i)
 
     return menu
 

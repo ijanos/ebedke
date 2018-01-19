@@ -18,9 +18,9 @@ def getMenu(today):
                             and days_lower[day] in ignore_hashtags(post['message'])
     weekly_menu = get_filtered_fb_post(FB_ID, weekly_menu_filter)
     if weekly_menu:
-        menu_post = dropwhile(lambda line: days_lower[day] not in line.lower(), skip_empty_lines(weekly_menu.split('\n')))
+        menu_post = dropwhile(lambda line: days_lower[day] not in line.lower(), skip_empty_lines(weekly_menu.splitlines()))
     else:
-        menu_post = get_filtered_fb_post(FB_ID, daily_menu_filter).split('\n')
+        menu_post = get_filtered_fb_post(FB_ID, daily_menu_filter).splitlines()
     menu_post = list(menu_post)
 
     for i, line in enumerate(menu_post):
