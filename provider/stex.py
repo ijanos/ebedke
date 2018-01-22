@@ -15,6 +15,9 @@ def get_menu(today):
 
     date_limit = today - timedelta(days=6)
     image = get_fresh_image(menu_url, date_limit.date())
+    if not image:
+        return ""
+
     _, image, _ = Image.open(BytesIO(image)).split()
     width, height = image.size
     cropbox = (0, round(height * 0.1583), width, height - round(height * 0.12))
