@@ -39,9 +39,16 @@ def get_fresh_image(URL, fresh_date):
         return None
 
 def get_filtered_fb_post(page_id, post_filter):
-    url = f"{ FB_API_ROOT }/{ page_id }/posts?{ FB_TOKEN }"
-    response = GET(url)
-    posts = response.json()['data']
+    payload = {
+        "limit": 10,
+        "access_token": config.FB_ACCESS_TOKEN
+    }
+    response = requests.get(f"{ FB_API_ROOT }/{ page_id }/posts", params=payload)
+    json = response.json()
+    if "error" in json:
+        print("Facebook API error:", json['error']['message'])
+        return ""
+    posts = json['data']
     for post in posts:
         if "message" in post and post_filter(post):
             return post["message"]
