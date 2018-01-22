@@ -23,6 +23,7 @@ def getMenu(today):
         menu_post = get_filtered_fb_post(FB_ID, daily_menu_filter).splitlines()
     menu_post = list(menu_post)
 
+    menu = ''
     for i, line in enumerate(menu_post):
         if "A:" in line:
             menu = "<br>".join((menu_post[i-1], menu_post[i], menu_post[i+1]))
