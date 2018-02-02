@@ -5,7 +5,7 @@ URL = "https://opusjazzclub.hu/etlap"
 
 hungarian_month = {
     1: "jan",
-    2: "feb",
+    2: "febr",
     3: "már",
     4: "ápr",
     5: "máj",
