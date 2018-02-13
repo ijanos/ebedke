@@ -29,7 +29,7 @@ def get_menu(today):
         remove_accents = lambda word: normalize('NFD', word).encode('ascii', 'ignore')
         menu = islice(dropwhile(lambda l: remove_accents(days_lower[day]) not in remove_accents(l.lower()), menu), 1, None)
         menu = takewhile(lambda l: not any(word in l.lower() for word in days_lower), menu)
-        skip_words = ["menü", "fitnesz"] + days_lower
+        skip_words = ["menu", "menü", "fitnesz"] + days_lower
         menu = map(lambda l: l.replace("|", ""), filter(lambda l: not any(word in l.lower() for word in skip_words), menu))
         menu = "<br>".join(menu)
         return menu
