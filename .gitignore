@@ -2,3 +2,4 @@ config.py
 *.pyc
 .vscode
 debug_cache.sqlite
+.mypy_cache/
