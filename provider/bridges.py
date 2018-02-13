@@ -8,7 +8,8 @@ URL = "http://bridges.hu/#heti-menu"
 def getMenu(today):
     day = today.weekday() + 1
     dom = get_dom(URL)
-    weekly_menu = dom.xpath('//section[@id="heti-menu"]//p')
+    weekly_menu = dom.xpath('/html/body//section[@id="heti-menu"]//p')
+    weekly_menu = list(filter(lambda p: len(p.text_content().strip()) > 0, weekly_menu))
     date = weekly_menu[0].text_content().strip()[0:10]
     this_week = lambda date: datetime.strptime(date, '%Y.%m.%d').date() > today.date() - timedelta(days=6)
     if this_week(date):
@@ -25,7 +26,7 @@ menu = {
     'name': 'Bridges',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(hours=6)
+    'ttl': timedelta(hours=8)
 }
 
 if __name__ == "__main__":
