@@ -9,7 +9,7 @@ FB_ID = "910845662306901"
 @on_workdays
 def get_menu(today):
     day = today.weekday()
-    is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
+    is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() >= today.date() - timedelta(days=7)
     menu_filter = lambda post: is_this_week(post['created_time']) and "jelmagyarázat" in post['message'].lower()
     menu = get_filtered_fb_post(FB_ID, menu_filter)
     post_parts = menu.split("HETI MENÜ")
