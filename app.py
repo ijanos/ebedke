@@ -86,9 +86,10 @@ def load_menus(today):
 @app.route('/')
 def root():
     today = dt.today()
-    date = {}
-    date['day'] = days_lower[today.weekday()]
-    date['date'] = today.strftime("%Y. %m. %d.")
+    date = {
+        'day': days_lower[today.weekday()],
+        'date': today.strftime("%Y. %m. %d.")
+    }
     return render_template("index.html", menus=load_menus(today), date=date)
 
 @app.route('/menu')
