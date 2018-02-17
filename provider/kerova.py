@@ -2,14 +2,13 @@ from datetime import datetime, timedelta
 from io import BytesIO
 from itertools import dropwhile, takewhile
 from PIL import Image
-from provider.utils import get_fb_post_attached_image, on_workdays, ocr_image, days_lower
+from provider.utils import get_fb_post_attached_image, get_filtered_fb_post, on_workdays, ocr_image, days_lower, pattern_slice
 
 
 FB_PAGE = "https://www.facebook.com/kerovaetelbar/"
 FB_ID = "582373908553561"
 
-@on_workdays
-def get_menu(today):
+def read_image(today):
     is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
     menu_filter = lambda post: is_this_week(post['created_time']) and "heti" in post['message'].lower()
     image = get_fb_post_attached_image(FB_ID, menu_filter)
@@ -32,6 +31,18 @@ def get_menu(today):
     else:
         return ""
 
+@on_workdays
+def get_menu(today):
+    is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
+    contains_days = lambda post: sum(day in post for day in days_lower) > 3
+    menu_filter = lambda post: is_this_week(post['created_time']) and contains_days(post['message'].lower())
+    menu = get_filtered_fb_post(FB_ID, menu_filter)
+    print(menu)
+    menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()]], days_lower, inclusive=True)
+    menu = ''.join(menu)
+    if ':' in menu:
+        menu = menu.split(':')[1].strip()
+    return menu
 
 menu = {
     'name': 'Kerova',
