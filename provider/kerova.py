@@ -37,7 +37,6 @@ def get_menu(today):
     contains_days = lambda post: sum(day in post for day in days_lower) > 3
     menu_filter = lambda post: is_this_week(post['created_time']) and contains_days(post['message'].lower())
     menu = get_filtered_fb_post(FB_ID, menu_filter)
-    print(menu)
     menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()]], days_lower, inclusive=True)
     menu = ''.join(menu)
     if ':' in menu:
