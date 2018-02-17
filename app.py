@@ -77,12 +77,17 @@ def load_menus(today):
         today = today + timedelta(days=config.OFFSET)
 
     with ThreadPoolExecutor(max_workers=config.POOL_SIZE) as executor:
-        menus = [(provider, executor.submit(menu_loader, provider.menu, today) if menu is None else menu)
-                 for provider, menu in zip(MENU_ORDER, cache.mget(provider.menu['name'] for provider in MENU_ORDER))]
+        menus = [(provider,
+                  executor.submit(menu_loader, provider.menu, today) if menu is None else menu)
+                 for provider, menu in
+                 zip(MENU_ORDER,
+                     cache.mget(provider.menu['name'] for provider in MENU_ORDER))
+                ]
 
     return [{"name": provider.menu['name'],
              "url": provider.menu['url'],
-             "menu": menu.result() if isinstance(menu, Future) else menu} for provider, menu in menus]
+             "menu": menu.result() if isinstance(menu, Future) else menu
+            } for provider, menu in menus]
 
 @app.route('/')
 def root():
