@@ -47,7 +47,7 @@ app.config.update(
 
 cache = redis.StrictRedis(host=config.REDIS_HOST,
                           port=config.REDIS_PORT,
-                            )
+                          decode_responses=True)
 
 def load_menu(args):
     menu, today = args
