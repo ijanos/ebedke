@@ -6,11 +6,12 @@ import sys
 
 import redis
 from flask import Flask, jsonify, render_template
+from requests.exceptions import ReadTimeout
 
 from provider.utils import days_lower, normalize_menu
 from provider import (kompot, bridges, tenminutes, opus, burgerking, subway,
                       dezso, manga, intenzo, golvonal, gilice, veranda, portum,
-                      muzikum, amici, foodie, emi, stex, kerova, cbacorvin)
+                      muzikum, amici, foodie, emi, stex, kerova, cbacorvin, dagoba)
 
 import config
 
@@ -22,6 +23,7 @@ MENU_ORDER = [
     dezso,
     amici,
     kerova,
+    dagoba,
     cbacorvin,
     veranda,
     portum,
