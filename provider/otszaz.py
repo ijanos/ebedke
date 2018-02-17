@@ -93,6 +93,3 @@ def getMenu(today):
         'url': FB_PAGE,
         'menu': menu
     }
-
-if __name__ == "__main__":
-    print(getMenu(datetime.today()))

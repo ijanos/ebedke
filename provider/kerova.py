@@ -50,6 +50,3 @@ menu = {
     'get': get_menu,
     'ttl': timedelta(hours=23)
 }
-
-if __name__ == "__main__":
-    print(get_menu(datetime.today()))

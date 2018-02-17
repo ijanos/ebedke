@@ -47,7 +47,7 @@ app.config.update(
 
 cache = redis.StrictRedis(host=config.REDIS_HOST,
                           port=config.REDIS_PORT,
-                          decode_responses=True)
+                            )
 
 def load_menu(args):
     menu, today = args
@@ -97,4 +97,9 @@ def dailymenu():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, use_reloader=True)
+    if len(sys.argv) > 1:
+        provider = sys.argv[1]
+        offset = int(sys.argv[2]) if len(sys.argv) > 2 else 0
+        print(globals()[provider].menu['get'](dt.today() + timedelta(days=offset)))
+    else:
+        app.run(debug=True, use_reloader=True)

@@ -32,9 +32,14 @@ purposes but not ideal for production.
 pipenv run python app.py
 ```
 
-To test individual providers invoke them as a separate script. For providers
-that use settings from the config use `pipesnv run python -m provider.name`
-command structure. Running the scripts individually will skip the redis cache.
+To test individual providers add their module name as an argument to `app.py`.
+Adding an optional integer argument will offset the date, for example:
+
+```
+pipenv run python app.py provider -3
+```
+
+Note that running the scripts individually will skip the redis cache.
 
 
 ## Deployment

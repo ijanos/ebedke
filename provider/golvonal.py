@@ -22,6 +22,3 @@ menu = {
     'get': getMenu,
     'ttl': timedelta(hours=1)
 }
-
-if __name__ == "__main__":
-    print(getMenu(dt.today()))

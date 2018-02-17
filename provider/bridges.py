@@ -28,6 +28,3 @@ menu = {
     'get': getMenu,
     'ttl': timedelta(hours=8)
 }
-
-if __name__ == "__main__":
-    print(getMenu(datetime.today()))
