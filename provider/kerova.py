@@ -5,7 +5,7 @@ from PIL import Image
 from provider.utils import get_fb_post_attached_image, get_filtered_fb_post, on_workdays, ocr_image, days_lower, pattern_slice
 
 
-FB_PAGE = "https://www.facebook.com/kerovaetelbar/"
+FB_PAGE = "https://www.facebook.com/pg/kerovaetelbar/posts/"
 FB_ID = "582373908553561"
 
 def read_image(today):
