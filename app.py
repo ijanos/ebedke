@@ -1,6 +1,6 @@
 import traceback
 from datetime import datetime as dt, timedelta
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, Future
 from time import sleep
 import sys
 
@@ -49,9 +49,8 @@ cache = redis.StrictRedis(host=config.REDIS_HOST,
                           port=config.REDIS_PORT,
                           decode_responses=True)
 
-def load_menu(args):
-    menu, today = args
-    daily_menu = cache.get(menu['name'])
+def menu_loader(menu, today):
+    daily_menu = None
     while daily_menu is None:
         if cache.set(f"{menu['name']}:lock", 1, ex=20, nx=True):
             try:
@@ -70,18 +69,20 @@ def load_menu(args):
             sleep(0.05)
             daily_menu = cache.get(menu['name'])
 
-    return {
-        "name": menu['name'],
-        "url": menu['url'],
-        "menu": daily_menu
-    }
+    return daily_menu
 
 
 def load_menus(today):
     if config.OFFSET:
         today = today + timedelta(days=config.OFFSET)
+
     with ThreadPoolExecutor(max_workers=config.POOL_SIZE) as executor:
-        return executor.map(load_menu, [(r.menu, today) for r in MENU_ORDER])
+        menus = [(provider, executor.submit(menu_loader, provider.menu, today) if menu is None else menu)
+                 for provider, menu in zip(MENU_ORDER, cache.mget(provider.menu['name'] for provider in MENU_ORDER))]
+
+    return [{"name": provider.menu['name'],
+             "url": provider.menu['url'],
+             "menu": menu.result() if isinstance(menu, Future) else menu} for provider, menu in menus]
 
 @app.route('/')
 def root():
