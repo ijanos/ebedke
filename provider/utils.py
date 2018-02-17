@@ -155,3 +155,15 @@ def on_workdays(func):
         else:
             return func(*args, **kwargs)
     return wrapper
+
+def pattern_slice(iterator, start_patterns, end_patterns, inclusive=False):
+    drop = True
+    for i in iterator:
+        if drop and any(p in i.lower() for p in start_patterns):
+            drop = False
+            if inclusive:
+                yield i
+        elif not drop and any(p in i.lower() for p in end_patterns):
+            drop = True
+        elif not drop:
+            yield i
