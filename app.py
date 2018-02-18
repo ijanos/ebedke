@@ -55,6 +55,8 @@ def menu_loader(menu, today):
         if cache.set(f"{menu['name']}:lock", 1, ex=20, nx=True):
             try:
                 daily_menu = menu['get'](today)
+            except ReadTimeout:
+                print(f"Read timeout in {menu['name']} provider")
             except:
                 print(traceback.format_exc())
                 daily_menu = ""
