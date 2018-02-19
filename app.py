@@ -57,6 +57,7 @@ def menu_loader(menu, today):
                 daily_menu = menu['get'](today)
             except ReadTimeout:
                 print(f"Read timeout in {menu['name']} provider")
+                daily_menu = ""
             except:
                 print(traceback.format_exc())
                 daily_menu = ""
