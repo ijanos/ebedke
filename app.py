@@ -6,7 +6,7 @@ import sys
 
 import redis
 from flask import Flask, jsonify, render_template
-from requests.exceptions import ReadTimeout
+from requests.exceptions import Timeout
 
 from provider.utils import days_lower, normalize_menu
 from provider import (kompot, bridges, tenminutes, opus, burgerking, subway,
@@ -55,8 +55,8 @@ def menu_loader(menu, today):
         if cache.set(f"{menu['name']}:lock", 1, ex=20, nx=True):
             try:
                 daily_menu = menu['get'](today)
-            except ReadTimeout:
-                print(f"Read timeout in {menu['name']} provider")
+            except Timeout:
+                print(f"Timeout in {menu['name']} provider")
                 daily_menu = ""
             except:
                 print(traceback.format_exc())
