@@ -46,7 +46,7 @@ def get_filtered_fb_post(page_id, post_filter):
     response = requests.get(f"{ FB_API_ROOT }/{ page_id }/posts", params=payload)
     json = response.json()
     if "error" in json:
-        print("Facebook API error:", json['error']['message'])
+        print("[ebedke] Facebook API error:", json['error']['message'])
         return ""
     posts = json['data']
     for post in posts:
@@ -115,7 +115,7 @@ def ocr_image(image, langHint="hu"):
                              headers={'Content-Type': 'application/json'},
                              timeout=10)
     if response.status_code != 200 or response.json().get('error'):
-        print("Google OCR error", response.text)
+        print("[ebedke] Google OCR error", response.text)
         return ""
     return response.json()['responses'][0]['textAnnotations'][0]['description']
 
