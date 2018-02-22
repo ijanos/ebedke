@@ -26,5 +26,5 @@ menu = {
     'name': 'Bridges',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(hours=8)
+    'ttl': timedelta(hours=23)
 }
