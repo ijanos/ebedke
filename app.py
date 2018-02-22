@@ -1,8 +1,9 @@
 import traceback
 from datetime import datetime as dt, timedelta
 from concurrent.futures import ThreadPoolExecutor, Future
-from time import sleep
+from time import sleep, perf_counter
 import sys
+
 
 import redis
 from flask import Flask, jsonify, render_template
@@ -50,16 +51,17 @@ cache = redis.StrictRedis(host=config.REDIS_HOST,
                           decode_responses=True)
 
 def menu_loader(menu, today):
+    start = perf_counter()
     daily_menu = None
     while daily_menu is None:
         if cache.set(f"{menu['name']}:lock", 1, ex=20, nx=True):
             try:
                 daily_menu = menu['get'](today)
             except Timeout:
-                print(f"Timeout in {menu['name']} provider")
+                print(f"[ebedke] timeout in «{menu['name']}» provider")
                 daily_menu = ""
             except:
-                print(traceback.format_exc())
+                print("[ebedke] exception:\n", traceback.format_exc())
                 daily_menu = ""
             daily_menu = normalize_menu(daily_menu)
             if daily_menu is not "":
@@ -71,7 +73,8 @@ def menu_loader(menu, today):
         else:
             sleep(0.05)
             daily_menu = cache.get(menu['name'])
-
+    elapsed = perf_counter() - start
+    print(f"[ebedke] loading «{menu['name']}» took {elapsed} seconds")
     return daily_menu
 
 
