@@ -1,40 +1,66 @@
 from  urllib.parse import urlencode
 from base64 import b64encode
 from datetime import datetime
+from functools import partial
 import operator
+import pickle
+
 import requests
 from lxml import html
-import config
+import redis
 
-if config.PERSISTENT_CACHE:
-    import requests_cache
-    from datetime import timedelta
-    requests_cache.install_cache('debug_cache', expire_after=timedelta(days=1))
+import config
 
 
 FB_TOKEN = urlencode({"access_token": config.FB_ACCESS_TOKEN})
 FB_API_ROOT = "https://graph.facebook.com/v2.11"
 VISION_API_ROOT = "https://vision.googleapis.com/v1/images:annotate"
 
+
 HEADERS = {
     'User-Agent': config.USER_AGENT,
 }
 
-GET = lambda url: requests.get(url, HEADERS, timeout=config.REQUEST_TIMEOUT)
-
 days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat", "vasárnap"]
 
+DEBUG_CACHE = None
 
-def get_dom(URL):
-    response = GET(URL)
+def http_get(url, params=None):
+    global DEBUG_CACHE
+
+    headers = {
+        'User-Agent': config.USER_AGENT,
+    }
+    get = partial(requests.get, headers=headers, params=params, timeout=config.REQUEST_TIMEOUT)
+
+    if config.PERSISTENT_CACHE:
+        if not DEBUG_CACHE:
+            DEBUG_CACHE = redis.StrictRedis(host=config.REDIS_HOST, port=config.REDIS_PORT, decode_responses=False)
+
+        cached = DEBUG_CACHE.get(url)
+        if not cached:
+            print("[ebedke] saving to redis cache\n")
+            cached = get(url)
+            DEBUG_CACHE.set(url, pickle.dumps(cached), ex=3600)
+            response = cached
+        else:
+            print("[ebedke] loaded from redis cache\n")
+            response = pickle.loads(cached)
+    else:
+        response = get(url)
+
+    return response
+
+def get_dom(url):
+    response = http_get(url)
     return html.fromstring(response.text)
 
-def get_fresh_image(URL, fresh_date):
-    resp = requests.head(URL, timeout=config.REQUEST_TIMEOUT)
+def get_fresh_image(url, fresh_date):
+    resp = requests.head(url, timeout=config.REQUEST_TIMEOUT)
     lastmod = resp.headers['last-modified']
     lastmod = datetime.strptime(lastmod, '%a, %d %b %Y %H:%M:%S %Z').date()
     if lastmod >= fresh_date:
-        return GET(URL).content
+        return http_get(url).content
     else:
         return None
 
@@ -43,7 +69,7 @@ def get_filtered_fb_post(page_id, post_filter):
         "limit": 10,
         "access_token": config.FB_ACCESS_TOKEN
     }
-    response = requests.get(f"{ FB_API_ROOT }/{ page_id }/posts", params=payload)
+    response = http_get(f"{ FB_API_ROOT }/{ page_id }/posts", params=payload)
     json = response.json()
     if "error" in json:
         print("[ebedke] Facebook API error:", json['error']['message'])
@@ -56,7 +82,7 @@ def get_filtered_fb_post(page_id, post_filter):
 
 def get_post_attachments(post_id):
     url = f"{ FB_API_ROOT }/{ post_id }/attachments?{ FB_TOKEN }"
-    return GET(url).json()
+    return http_get(url).json()
 
 def get_fb_post_attached_image(page_id, post_filter):
     payload = {
@@ -64,7 +90,7 @@ def get_fb_post_attached_image(page_id, post_filter):
         "limit": 8,
         "access_token": config.FB_ACCESS_TOKEN
     }
-    response = requests.get(f"{ FB_API_ROOT }/{ page_id }/posts", params=payload)
+    response = http_get(f"{ FB_API_ROOT }/{ page_id }/posts", params=payload)
     posts = response.json()['data']
     post = None
     for p in posts:
@@ -77,17 +103,17 @@ def get_fb_post_attached_image(page_id, post_filter):
             "fields": "images",
             "access_token": config.FB_ACCESS_TOKEN
         }
-        response = requests.get(f"{ FB_API_ROOT }/{ attachments_id }", params=payload)
+        response = http_get(f"{ FB_API_ROOT }/{ attachments_id }", params=payload)
         images = response.json()["images"]
         large_image = max(images, key=operator.itemgetter("height"))
-        return GET(large_image["source"]).content
+        return http_get(large_image["source"]).content
     else:
         return None
 
 
 def get_fb_cover_url(page_id):
     url = f"{ FB_API_ROOT }/{ page_id }?fields=cover&{ FB_TOKEN }"
-    response = GET(url)
+    response = http_get(url)
     cover_url = response.json()['cover']['source']
     return cover_url
 

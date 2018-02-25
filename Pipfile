@@ -15,7 +15,3 @@ Pillow = "~=5.0.0"
 requests = "~=2.18.4"
 redis = "~=2.10.6"
 
-
-[dev-packages]
-
-requests-cache = "~=0.4.13"
