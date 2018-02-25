@@ -20,5 +20,5 @@ menu ={
     'name': 'Portum',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(hours=10)
+    'ttl': timedelta(hours=23)
 }
