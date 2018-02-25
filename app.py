@@ -115,4 +115,4 @@ if __name__ == '__main__':
         offset = int(sys.argv[2]) if len(sys.argv) > 2 else 0
         print(globals()[provider].menu['get'](dt.today() + timedelta(days=offset)))
     else:
-        app.run(debug=True, use_reloader=True)
+        app.run(debug=True, use_reloader=True, host='0.0.0.0')
