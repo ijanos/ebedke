@@ -26,5 +26,6 @@ menu = {
     'name': 'Burger King',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(hours=12)
+    'ttl': timedelta(hours=12),
+    'cards': ['bank', 'szep', 'erzsi']
 }

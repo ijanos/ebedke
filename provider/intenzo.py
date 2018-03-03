@@ -17,5 +17,6 @@ menu = {
     'name': 'Intenzo',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(minutes=45)
+    'ttl': timedelta(minutes=45),
+    'cards': ['bank', 'szep', 'erzs']
 }

@@ -26,5 +26,6 @@ menu = {
     'name': 'PQS Skypark',
     'url': PQS_MENU,
     'get': getMenu,
-    'ttl': timedelta(hours=6)
+    'ttl': timedelta(hours=6),
+    'cards': ['bank', 'szep']
 }

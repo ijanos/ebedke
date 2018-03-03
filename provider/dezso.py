@@ -17,5 +17,6 @@ menu = {
     'name': 'Dezső bá',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(minutes=26)
+    'ttl': timedelta(minutes=26),
+    'cards': ['erzs']
 }

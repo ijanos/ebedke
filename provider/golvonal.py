@@ -20,5 +20,6 @@ menu = {
     'name': 'Gólvonal',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(hours=1)
+    'ttl': timedelta(hours=1),
+    'cards': ['bank']
 }

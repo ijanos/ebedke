@@ -47,5 +47,6 @@ menu = {
     'name': 'Kerova',
     'url': FB_PAGE,
     'get': get_menu,
-    'ttl': timedelta(hours=23)
+    'ttl': timedelta(hours=23),
+    'cards': []
 }

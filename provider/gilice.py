@@ -28,5 +28,6 @@ menu = {
     'name': 'Gólya',
     'url': FB_PAGE,
     'get': get_menu,
-    'ttl': timedelta(hours=10)
+    'ttl': timedelta(hours=18),
+    'cards': ['bank', 'szep']
 }

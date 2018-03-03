@@ -21,5 +21,6 @@ menu = {
     'name': 'Manga',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(hours=8)
+    'ttl': timedelta(hours=8),
+    'cards': ['bank', 'szep', 'erzs']
 }

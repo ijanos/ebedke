@@ -42,5 +42,6 @@ menu = {
     'name': 'CBA Corvin',
     'url': FB_PAGE,
     'get': get_menu,
-    'ttl': timedelta(hours=24)
+    'ttl': timedelta(hours=24),
+    'cards': ['bank', 'szep', 'erzs']
 }
