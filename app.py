@@ -92,7 +92,8 @@ def load_menus(today):
 
     return [{"name": provider.menu['name'],
              "url": provider.menu['url'],
-             "menu": menu.result() if isinstance(menu, Future) else menu
+             "menu": menu.result() if isinstance(menu, Future) else menu,
+             "cards": provider.menu.get('cards', [])
             } for provider, menu in menus]
 
 @app.route('/')
