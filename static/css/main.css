@@ -103,3 +103,16 @@ footer > div {
 footer > div > a {
   margin-left: 10px;
 }
+
+div.infobox {
+  display: flex;
+  align-items: center;
+  background: #FFFFE0;
+  padding: 0.2em;
+  border-radius: 6px;
+  margin-bottom: 0.1em;
+}
+
+div.infobox > span {
+  padding-left: 0.5em;
+}

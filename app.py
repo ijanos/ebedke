@@ -103,7 +103,7 @@ def root():
         'day': days_lower[today.weekday()],
         'date': today.strftime("%Y. %m. %d.")
     }
-    return render_template("index.html", menus=load_menus(today), date=date)
+    return render_template("index.html", menus=load_menus(today), date=date, infobox=config.INFOBOX)
 
 @app.route('/menu')
 def dailymenu():
