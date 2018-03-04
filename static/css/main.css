@@ -26,9 +26,6 @@ section > header::before {
   margin-left: 10px;
 }
 
-span {
-  order: 2;
-}
 
 a {
   color: #2c4786;
@@ -47,6 +44,7 @@ h2 {
 .close {
   cursor: pointer;
   color: #999;
+  order: 2;
 }
 
 h1 {
@@ -56,11 +54,31 @@ h1 {
 
 body > header {
   display: flex;
-  padding: 0.2em;
   border-radius: 5px;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.4em;
+}
+
+span.card {
+  font-size: 0.4em;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 1px;
+  margin-left: 3px;
+  border-radius: 3px;
+}
+
+span.card.szep {
+  background-color: #1c4028;
+}
+
+span.card.bank {
+  background-color: darkgrey;
+}
+
+span.card.erzs {
+  background-color: #ed642e;
 }
 
 header > a {
@@ -69,7 +87,6 @@ header > a {
 
 section > header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
