@@ -60,8 +60,8 @@ body > header {
   margin-bottom: 0.4em;
 }
 
-span.card {
-  font-size: 0.4em;
+.card {
+  font-size: 0.6em;
   color: #fff;
   text-transform: uppercase;
   padding: 1px;
