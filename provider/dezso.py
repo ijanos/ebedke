@@ -1,4 +1,3 @@
-from datetime import datetime as dt
 from datetime import timedelta
 from provider.utils import get_dom, on_workdays
 
@@ -9,7 +8,10 @@ def getMenu(today):
     day = today.weekday()
     dom = get_dom(URL)
     menu = dom.xpath('/html/body//div[@class="sppb-menu-text"]')
-    menu = '<br>'.join(menu[day].xpath("text()"))
+    if len(menu) < 4:
+        menu = ''
+    else:
+        menu = '<br>'.join(menu[day].xpath("text()"))
 
     return menu
 
