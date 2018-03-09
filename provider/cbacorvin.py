@@ -11,7 +11,7 @@ FB_ID = "515236985157143"
 
 @on_workdays
 def get_menu(today):
-    is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
+    is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() >= today.date() - timedelta(days=7)
     menu_filter = lambda post: is_this_week(post['created_time']) and "heti menü" in post['message'].lower()
     image = get_fb_post_attached_image(FB_ID, menu_filter)
     if image:
