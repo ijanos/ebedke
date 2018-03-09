@@ -12,7 +12,7 @@ from requests.exceptions import Timeout
 from provider.utils import days_lower, normalize_menu
 from provider import (kompot, bridges, tenminutes, opus, burgerking, subway,
                       dezso, manga, intenzo, golvonal, gilice, veranda, portum,
-                      muzikum, amici, foodie, emi, stex, kerova, cbacorvin, dagoba)
+                      muzikum, amici, foodie, emi, stex, kerova, cbacorvin, dagoba, greenhouse)
 
 import config
 
@@ -25,6 +25,7 @@ MENU_ORDER = [
     amici,
     kerova,
     dagoba,
+    greenhouse,
     cbacorvin,
     veranda,
     portum,
