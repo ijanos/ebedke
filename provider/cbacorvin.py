@@ -30,7 +30,7 @@ def get_menu(today):
         menu = islice(dropwhile(lambda l: remove_accents(days_lower[day]) not in remove_accents(l.lower()), menu), 1, None)
         menu = takewhile(lambda l: not any(word in l.lower() for word in days_lower), menu)
         skip_words = ["menu", "menü", "fitnesz"] + days_lower
-        menu = list(map(lambda l: l.replace("|", ""), filter(lambda l: not any(word in l.lower() for word in skip_words), menu)))
+        menu = list(map(lambda l: l.replace("|", "").strip(), filter(lambda l: not any(word in l.lower() for word in skip_words), menu)))
         menu = sorted(set(menu), key=menu.index)
         menu = "<br>".join(menu)
         return menu
