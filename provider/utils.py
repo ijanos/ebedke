@@ -51,8 +51,10 @@ def http_get(url, params=None):
 
     return response
 
-def get_dom(url):
+def get_dom(url, force_utf8=False):
     response = http_get(url)
+    if force_utf8:
+        response.encoding = 'utf-8'
     return html.fromstring(response.text)
 
 def get_fresh_image(url, fresh_date):
