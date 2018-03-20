@@ -14,7 +14,7 @@ def getMenu(today):
     menu = get_filtered_fb_post(FB_ID, menu_filter)
     menu = dropwhile(lambda line: days_lower[day] not in line.lower(), skip_empty_lines(menu.splitlines()))
     menu = islice(menu, 1, 4)
-    menu = '<br>'.join(menu)
+    menu = '<br>'.join(menu).replace("�", "")
 
     return menu
 
