@@ -22,6 +22,7 @@ HEADERS = {
 }
 
 days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat", "vasárnap"]
+days_lower_ascii = ["hetfo", "kedd", "szerda", "csutortok", "pentek", "szombat", "vasarnap"]
 
 DEBUG_CACHE = None
 
@@ -181,14 +182,14 @@ def on_workdays(func):
             return func(*args, **kwargs)
     return wrapper
 
-def pattern_slice(iterator, start_patterns, end_patterns, inclusive=False):
+def pattern_slice(iterator, start_patterns, end_patterns, inclusive=False, modifier=str.lower):
     drop = True
     for i in iterator:
-        if drop and any(p in i.lower() for p in start_patterns):
+        if drop and any(p in modifier(i) for p in start_patterns):
             drop = False
             if inclusive:
                 yield i
-        elif not drop and any(p in i.lower() for p in end_patterns):
+        elif not drop and any(p in modifier(i) for p in end_patterns):
             drop = True
         elif not drop:
             yield i
