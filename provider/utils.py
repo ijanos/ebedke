@@ -4,6 +4,7 @@ from datetime import datetime
 from functools import partial
 import operator
 import pickle
+import unicodedata
 
 import requests
 from lxml import html
@@ -193,3 +194,7 @@ def pattern_slice(iterator, start_patterns, end_patterns, inclusive=False, modif
             drop = True
         elif not drop:
             yield i
+
+def remove_accents(text):
+    nfkd = unicodedata.normalize('NFKD', text)
+    return "".join(c for c in nfkd if not unicodedata.combining(c))
