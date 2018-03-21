@@ -7,6 +7,7 @@ PQS_MENU = "http://pqs.hu/hu/etlapok?e=56"
 def getMenu(today):
     today = today.strftime("%Y-%m-%d")
     dom = get_dom(PQS_MENU)
+    column = 0
     for i, th in enumerate(dom.xpath('//table[@id="menu"]/thead//th')):
         text = ''.join(th.xpath('text()'))
         if today in text:
