@@ -4,16 +4,12 @@ from concurrent.futures import ThreadPoolExecutor, Future
 from time import sleep, perf_counter
 import sys
 
-
 import redis
 from flask import Flask, jsonify, render_template
 from requests.exceptions import Timeout
 
 from provider.utils import days_lower, normalize_menu
-from provider import (kompot, bridges, tenminutes, opus, burgerking, subway, pqs, joasszony,
-                      dezso, manga, intenzo, golvonal, gilice, veranda, portum,
-                      muzikum, amici, foodie, emi, stex, kerova, cbacorvin, dagoba, greenhouse)
-
+from provider import *
 import config
 
 MENU_ORDER = [
