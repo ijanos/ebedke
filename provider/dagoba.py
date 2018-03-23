@@ -10,9 +10,13 @@ def get_menu(today):
     is_today = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() == today.date()
     many_colons = lambda msg: msg.count(':') > 4
     menu_filter = lambda post: is_today(post['created_time']) and many_colons(post['message'])
-    menu = get_filtered_fb_post(FB_ID, menu_filter)
-    drop = lambda l: not l.strip().endswith((':', '!', '.', ','))
-    menu = '<br>'.join(skip_empty_lines((filter(drop, menu.splitlines()))))
+    menu = get_filtered_fb_post(FB_ID, menu_filter).splitlines()
+    drop = lambda l: l.strip().endswith((':', '!', '.', ','))
+    if drop(menu[0]):
+        menu.pop(0)
+    if drop(menu[-1]):
+        menu.pop()
+    menu = '<br>'.join(skip_empty_lines(menu))
     return menu
 
 menu = {
