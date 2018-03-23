@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from io import BytesIO
 from itertools import dropwhile, takewhile
 from PIL import Image
-from provider.utils import get_fb_post_attached_image, get_filtered_fb_post, on_workdays, ocr_image, days_lower_ascii, pattern_slice, remove_accents
+from provider.utils import get_fb_post_attached_image, get_filtered_fb_post, on_workdays, ocr_image, days_lower_ascii, pattern_slice, remove_accents, skip_empty_lines
 
 
 FB_PAGE = "https://www.facebook.com/pg/kerovaetelbar/posts/"
@@ -17,9 +17,8 @@ def get_menu(today):
     menu = get_filtered_fb_post(FB_ID, menu_filter)
     m = lambda p: remove_accents(p.lower())
     menu = pattern_slice(menu.splitlines(), [days_lower_ascii[today.weekday()]], days_lower_ascii, inclusive=True, modifier=m)
-    menu = ' '.join(menu)
-    if ':' in menu:
-        menu = menu.split(':')[1].strip()
+    menu = skip_empty_lines([m.split(':')[-1].strip() for m in menu])
+    menu = '<br>'.join(menu)
     return menu
 
 menu = {
