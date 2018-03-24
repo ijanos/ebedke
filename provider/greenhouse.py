@@ -19,5 +19,5 @@ menu = {
     'url': FB_PAGE,
     'get': get_menu,
     'ttl': timedelta(hours=23),
-    'cards': ['bank']
+    'cards': []
 }

@@ -41,5 +41,5 @@ menu = {
     'url' : URL_ROOT + MENU_SUFFIX,
     'get': get_menu,
     'ttl': timedelta(hours=23),
-    'cards': ['bank', 'szep', 'erzs']
+    'cards': ['szep', 'erzs']
 }

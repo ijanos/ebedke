@@ -21,5 +21,5 @@ menu = {
     'url': URL,
     'get': getMenu,
     'ttl': timedelta(hours=1),
-    'cards': ['bank']
+    'cards': []
 }
