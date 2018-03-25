@@ -15,8 +15,8 @@
 
 <body>
   <header>
-    <div><h1>{{ date.day }}</h1><span>{{ date.date }}</span></div>
-    <a href="/">Mutass mindent</a>
+    <div><h1>{{ date.day }}</h1><span>{{ date.date | replace(' ', '&nbsp;') | safe }}</span></div>
+    <a href="/">Mutass&nbsp;mindent</a>
   </header>
   {% if infobox -%}
   <div class="infobox">
