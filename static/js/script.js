@@ -1,6 +1,6 @@
 function remove_hidden() {
   const hidden = new Set(decodeURIComponent(window.location.hash || '=').split('=')[1].split(';'));
-  const sections = document.querySelectorAll(".menu > section");
+  const sections = document.querySelectorAll("main > section");
   sections.forEach(function(section) {
     if (hidden.has(section.querySelector("span.close").dataset.name)) {
       section.remove();
