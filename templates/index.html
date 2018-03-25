@@ -15,29 +15,29 @@
 
 <body>
   <header>
-    <div><h1>{{ date.day }}</h1><span>{{ date.date | replace(' ', '&nbsp;') | safe }}</span></div>
+    <span>{{ date.day }} ({{ date.date | replace(' ', '&nbsp;') | safe }})</span>
     <a href="/">Mutass&nbsp;mindent</a>
   </header>
   {% if infobox -%}
   <div class="infobox">
     <span>ℹ️</span><span>{{ infobox }}</span></div>
   {%- endif %}
-  <div class="menu">
+  <main>
     {%- for menu in menus %}
       <section>
         <header>
-          <h2><span translate="no"><a href="{{ menu.url }}">{{ menu.name }}</a></span></h2>
+          <p><span translate="no"><a href="{{ menu.url }}">{{ menu.name }}</a></span></p>
           {%- for card in menu.cards -%}
           <span class="card {{ card }}">{{ card }}</span>
           {%- endfor -%}
           <span class="close" data-name="{{ menu.name }}">✕</span>
         </header>
-        {% if menu.menu -%}
+        {%- if menu.menu -%}
           <p>{{ menu.menu | safe }}</p>
         {%- endif %}
       </section>
     {%- endfor -%}
-  </div>
+  </main>
   <footer>
     <div>
       A weboldal automatikusan gyűjti össze a menüket az éttermek

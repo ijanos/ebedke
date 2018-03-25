@@ -10,7 +10,7 @@ body {
   color: #2c4786;
 }
 
-.menu {
+main {
   background: #fefefe;
   border-radius: 5px;
   padding: 0.4em;
@@ -36,8 +36,9 @@ a:hover {
   text-decoration: underline;
 }
 
-h2 {
+section header p {
   margin: 0;
+  font-weight: bolder;
   font-size: 1.1em;
 }
 
@@ -47,8 +48,9 @@ h2 {
   order: 2;
 }
 
-h1 {
+body > header > span {
   margin: 0;
+  font-weight: bolder;
   font-size: 1.3em;
 }
 
