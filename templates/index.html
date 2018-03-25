@@ -32,7 +32,9 @@
           {%- endfor -%}
           <span class="close" data-name="{{ menu.name }}">✕</span>
         </header>
-        <p>{{ menu.menu | safe }}</p>
+        {% if menu.menu -%}
+          <p>{{ menu.menu | safe }}</p>
+        {%- endif %}
       </section>
     {%- endfor -%}
   </div>
