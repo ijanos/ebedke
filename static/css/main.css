@@ -73,10 +73,6 @@ span.card.szep {
   background-color: #1c4028;
 }
 
-span.card.bank {
-  background-color: darkgrey;
-}
-
 span.card.erzs {
   background-color: #ed642e;
 }
@@ -93,13 +89,6 @@ section > header {
 p {
   margin: 0;
   margin-left: 0.4em;
-}
-
-.loading {
-  display: flex;
-  justify-content: center;
-  font-size: 1.2em;
-  margin: 2em;
 }
 
 footer {
