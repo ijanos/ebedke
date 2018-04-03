@@ -15,9 +15,10 @@ def get_menu(today):
     contains_days = lambda post: sum(day in post for day in days_lower_ascii) > 2
     menu_filter = lambda post: is_this_week(post['created_time']) and contains_days(remove_accents(post['message'].lower()))
     menu = get_filtered_fb_post(FB_ID, menu_filter)
+    menu = menu.replace(':', '\n')
     m = lambda p: remove_accents(p.lower())
-    menu = pattern_slice(menu.splitlines(), [days_lower_ascii[today.weekday()]], days_lower_ascii, inclusive=True, modifier=m)
-    menu = skip_empty_lines([m.split(':')[-1].strip() for m in menu])
+    menu = pattern_slice(menu.splitlines(), [days_lower_ascii[today.weekday()]], days_lower_ascii, inclusive=False, modifier=m)
+    menu = skip_empty_lines(menu)
     menu = '<br>'.join(menu)
     return menu
 
