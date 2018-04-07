@@ -12,7 +12,7 @@ def get_menu(today):
     menu_filter = lambda post: is_today(post['created_time']) and many_colons(post['message'])
     menu = get_filtered_fb_post(FB_ID, menu_filter).splitlines()
     drop = lambda l: l.strip().endswith((':', '!', '.', ','))
-    for i in (n for n in (0, -1) if drop(menu[n])):
+    for i in (n for n in (0, -1) if menu and drop(menu[n])):
         menu.pop(i)
     menu = '<br>'.join(skip_empty_lines(menu))
     return menu
