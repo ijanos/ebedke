@@ -8,11 +8,10 @@ FB_ID = "728866253985071"
 @on_workdays
 def getMenu(today):
     is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
-    menu_filter = lambda post: is_this_week(post['created_time']) and "főételek" in post['message'].lower()
+    menu_filter = lambda post: is_this_week(post['created_time']) and "business lunch" in post['message'].lower()
     menu = get_filtered_fb_post(FB_ID, menu_filter)
-    if "Előételek:" in menu:
-        menu = menu.split("Előételek:")[1].strip()
-    menu = '<br>'.join(i for i in menu.splitlines() if i)
+    menu = [line for line in menu.splitlines() if line.strip().startswith('-')]
+    menu = '<br>'.join(menu)
 
     return menu
 
