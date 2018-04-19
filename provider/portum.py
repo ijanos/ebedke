@@ -8,7 +8,8 @@ FB_ID = "728866253985071"
 @on_workdays
 def getMenu(today):
     is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
-    menu_filter = lambda post: is_this_week(post['created_time']) and "business lunch" in post['message'].lower()
+    many_colons = lambda msg: msg.count(':') > 4
+    menu_filter = lambda post: is_this_week(post['created_time']) and many_colons(post['message'])
     menu = get_filtered_fb_post(FB_ID, menu_filter)
     menu = [line for line in menu.splitlines() if line.strip().startswith('-')]
     menu = '<br>'.join(menu)
