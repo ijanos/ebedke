@@ -12,8 +12,8 @@ python_version = '3.6'
 
 [packages]
 
-lxml = "~=4.2.0"
-flask = "~=0.12.2"
-pillow = "~=5.0.0"
-requests = "~=2.18.4"
-redis = "~=2.10.6"
+lxml = "*"
+flask = "*"
+pillow = "*"
+requests = "*"
+redis = "*"
