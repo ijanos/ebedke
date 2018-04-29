@@ -13,11 +13,10 @@ an HTML page or in JSON format.
 dependencies. A locally installed and running redis server is required at the
 moment.
 
-First install the dependencies. The `--dev` option will install additional
-dependencies used for debugging.
+First install the dependencies:
 
 ```
-pipenv install --dev
+pipenv sync
 ```
 
 Copy `config.py.example` as `config.py` and set the values. A [Facebook app
