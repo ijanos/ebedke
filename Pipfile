@@ -1,19 +1,15 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [requires]
-
 python_version = '3.6'
 
-
 [packages]
+lxml = "==4.2.*"
+flask = "==0.12.*"
+pillow = "==5.1.*"
+requests = "==2.18.*"
+redis = "==2.10.*"
 
-lxml = "*"
-flask = "*"
-pillow = "*"
-requests = "*"
-redis = "*"
