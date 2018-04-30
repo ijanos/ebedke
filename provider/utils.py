@@ -60,11 +60,14 @@ def get_dom(url, force_utf8=False):
     return html.fromstring(response.text)
 
 def get_fresh_image(url, fresh_date):
-    resp = requests.head(url, timeout=config.REQUEST_TIMEOUT)
-    lastmod = resp.headers['last-modified']
+    response = http_get(url)
+    lastmod = response.headers.get('last-modified')
+    if not lastmod:
+        print("[ebedke] image is missing last-modified header")
+        return None
     lastmod = datetime.strptime(lastmod, '%a, %d %b %Y %H:%M:%S %Z').date()
     if lastmod >= fresh_date:
-        return http_get(url).content
+        return response.content
     else:
         return None
 
