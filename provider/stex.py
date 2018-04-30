@@ -7,6 +7,9 @@ from provider.utils import get_dom, get_fresh_image, ocr_image, skip_empty_lines
 URL_ROOT = "http://stexhaz.hu"
 MENU_SUFFIX = "/napimenu"
 
+# NOTE: stexhaz.hu will check your user agent and it may redirect if it thinks
+# you are not using a proper browser.
+
 @on_workdays
 def get_menu(today):
     dom = get_dom(URL_ROOT + MENU_SUFFIX)
