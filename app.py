@@ -13,7 +13,6 @@ from provider import *
 import config
 
 MENU_ORDER = [
-    bridges,
     kompot,
     gilice,
     pqs,
