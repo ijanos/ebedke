@@ -24,6 +24,7 @@ HEADERS = {
 
 days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat", "vasárnap"]
 days_lower_ascii = ["hetfo", "kedd", "szerda", "csutortok", "pentek", "szombat", "vasarnap"]
+days_upper = [day.upper() for day in days_lower]
 
 DEBUG_CACHE = None
 

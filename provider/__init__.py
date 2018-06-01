@@ -23,5 +23,6 @@ __all__ = [
     "muzikum",
     "burgerking",
     "tacsko",
+    "input",
     "subway"
 ]

@@ -30,6 +30,7 @@ MENU_ORDER = [
     foodie,
     emi,
     stex,
+    input,
     golvonal,
     opus,
     manga,
