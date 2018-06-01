@@ -22,5 +22,6 @@ __all__ = [
     "intenzo",
     "muzikum",
     "burgerking",
+    "tacsko",
     "subway"
 ]

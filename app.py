@@ -23,6 +23,7 @@ MENU_ORDER = [
     dagoba,
     greenhouse,
     joasszony,
+    tacsko,
     cbacorvin,
     veranda,
     portum,
