@@ -32,6 +32,7 @@ MENU_ORDER = [
     stex,
     input,
     golvonal,
+    zappa,
     opus,
     manga,
     intenzo,
