@@ -67,8 +67,6 @@ def get_fresh_image(url, fresh_date):
         print("[ebedke] image is missing last-modified header")
         return None
     lastmod = datetime.strptime(lastmod, '%a, %d %b %Y %H:%M:%S %Z')
-    print(url)
-    print("lastmod:", lastmod, "\n:fresh:", fresh_date)
     if lastmod >= fresh_date:
         return response.content
     else:
