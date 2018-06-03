@@ -10,7 +10,12 @@ IMG_PATH = "images/home_1_06.png"
 @on_workdays
 def getMenu(today):
     menu = ""
-    image = get_fresh_image(URL + IMG_PATH, today.date())
+    if today.weekday() == 0: # Monday
+        yesterday = today - timedelta(days=3)
+    else:
+        yesterday = today - timedelta(days=1)
+    yesterday = yesterday.replace(hour=13, minute=0)
+    image = get_fresh_image(URL + IMG_PATH, yesterday)
     if image:
         image = Image.open(BytesIO(image))
 

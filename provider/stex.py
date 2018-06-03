@@ -17,7 +17,7 @@ def get_menu(today):
     menu_url = URL_ROOT + menu_url
 
     date_limit = today - timedelta(days=6)
-    image = get_fresh_image(menu_url, date_limit.date())
+    image = get_fresh_image(menu_url, date_limit)
     if not image:
         return ""
 
