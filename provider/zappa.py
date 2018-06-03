@@ -22,5 +22,5 @@ menu = {
     'url': FB_PAGE,
     'get': getMenu,
     'ttl': timedelta(hours=23),
-    'cards': []
+    'cards': ["erzs"]
 }
