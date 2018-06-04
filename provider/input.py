@@ -18,6 +18,6 @@ menu = {
     'name': 'Input bar',
     'url': URL,
     'get': get_menu,
-    'ttl': timedelta(hours=23),
+    'ttl': timedelta(minutes=40),
     'cards': ["szep"]
 }
