@@ -19,8 +19,10 @@ def get_menu(today):
         menu = islice(dropwhile(lambda l: days_lower[day] not in l, menu), 1, None)
         menu = takewhile(lambda l: not any(day in l for day in days_lower), menu)
         menu = '<br>'.join(skip_empty_lines(menu))
-    else:
+    elif menu:
         menu = f'<a href="{get_fb_cover_url(FB_ID)}">heti menü</a>'
+    else:
+        menu = ''
 
     return menu
 
