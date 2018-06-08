@@ -36,7 +36,7 @@ def http_get(url, params=None):
     }
     get = partial(requests.get, headers=headers, params=params, timeout=config.REQUEST_TIMEOUT)
 
-    if config.PERSISTENT_CACHE:
+    if config.DEBUG_CACHE_HTTP:
         if not DEBUG_CACHE:
             DEBUG_CACHE = redis.StrictRedis(host=config.REDIS_HOST, port=config.REDIS_PORT, decode_responses=False)
 

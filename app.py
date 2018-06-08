@@ -70,6 +70,8 @@ def menu_loader(menu, today):
                 ttl = min(int(menu['ttl'].total_seconds()), seconds_to_midnight)
             else:
                 ttl = 15 * 60
+            if config.DEBUG_CACHE_HTTP:
+                ttl = 10
             cache.set(menu['name'], daily_menu, ex=ttl)
         else:
             sleep(0.05)

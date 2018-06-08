@@ -7,7 +7,7 @@ OFFSET = None
 # Offset the current date for debug purposes
 # OFFSET = -2
 USER_AGENT = ""
-PERSISTENT_CACHE = False
+DEBUG_CACHE_HTTP = False
 REQUEST_TIMEOUT = 5 # seconds
 REDIS_HOST = "localhost"
 REDIS_PORT = 6379
