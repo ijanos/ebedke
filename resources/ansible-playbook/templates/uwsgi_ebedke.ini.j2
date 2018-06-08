@@ -1,0 +1,12 @@
+[uwsgi]
+plugin = python3
+socket = {{ uwsgi_socket }}
+chdir = {{ app_root }}
+virtualenv = {{ app_env }}
+module = app:app
+chmod-socket = 666
+processes = 4
+enable-threads = True
+log-5xx = true
+thunder-lock = True
+disable-logging = true

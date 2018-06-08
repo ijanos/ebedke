@@ -1,0 +1,20 @@
+server {
+    listen 80;
+    gzip on;
+
+    server_name {{ ebedke_domain }};
+    root {{ static_files }};
+
+    location ~ ^(/|/menu)$ {
+        add_header Cache-Control 'public, max-age=60';
+        add_header Content-Security-Policy "default-src 'self';  img-src 'self' data:";
+        add_header X-XSS-Protection "1; mode=block";
+        include uwsgi_params;
+        uwsgi_buffering off;
+        uwsgi_pass unix:{{ uwsgi_socket }};
+    }
+
+    location / {
+        add_header Cache-Control 'public, max-age=172800';
+    }
+}
