@@ -43,8 +43,7 @@ MENU_ORDER = [
 
 app = Flask(__name__, static_url_path='')
 app.config.update(
-    JSON_AS_ASCII=False,
-    JSONIFY_PRETTYPRINT_REGULAR=False
+    JSON_AS_ASCII=False
 )
 
 cache = redis.StrictRedis(host=config.REDIS_HOST,
