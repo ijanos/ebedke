@@ -9,10 +9,10 @@
     app_group: fedora
     site_root: "/srv/{{ ebedke_domain }}"
     app_root: "{{ site_root}}/app"
+    app_env: "{{ app_root }}/.venv"
     static_files: "{{ app_root }}/static"
     uwsgi_socket_dir: "{{ site_root }}/wsgi"
     uwsgi_socket: "{{ uwsgi_socket_dir }}/socket"
-    app_env: "{{ site_root}}/virtualenv"
 
   tasks:
     - name: set timezone
@@ -40,8 +40,10 @@
 
     - name: install pipenv
       pip:
-        name: pipenv
+        name: "{{ item }}"
         executable: pip3
+      with_items:
+        - pipenv
 
     - name: change ssh port
       lineinfile: dest=/etc/ssh/sshd_config
@@ -67,17 +69,15 @@
         dest: "{{ app_root }}"
         update: no
 
-    - name: create requirements.txt
-      shell: python3 -m pipenv lock --requirements > requirements.txt
+    - name: create the virtual env directory
+      file:
+        path: "{{ app_env }}"
+        state: directory
+
+    - name: create virtual env
+      shell: python3 -m pipenv sync
       args:
         chdir: "{{ app_root }}"
-        creates: requirements.txt
-
-    - name: create virtualenv
-      pip:
-        requirements: "{{ app_root }}/requirements.txt"
-        virtualenv: "{{ app_env }}"
-        virtualenv_command: virtualenv-3
 
     - name: owerwrite default nginx config
       copy:
