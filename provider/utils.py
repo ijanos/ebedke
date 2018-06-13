@@ -132,7 +132,7 @@ def content_size_match(url, excpected_size):
 def skip_empty_lines(text):
     for line in text:
         line = line.strip()
-        if line:
+        if len(line) > 1:
             yield line
 
 def ocr_image(image, langHint="hu"):
