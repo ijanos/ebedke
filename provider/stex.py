@@ -41,6 +41,7 @@ def get_menu(today):
 
 menu = {
     'name': 'Stex',
+    'id': "st",
     'url' : URL_ROOT + MENU_SUFFIX,
     'get': get_menu,
     'ttl': timedelta(hours=23),

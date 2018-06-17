@@ -21,6 +21,7 @@ def getMenu(today):
 
 menu = {
     'name': 'Muzikum',
+    'id': 'mz',
     'url': URL,
     'get': getMenu,
     'ttl': timedelta(hours=23),

@@ -28,6 +28,7 @@ def get_menu(today):
 
 menu = {
     'name': 'Gólya',
+    'id': 'gl',
     'url': FB_PAGE,
     'get': get_menu,
     'ttl': timedelta(hours=18),

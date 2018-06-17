@@ -19,6 +19,7 @@ def getMenu(today):
 
 menu = {
     'name': 'Manga',
+    'id': 'mc',
     'url': URL,
     'get': getMenu,
     'ttl': timedelta(hours=8),

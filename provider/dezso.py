@@ -17,6 +17,7 @@ def getMenu(today):
 
 menu = {
     'name': 'Dezső bá',
+    'id': 'db',
     'url': URL,
     'get': getMenu,
     'ttl': timedelta(minutes=26),

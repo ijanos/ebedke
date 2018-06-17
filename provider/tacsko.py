@@ -16,6 +16,7 @@ def get_menu(today):
 
 menu = {
     'name': 'Arany Tacskó bistro',
+    'id': 'tc',
     'url': FB_PAGE,
     'get': get_menu,
     'ttl': timedelta(hours=23),

@@ -18,6 +18,7 @@ def getMenu(today):
 
 menu = {
     'name': 'Gólvonal',
+    'id': 'gv',
     'url': URL,
     'get': getMenu,
     'ttl': timedelta(hours=1),

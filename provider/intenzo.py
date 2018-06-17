@@ -15,6 +15,7 @@ def getMenu(today):
 
 menu = {
     'name': 'Intenzo',
+    'id': 'iz',
     'url': URL,
     'get': getMenu,
     'ttl': timedelta(minutes=45),

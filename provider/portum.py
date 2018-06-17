@@ -18,6 +18,7 @@ def getMenu(today):
 
 menu ={
     'name': 'Portum',
+    'id': 'pt',
     'url': URL,
     'get': getMenu,
     'ttl': timedelta(hours=23),

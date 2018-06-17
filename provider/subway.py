@@ -25,6 +25,7 @@ def getMenu(today):
 
 menu = {
     'name': 'Subway',
+    'id': 'sw',
     'url': URL,
     'get': getMenu,
     'ttl': timedelta(hours=14),

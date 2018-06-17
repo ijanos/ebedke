@@ -40,6 +40,7 @@ def get_menu(today):
 
 menu = {
     'name': 'CBA Corvin',
+    'id': 'cc',
     'url': FB_PAGE,
     'get': get_menu,
     'ttl': timedelta(hours=24),

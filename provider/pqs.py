@@ -25,6 +25,7 @@ def getMenu(today):
 
 menu = {
     'name': 'PQS Skypark',
+    'id': 'pq',
     'url': PQS_MENU,
     'get': getMenu,
     'ttl': timedelta(hours=6),

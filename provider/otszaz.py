@@ -90,6 +90,7 @@ def getMenu(today):
 
     return {
         'name': '500 szempár',
+        'id': 'ot',
         'url': FB_PAGE,
         'menu': menu
     }

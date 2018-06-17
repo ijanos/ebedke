@@ -16,6 +16,7 @@ def get_menu(today):
 
 menu = {
     'name': 'Input bar',
+    'id': 'ib',
     'url': URL,
     'get': get_menu,
     'ttl': timedelta(minutes=40),

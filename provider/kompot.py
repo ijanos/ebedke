@@ -37,6 +37,7 @@ def getMenu(today):
 
 menu = {
     'name': 'Kompót',
+    'id': 'kp',
     'url': FB_PAGE,
     'get': getMenu,
     'ttl': timedelta(hours=10),

@@ -13,6 +13,7 @@ def getMenu(_):
 
 menu =  {
     'name': 'Emi kifőzte',
+    'id': 'ek',
     'url': URL,
     'get': getMenu,
     'ttl': timedelta(minutes=25),

@@ -16,6 +16,7 @@ def get_menu(today):
 
 menu = {
     'name': 'Green House Grill',
+    'id': 'gh',
     'url': FB_PAGE,
     'get': get_menu,
     'ttl': timedelta(hours=23),
