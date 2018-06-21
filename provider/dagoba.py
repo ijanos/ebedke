@@ -8,7 +8,7 @@ FB_ID = "1742309292469507"
 @on_workdays
 def get_menu(today):
     is_today = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() == today.date()
-    many_colons = lambda msg: msg.count(':') > 4
+    many_colons = lambda msg: msg.count(':') >= 3
     menu_filter = lambda post: is_today(post['created_time']) and many_colons(post['message'])
     menu = get_filtered_fb_post(FB_ID, menu_filter).splitlines()
     drop = lambda l: l.strip().endswith((':', '!', '.', ','))
