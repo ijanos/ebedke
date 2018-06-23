@@ -14,7 +14,7 @@ import config
 
 
 FB_TOKEN = urlencode({"access_token": config.FB_ACCESS_TOKEN})
-FB_API_ROOT = "https://graph.facebook.com/v2.11"
+FB_API_ROOT = "https://graph.facebook.com/v3.0"
 VISION_API_ROOT = "https://vision.googleapis.com/v1/images:annotate"
 
 
