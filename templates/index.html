@@ -31,10 +31,10 @@
         <span class="card {{ card }}">{{ card }}</span>
         {%- endfor -%}
         <span class="close" data-name="{{ menu.name }}">✕</span>
-        <span class="controls" hidden>
+        <span class="controls" hidden><div>
           <button class="up">▲</button><button class="down">▼️</button>
           <input type="checkbox" checked>
-        </span>
+        </div></span>
       </header>
       {%- if menu.menu -%}
       <p>{{ menu.menu | safe }}</p>
