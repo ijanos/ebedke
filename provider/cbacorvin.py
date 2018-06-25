@@ -17,7 +17,7 @@ def get_menu(today):
     if image:
         image = Image.open(BytesIO(image)).convert('L')
         width, height = image.size
-        cropbox = (0, round(height * 0.21), width, height - round(height * 0.14))
+        cropbox = (0, round(height * 0.15), width, height - round(height * 0.14))
         image = image.crop(cropbox)
 
         f = BytesIO()
