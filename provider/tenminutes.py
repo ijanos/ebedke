@@ -14,7 +14,7 @@ def getMenu(today):
         yesterday = today - timedelta(days=3)
     else:
         yesterday = today - timedelta(days=1)
-    yesterday = yesterday.replace(hour=13, minute=0)
+    yesterday = yesterday.replace(hour=12, minute=25)
     image = get_fresh_image(URL + IMG_PATH, yesterday)
     if image:
         image = Image.open(BytesIO(image))
