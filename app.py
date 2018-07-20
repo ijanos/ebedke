@@ -37,7 +37,6 @@ MENU_ORDER = [
     manga,
     intenzo,
     muzikum,
-    burgerking,
     subway
 ]
 
