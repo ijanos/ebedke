@@ -125,9 +125,9 @@ def get_fb_cover_url(page_id):
     cover_url = response.json()['cover']['source']
     return cover_url
 
-def content_size_match(url, excpected_size):
+def content_size_match(url, expected_size):
     response = requests.head(url)
-    return response.headers['content-length'] == excpected_size
+    return response.headers['content-length'] == expected_size
 
 def skip_empty_lines(text):
     for line in text:
