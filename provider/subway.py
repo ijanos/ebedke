@@ -3,7 +3,7 @@ from provider.utils import content_size_match
 
 URL = "http://www.subwayhungary.com/hu/page_menu_SOTD.html"
 IMAGE_URL = "https://www.subwayhungary.com/images/menu/WEB_NYITO_SOTD_644x360.jpg"
-EXPECTED_CONTENT_LENGTH = "1511684"
+EXPECTED_CONTENT_LENGTH = "867263"
 
 foodMap = {
     0: "Csirke", # monday
