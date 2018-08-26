@@ -16,7 +16,10 @@
 <body>
   <header>
     <span>{{ date.day }} ({{ date.date | replace(' ', '&nbsp;') | safe }})</span>
-    <a href="/">Mutass&nbsp;mindent</a>
+    <div>
+      <span id="reset" hidden>Alapállapot</span>
+      <span id="settings">Átrendezés</span>
+    </div>
   </header>
   {% if infobox -%}
   <div class="infobox">
@@ -43,15 +46,15 @@
     {%- endfor -%}
   </main>
   <footer>
-    <div>
+    <p>
       A weboldal automatikusan gyűjti össze a menüket az éttermek
       oldaliról. Az ebed.today semmilyen kapcsolatban nem áll az éttermekkel.
-    </div>
-    <div>
-      <a href="https://github.com/ijanos/ebedke">forrás</a>
-      <a href="mailto:feedback@ebed.today">visszajelzés</a>
-    </div>
+    </p>
+    <p>A háttérkép CC-BY-SA lincese alatt a <a href="https://www.toptal.com/designers/subtlepatterns/">SubltePatterns</a> oldalról származik.</p>
+    <p> <a href="mailto:feedback@ebed.today">visszajelzés küldése</a> </p>
+    <p> <a href="https://github.com/ijanos/ebedke">forráskód</a> </p>
   </footer>
+  <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/script.js"></script>
 </body>
 
