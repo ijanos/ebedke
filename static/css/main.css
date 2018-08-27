@@ -54,6 +54,10 @@ section {
   padding: 0.8em;
   margin-bottom: 2px;
   border: 1px dashed #eee ;
+	-webkit-transition: all 2s ease;
+	-moz-transition: all 2s ease;
+	-o-transition: all 2s ease;
+	transition: all 2s ease;
 }
 
 section:hover {
@@ -117,4 +121,8 @@ footer {
 
 .erzs {
   background-color: rgba(237, 100, 46, 0.7);
+}
+
+section.fade {
+  background: yellow;
 }

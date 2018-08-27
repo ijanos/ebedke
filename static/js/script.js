@@ -69,22 +69,17 @@ $("#settings").click(function(){
 
 $("section .controls button").click(function(){
   const item = $(this).parents("section");
-  const animtime = 180;
   if (this.className == "up") {
-    item.prev().slideUp(animtime);
-    item.slideUp(animtime, function() {
-    item.insertBefore(item.prev());
-      item.slideDown(animtime);
-      item.next().slideDown(animtime);
-      save_state();
-    });
+    item.insertBefore(item.prev()).addClass("fade");
+    window.setTimeout(function() {
+      item.removeClass('fade');
+    }, 90);
+    //});
   } else {
-    item.next().slideUp(animtime);
-    item.slideUp(animtime, function() {
-    item.insertAfter(item.next());
-      item.slideDown(animtime);
-      item.prev().slideDown(animtime);
-      save_state();
-    });
+    item.insertAfter(item.next()).addClass("fade");
+    window.setTimeout(function() {
+      item.removeClass('fade');
+    }, 90);
   };
+  save_state();
 });
