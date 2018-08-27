@@ -11,9 +11,9 @@ function loadstate(cookie) {
     element_map.set(id, $(this).detach());
   });
 
-  settings.split(SEPARATOR).forEach(i => {
-    const id = i.slice(0,2);
-    const enabled = i.slice(-1) == '1';
+  $.each(settings.split(SEPARATOR), function(idx, item) {
+    const id = item.slice(0,2);
+    const enabled = item.slice(-1) == '1';
     var element;
     if (element_map.has(id)) {
       element = element_map.get(id);
