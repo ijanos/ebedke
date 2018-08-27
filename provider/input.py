@@ -3,7 +3,7 @@ from provider.utils import get_dom, on_workdays, days_upper
 
 FB_PAGE = "https://www.facebook.com/inputbistro/posts"
 FB_ID = "339892963137631"
-URL = "https://www.input.hu"
+URL = "https://www.input.hu/#service-section"
 
 @on_workdays
 def get_menu(today):
