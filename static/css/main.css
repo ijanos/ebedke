@@ -99,6 +99,7 @@ footer {
   display: flex;
   flex-flow: column;
   align-items: center;
+  text-align: center;
   justify-self: flex-end;
   margin-top: 4em;
   line-height: 1.4em;
