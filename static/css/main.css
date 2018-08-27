@@ -68,17 +68,12 @@ section header {
   color: #336b87;
 }
 
-.controls {
+.controls.buttons {
   margin-left: auto;
 }
 
-.controls div {
-  display: flex;
-  align-items: center;
-}
-
 .controls input {
-  margin: 4px;
+  margin: 3px;
 }
 
 a {
