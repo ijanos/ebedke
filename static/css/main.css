@@ -106,6 +106,7 @@ footer {
 
 .card {
   font-size: 0.8rem;
+  padding: 2px;
   line-height: 1.1;
   color: rgba(255, 255, 255, 0.65);
   font-weight: bold;
