@@ -53,11 +53,11 @@ section {
   background: #fefefe;
   padding: 0.8em;
   margin-bottom: 2px;
-  border: 1px dashed rgb(0, 0, 0, .1);
+  border: 1px dashed #eee ;
 }
 
 section:hover {
-  border: 1px solid rgb(0, 0, 0, .1);
+  border: 1px solid #eee;
 }
 
 section header {
