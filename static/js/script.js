@@ -60,10 +60,14 @@ $("#settings").click(function(){
   SHOW_SETTINGS = !SHOW_SETTINGS;
   if (SHOW_SETTINGS) {
     $("section").slideDown(350);
-    $(".controls").fadeIn(350);
+    $(".right-controls").fadeIn(350);
+    $("section a").hide();
+    $(".left-controls").show()
   } else {
+    $(".left-controls").hide();
+    $("section a").show();
     $("section").has("input[type='checkbox']:not(:checked)").slideUp(350);
-    $(".controls").fadeOut(350);
+    $(".right-controls").fadeOut(350);
   };
 });
 

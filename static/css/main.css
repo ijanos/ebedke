@@ -68,17 +68,18 @@ section:hover {
 
 section header {
   display: flex;
+  font-weight: bold;
   align-items: center;
   font-size: 1.2em;
   padding-bottom: 0.2em;
   color: #336b87;
 }
 
-.controls.buttons {
+.right-controls {
   margin-left: auto;
 }
 
-.controls input {
+.left-controls input {
   margin: 3px;
 }
 

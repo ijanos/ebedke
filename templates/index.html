@@ -29,12 +29,15 @@
     {%- for menu in menus %}
     <section data-id="{{ menu.id }}">
       <header>
-        <span class="controls" hidden><input class="enabled" type="checkbox" checked></span>
+        <span class="left-controls" hidden>
+          <input id="box{{ menu.id }}"  type="checkbox" checked>
+          <label for="box{{ menu.id }}">{{ menu.name }}</label>
+        </span>
         <span translate="no"><a href="{{ menu.url }}">{{ menu.name }}</a></span>
         {%- for card in menu.cards -%}
         <span class="card {{ card }}">{{ card }}</span>
         {%- endfor -%}
-        <span class="controls buttons" hidden>
+        <span class="right-controls" hidden>
           <button class="up">▲</button><button class="down">▼️</button>
         </span>
       </header>
