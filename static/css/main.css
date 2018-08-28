@@ -36,10 +36,11 @@ body > header {
   cursor: pointer;
 }
 
-#settings:hover {
-  text-decoration: underline;
+@media (hover: hover) {
+  #settings:hover {
+    text-decoration: underline;
+  }
 }
-
 
 main {
   display: flex;
