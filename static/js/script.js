@@ -28,7 +28,7 @@ function loadstate(cookie) {
     element_map.delete(id);
   });
 
-  element_map.forEach((element, id) => {
+  element_map.forEach(function(element, id) {
     main.append(element);
   });
 }
