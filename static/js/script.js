@@ -71,7 +71,7 @@ $("#settings").click(function(){
   };
 });
 
-$("section .controls button").click(function(){
+$("section .right-controls button").click(function(){
   const item = $(this).parents("section");
   if (this.className == "up") {
     item.insertBefore(item.prev()).addClass("fade");
