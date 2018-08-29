@@ -15,6 +15,7 @@ import config
 MENU_ORDER = [
     tenminutes,
     amici,
+    tacsko,
     cbacorvin,
     dagoba,
     dezso,
@@ -35,7 +36,6 @@ MENU_ORDER = [
     pqs,
     stex,
     subway,
-    tacsko,
     veranda,
     zappa
 ]
