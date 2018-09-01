@@ -82,7 +82,6 @@ $("section .right-controls button").click(function(){
     window.setTimeout(function() {
       item.removeClass('fade');
     }, 90);
-    //});
   } else {
     item.insertAfter(item.next()).addClass("fade");
     window.setTimeout(function() {
