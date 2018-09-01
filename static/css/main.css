@@ -56,8 +56,8 @@ section {
   background: #fefefe;
   padding: .8em;
   margin-bottom: 4px;
-	-webkit-transition: background 2s ease;
-	transition: background 2s ease;
+	-webkit-transition: background 1s ease;
+	transition: background 1s ease;
 }
 
 section header {

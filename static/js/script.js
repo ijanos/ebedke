@@ -77,16 +77,27 @@ $("#settings").click(function(){
 
 $("section .right-controls button").click(function(){
   const item = $(this).parents("section");
+  const fadeintime = 630;
+  const fadeouttime = 450;
+
   if (this.className == "up") {
-    item.insertBefore(item.prev()).addClass("fade");
-    window.setTimeout(function() {
-      item.removeClass('fade');
-    }, 90);
+    if (item.prev().length == 0) {
+      return;
+    }
+    item.fadeOut(fadeouttime, function() {
+      item.insertBefore(item.prev()).addClass("fade").fadeIn(fadeintime, function(){
+        item.removeClass('fade');
+      });
+    });
   } else {
-    item.insertAfter(item.next()).addClass("fade");
-    window.setTimeout(function() {
-      item.removeClass('fade');
-    }, 90);
+    if (item.next().length == 0) {
+      return;
+    }
+    item.fadeOut(fadeouttime, function() {
+      item.insertAfter(item.next()).addClass("fade").fadeIn(fadeintime, function(){
+        item.removeClass('fade');
+      });
+    });
   };
   save_state();
 });
