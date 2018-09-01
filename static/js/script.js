@@ -63,11 +63,15 @@ $("#settings").click(function(){
     $(".right-controls").fadeIn(350);
     $("section a").hide();
     $(".left-controls").show()
+    $("#reset").fadeIn(450);
+    $("#settings").addClass("settings-active");
   } else {
     $(".left-controls").hide();
     $("section a").show();
     $("section").has("input[type='checkbox']:not(:checked)").slideUp(350);
     $(".right-controls").fadeOut(350);
+    $("#reset").fadeOut(450);
+    $("#settings").removeClass("settings-active");
   };
 });
 
@@ -86,4 +90,9 @@ $("section .right-controls button").click(function(){
     }, 90);
   };
   save_state();
+});
+
+$("#reset").click(function(){
+  document.cookie = 'settings=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  location.reload();
 });

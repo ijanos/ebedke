@@ -93,6 +93,23 @@ a:hover {
   text-decoration: underline;
 }
 
+header div {
+  display: flex;
+  align-items: center;
+}
+
+#reset{
+  cursor: pointer;
+  margin-right: 1em;
+  background: rgb(255, 146, 146);
+  font-size: 0.9em;
+  border-radius: 2px;
+}
+
+.settings-active {
+  background-color: rgb(220, 255, 220);
+  border-radius: 3px;
+}
 
 footer {
   background: #e3e3e2;
