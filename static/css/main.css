@@ -1,15 +1,12 @@
-* {
-  margin: 0;
-}
-
 html {
   height: 100%;
 }
 
 body {
   line-height: 1.2;
-  background: steelblue;
-  background: url('../bg.png');
+  margin: 0;
+  background-color: rgb(231, 231, 231);
+  background-image: url('../bg.png');
   background-attachment: fixed;
   min-height: 100%;
   display: flex;
@@ -17,6 +14,10 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Oxygen-Sans,
     "Fira Sans", "Liberation Sans", Roboto, Ubuntu, Cantarell, "Helvetica Neue",
     Helvetica, Arial, sans-serif;
+}
+
+p {
+  margin: .3em 0;
 }
 
 body > header {
@@ -53,17 +54,10 @@ main {
 
 section {
   background: #fefefe;
-  padding: 0.8em;
-  margin-bottom: 2px;
-  border: 1px dashed #eee ;
+  padding: .8em;
+  margin-bottom: 4px;
 	-webkit-transition: background 2s ease;
-	-moz-transition: background 2s ease;
-	-o-transition: background 2s ease;
 	transition: background 2s ease;
-}
-
-section:hover {
-  border: 1px solid #eee;
 }
 
 section header {
@@ -71,7 +65,7 @@ section header {
   font-weight: bold;
   align-items: center;
   font-size: 1.2em;
-  padding-bottom: 0.2em;
+  padding-bottom: .2em;
   color: #336b87;
 }
 
@@ -102,8 +96,8 @@ header div {
   cursor: pointer;
   margin-right: 1em;
   background: rgb(255, 146, 146);
-  font-size: 0.9em;
-  border-radius: 2px;
+  font-size: .9em;
+  border-radius: 3px;
 }
 
 .settings-active {
@@ -125,7 +119,7 @@ footer {
 }
 
 .card {
-  font-size: 0.8rem;
+  font-size: .8rem;
   padding: 2px;
   line-height: 1.1;
   color: rgba(255, 255, 255, 0.65);
@@ -143,6 +137,6 @@ footer {
   background-color: rgba(237, 100, 46, 0.7);
 }
 
-section.fade {
+.fade {
   background: #fffcb2;
 }
