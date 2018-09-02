@@ -84,17 +84,17 @@ $(".right-controls button").click(function(){
     item.fadeOut(fadeouttime, function() {
       item.insertBefore(item.prev()).addClass("fade").fadeIn(fadeintime, function(){
         item.removeClass('fade');
+        save_state();
       });
     });
   } else if(this.className == "down" && item.next().length > 0) {
     item.fadeOut(fadeouttime, function() {
       item.insertAfter(item.next()).addClass("fade").fadeIn(fadeintime, function(){
         item.removeClass('fade');
+        save_state();
       });
     });
   };
-
-  save_state();
 });
 
 $("#reset").click(function(){
