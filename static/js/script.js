@@ -52,7 +52,7 @@ $(document).ready(function() {
   }
 });
 
-$("input[type='checkbox']").change(function(){
+$(".left-controls input[type='checkbox']").change(function(){
   save_state();
 });
 
@@ -75,30 +75,25 @@ $("#settings").click(function(){
   };
 });
 
-$("section .right-controls button").click(function(){
+$(".right-controls button").click(function(){
   const item = $(this).parents("section");
-  const fadeintime = 630;
-  const fadeouttime = 450;
+  const fadeintime = 540;
+  const fadeouttime = 460;
 
-  if (this.className == "up") {
-    if (item.prev().length == 0) {
-      return;
-    }
+  if (this.className == "up" && item.prev().length > 0) {
     item.fadeOut(fadeouttime, function() {
       item.insertBefore(item.prev()).addClass("fade").fadeIn(fadeintime, function(){
         item.removeClass('fade');
       });
     });
-  } else {
-    if (item.next().length == 0) {
-      return;
-    }
+  } else if(this.className == "down" && item.next().length > 0) {
     item.fadeOut(fadeouttime, function() {
       item.insertAfter(item.next()).addClass("fade").fadeIn(fadeintime, function(){
         item.removeClass('fade');
       });
     });
   };
+
   save_state();
 });
 
