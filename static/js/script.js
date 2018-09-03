@@ -1,4 +1,3 @@
-var SHOW_SETTINGS = false;
 const SEPARATOR= '-';
 
 function loadstate(cookie) {
@@ -57,22 +56,12 @@ $(".left-controls input[type='checkbox']").change(function(){
 });
 
 $("#settings").click(function(){
-  SHOW_SETTINGS = !SHOW_SETTINGS;
-  if (SHOW_SETTINGS) {
-    $("section").slideDown(350);
-    $(".right-controls").fadeIn(350);
-    $("section a").hide();
-    $(".left-controls").show()
-    $("#reset").fadeIn(450);
-    $("#settings").addClass("settings-active");
-  } else {
-    $(".left-controls").hide();
-    $("section a").show();
-    $("section").has("input[type='checkbox']:not(:checked)").slideUp(350);
-    $(".right-controls").fadeOut(350);
-    $("#reset").fadeOut(450);
-    $("#settings").removeClass("settings-active");
-  };
+  $("section").has("input[type='checkbox']:not(:checked)").slideToggle(350);
+  $("section a").toggle();
+  $(".left-controls").toggle()
+  $(".right-controls").fadeToggle(350);
+  $("#reset").fadeToggle(350);
+  $("#settings").toggleClass("settings-active");
 });
 
 $(".right-controls button").click(function(){
