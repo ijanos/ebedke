@@ -20,10 +20,6 @@
       <span id="settings">↕️&nbsp;Átrendezés</span>
     </div>
   </header>
-  {% if infobox -%}
-  <div class="infobox">
-    <span>ℹ️</span><span>{{ infobox }}</span></div>
-  {%- endif %}
   <main>
     {%- for menu in menus %}
     <section data-id="{{ menu.id }}">
