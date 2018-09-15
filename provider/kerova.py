@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 from io import BytesIO
-from itertools import dropwhile, takewhile
 from PIL import Image
 from provider.utils import get_fb_post_attached_image, get_filtered_fb_post, on_workdays, ocr_image, days_lower_ascii, pattern_slice, remove_accents, skip_empty_lines
 
