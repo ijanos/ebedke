@@ -44,7 +44,7 @@ body > header {
 }
 
 main {
-  display: flex;
+  display: none;
   flex-direction: column;
   margin: 0 auto 4em;
   width: 100%;

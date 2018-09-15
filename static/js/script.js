@@ -30,6 +30,8 @@ function loadstate(cookie) {
   element_map.forEach(function(element, id) {
     main.append(element);
   });
+
+
 }
 
 function save_state() {
@@ -48,7 +50,8 @@ $(document).ready(function() {
   const settings_cookie = document.cookie.replace(/(?:(?:^|.*;\s*)settings\s*\=\s*([^;]*).*$)|^.*$/, "$1");
   if (settings_cookie) {
     loadstate(settings_cookie);
-  }
+  };
+  $('main').css('display', 'flex');
 });
 
 $(".left-controls input[type='checkbox']").change(function(){
