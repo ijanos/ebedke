@@ -5,7 +5,7 @@ html {
 body {
   line-height: 1.2;
   margin: 0;
-  background-color: rgb(231, 231, 231);
+  background-color: #ecf0f1;
   background-image: url('../bg.png');
   background-attachment: fixed;
   min-height: 100%;
@@ -28,7 +28,7 @@ body > header {
   padding: 0.3em 1em;
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.25);
   justify-content: space-between;
-  background: #e3e3e2;
+  background-color: inherit;
   font-weight: bold;
   margin-bottom: 0.7em;
 }
@@ -105,7 +105,7 @@ header div {
 }
 
 footer {
-  background: #e3e3e2;
+  background-color: inherit;
   padding: 1em;
   border-top: solid 2px #a6968c;
   display: flex;
