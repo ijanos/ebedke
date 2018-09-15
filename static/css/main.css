@@ -46,7 +46,7 @@ body > header {
 main {
   display: flex;
   flex-direction: column;
-  margin: 0 auto 4em auto;
+  margin: 0 auto 4em;
   width: 100%;
   max-width: 50em;
   flex-grow: 1;
