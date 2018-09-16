@@ -65,7 +65,7 @@ section header {
   font-weight: bold;
   align-items: center;
   font-size: 1.2em;
-  color: #336b87;
+  color: #2980b9;
 }
 
 .right-controls {
@@ -94,13 +94,13 @@ header div {
 #reset{
   cursor: pointer;
   margin-right: 1em;
-  background: rgb(255, 146, 146);
+  background: #e74c3c;
   font-size: .9em;
   border-radius: 3px;
 }
 
 .settings-active {
-  background-color: rgb(220, 255, 220);
+  background-color: #57d68d;
   border-radius: 3px;
 }
 
