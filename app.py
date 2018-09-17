@@ -34,6 +34,7 @@ MENU_ORDER = [
     opus,
     portum,
     pqs,
+    semmiextra,
     stex,
     subway,
     veranda,

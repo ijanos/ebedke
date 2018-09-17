@@ -25,5 +25,6 @@ __all__ = [
     "tacsko",
     "input",
     "zappa",
-    "subway"
+    "subway",
+    "semmiextra"
 ]
