@@ -27,6 +27,7 @@ MENU_ORDER = [
     input,
     intenzo,
     joasszony,
+    keg,
     kerova,
     kompot,
     manga,

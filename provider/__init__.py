@@ -26,5 +26,6 @@ __all__ = [
     "input",
     "zappa",
     "subway",
-    "semmiextra"
+    "semmiextra",
+    "keg"
 ]
