@@ -105,10 +105,10 @@ header div {
 }
 
 footer {
+  display: none;
   background-color: inherit;
   padding: 1em;
   border-top: solid 2px #566473;
-  display: flex;
   flex-flow: column;
   align-items: center;
   text-align: center;

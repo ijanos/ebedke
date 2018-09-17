@@ -30,8 +30,6 @@ function loadstate(cookie) {
   element_map.forEach(function(element, id) {
     main.append(element);
   });
-
-
 }
 
 function save_state() {
@@ -52,6 +50,7 @@ $(document).ready(function() {
     loadstate(settings_cookie);
   };
   $('main').css('display', 'flex');
+  $('footer').css('display', 'flex');
 });
 
 $(".left-controls input[type='checkbox']").change(function(){
