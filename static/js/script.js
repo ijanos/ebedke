@@ -49,8 +49,7 @@ $(document).ready(function() {
   if (settings_cookie) {
     loadstate(settings_cookie);
   };
-  $('main').css('display', 'flex');
-  $('footer').css('display', 'flex');
+  $('main,footer').css('display', 'flex');
 });
 
 $(".left-controls input[type='checkbox']").change(function(){
