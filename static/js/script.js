@@ -1,12 +1,13 @@
+'use strict';
 const SEPARATOR= '-';
 
-function loadstate(cookie) {
-  const settings = decodeURIComponent(cookie);
-  var main = $("main");
-  var element_map = new Map();
+function loadstate() {
+  const settings = localStorage.getItem("settings_v1");
+  const main = $("main");
+  const element_map = new Map();
 
   $("main section").each(function() {
-    var id = $(this).data('id');
+    const id = $(this).data('id');
     element_map.set(id, $(this).detach());
   });
 
@@ -39,17 +40,22 @@ function save_state() {
     return id + enabled;
   }).get().join(SEPARATOR);
 
-  settings = encodeURIComponent(settings);
-  document.cookie = "settings=" + settings;
+  localStorage.setItem("settings_v1", settings);
 }
-
 
 $(document).ready(function() {
   const settings_cookie = document.cookie.replace(/(?:(?:^|.*;\s*)settings\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
   if (settings_cookie) {
-    loadstate(settings_cookie);
-  };
+    localStorage.setItem("settings_v1", decodeURIComponent(settings_cookie));
+    document.cookie = 'settings=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    loadstate();
+  } else if (localStorage.getItem("settings_v1") !== null) {
+    loadstate();
+  }
+
   $('main,footer').css('display', 'flex');
+
 });
 
 $(".left-controls input[type='checkbox']").change(function(){
@@ -88,6 +94,6 @@ $(".right-controls button").click(function(){
 });
 
 $("#reset").click(function(){
-  document.cookie = 'settings=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  localStorage.removeItem("settings_v1");
   location.reload();
 });
