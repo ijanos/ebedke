@@ -38,6 +38,7 @@ MENU_ORDER = [
     semmiextra,
     stex,
     subway,
+    szatyor,
     veranda,
     zappa
 ]
