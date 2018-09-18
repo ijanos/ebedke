@@ -55,7 +55,6 @@ $(document).ready(function() {
   }
 
   $('main,footer').css('display', 'flex');
-
 });
 
 $(".left-controls input[type='checkbox']").change(function(){
@@ -64,10 +63,8 @@ $(".left-controls input[type='checkbox']").change(function(){
 
 $("#settings").click(function(){
   $("section").has("input[type='checkbox']:not(:checked)").slideToggle(350);
-  $("section a").toggle();
-  $(".left-controls").toggle()
-  $(".right-controls").fadeToggle(350);
-  $("#reset").fadeToggle(350);
+  $("section a,.left-controls").toggle();
+  $(".right-controls,#reset").fadeToggle(350);
   $("#settings").toggleClass("settings-active");
 });
 
