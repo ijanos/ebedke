@@ -155,6 +155,8 @@ def normalize_menu(text):
         return ""
     if any(word in text.lower() for word in ("zárva", "ünnep", "nincs menü")):
         return ""
+    if len(text) > 2000:
+        text = text[0:2000]
     return text.strip()
 
 def workday(date):
