@@ -5,7 +5,6 @@ __all__ = [
     "pqs",
     "tenminutes",
     "dezso",
-    "amici",
     "kerova",
     "dagoba",
     "greenhouse",

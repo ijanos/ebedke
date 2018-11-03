@@ -14,7 +14,6 @@ import config
 
 MENU_ORDER = [
     tenminutes,
-    amici,
     tacsko,
     cbacorvin,
     dagoba,
