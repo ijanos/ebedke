@@ -31,6 +31,7 @@ MENU_ORDER = [
     kompot,
     manga,
     muzikum,
+    officebistro,
     opus,
     portum,
     pqs,
