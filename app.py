@@ -20,13 +20,14 @@ places = {
 
     "moricz": [keg, semmiextra, szatyor],
 
-    "szepvolgyi": [officebistro],
+    "szepvolgyi": [officebistro, wasabi],
 
     "szell": [joasszony],
 
     "default": [tenminutes, tacsko, cbacorvin, dagoba, dezso, emi, foodie, gilice, golvonal,
                 greenhouse, input, intenzo, joasszony, keg, kerova, kompot, manga, muzikum,
-                officebistro, opus, portum, pqs, semmiextra, stex, subway, szatyor, veranda, zappa]
+                officebistro, opus, portum, pqs, semmiextra, stex, subway, szatyor, veranda,
+                wasabi, zappa]
 }
 
 app = Flask(__name__, static_url_path='', subdomain_matching=True)
