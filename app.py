@@ -5,45 +5,31 @@ from time import sleep, perf_counter
 import sys
 
 import redis
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from requests.exceptions import Timeout
 
 from provider.utils import days_lower, normalize_menu
 from provider import *
 import config
 
-MENU_ORDER = [
-    tenminutes,
-    tacsko,
-    cbacorvin,
-    dagoba,
-    dezso,
-    emi,
-    foodie,
-    gilice,
-    golvonal,
-    greenhouse,
-    input,
-    intenzo,
-    joasszony,
-    keg,
-    kerova,
-    kompot,
-    manga,
-    muzikum,
-    officebistro,
-    opus,
-    portum,
-    pqs,
-    semmiextra,
-    stex,
-    subway,
-    szatyor,
-    veranda,
-    zappa
-]
+places = {
+    "corvin": [tenminutes, tacsko, cbacorvin, dagoba, dezso, emi,
+               foodie, gilice, golvonal, greenhouse, input, intenzo, joasszony,
+               kerova, kompot, manga, muzikum, opus, portum, pqs, stex, subway,
+               veranda, zappa],
 
-app = Flask(__name__, static_url_path='')
+    "moricz": [keg, semmiextra, szatyor],
+
+    "szepvolgyi": [officebistro],
+
+    "szell": [joasszony],
+
+    "default": [tenminutes, tacsko, cbacorvin, dagoba, dezso, emi, foodie, gilice, golvonal,
+                greenhouse, input, intenzo, joasszony, keg, kerova, kompot, manga, muzikum,
+                officebistro, opus, portum, pqs, semmiextra, stex, subway, szatyor, veranda, zappa]
+}
+
+app = Flask(__name__, static_url_path='', subdomain_matching=True)
 app.config.update(
     JSON_AS_ASCII=False
 )
@@ -82,7 +68,7 @@ def menu_loader(menu, today):
     return daily_menu
 
 
-def load_menus(today):
+def load_menus(today, restaurants):
     if config.OFFSET:
         today = today + timedelta(days=config.OFFSET)
 
@@ -90,8 +76,8 @@ def load_menus(today):
         menus = [(provider,
                   executor.submit(menu_loader, provider.menu, today) if menu is None else menu)
                  for provider, menu in
-                 zip(MENU_ORDER,
-                     cache.mget(provider.menu['name'] for provider in MENU_ORDER))
+                 zip(restaurants,
+                     cache.mget(provider.menu['name'] for provider in restaurants))
                 ]
 
     return [{"name": provider.menu['name'],
@@ -103,16 +89,22 @@ def load_menus(today):
 
 @app.route('/')
 def root():
+    subdomain = request.host.split(".ebed.today")[0]
+    if subdomain in places:
+        restaurants = places[subdomain]
+    else:
+        restaurants = places['default']
+
     today = dt.today()
     date = {
         'day': days_lower[today.weekday()],
         'date': today.strftime("%Y. %m. %d.")
     }
-    return render_template("index.html", menus=load_menus(today), date=date)
+    return render_template("index.html", menus=load_menus(today, restaurants), date=date)
 
 @app.route('/menu')
 def dailymenu():
-    return jsonify(list(load_menus(dt.today())))
+    return jsonify(list(load_menus(dt.today(), places['default'])))
 
 
 if __name__ == '__main__':
