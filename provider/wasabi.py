@@ -1,4 +1,5 @@
 from datetime import timedelta
+import re
 
 from provider.utils import get_dom, on_workdays
 
@@ -8,8 +9,12 @@ URL = "https://www.wasabi.hu/szolgaltatas/napimenu"
 def getMenu(today):
     dom = get_dom(URL, force_utf8=True)
     weekday = today.isoweekday()
-    items = dom.xpath(f'//blockquote[{weekday}]/span/strong/text()', smart_string=False)
-    menu = "<br>".join(line.strip() for line in items[1:])
+    items = dom.xpath(f"//blockquote[{weekday}]/span/*/text()")
+    print(items)
+    raw_string = "".join(items)
+    for course in ["LEVES", "FŐÉTEL", "DESSZERT", "ELŐÉTEL"]:
+        items = [re.sub(f'({course}):? ?', '', i) for i in items]
+    menu = "<br>".join(line.strip() for line in items if line)
     return menu
 
 menu = {
