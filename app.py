@@ -20,7 +20,7 @@ places = {
 
     "moricz": [keg, semmiextra, szatyor],
 
-    "szepvolgyi": [officebistro, wasabi],
+    "szepvolgyi": [officebistro, semmiextra, wasabi],
 
     "szell": [joasszony],
 
