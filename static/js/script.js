@@ -12,7 +12,7 @@ function loadstate() {
   });
 
   $.each(settings.split(SEPARATOR), function(idx, item) {
-    const id = item.slice(0,2);
+    const id = item.slice(0, -1);
     const enabled = item.slice(-1) == '1';
     var element;
     if (element_map.has(id)) {
