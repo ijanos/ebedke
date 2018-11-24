@@ -29,8 +29,8 @@
   <header>
     <span>{{ date.day }} ({{ date.date | replace(' ', '&nbsp;') | safe }})</span>
     <div>
-      <span id="reset" hidden>RESET</span>
-      <span id="settings">↕️&nbsp;Átrendezés</span>
+      <span id="reset" hidden>&#10227;&nbsp;RESET</span>
+      <span id="settings">&#8661;&nbsp;Átrendezés</span>
     </div>
   </header>
   <main>
@@ -46,7 +46,7 @@
         <span class="card {{ card }}">{{ card }}</span>
         {%- endfor -%}
         <span class="right-controls" hidden>
-          <button class="up">▲</button><button class="down">▼️</button>
+          <button class="up">&#9650;</button><button class="down">&#9660;</button>
         </span>
       </header>
       {%- if menu.menu -%}
