@@ -30,5 +30,6 @@ __all__ = [
     "szatyor",
     "officebistro",
     "wasabi",
-    "ezisbudai"
+    "ezisbudai",
+    "kbarcelona"
 ]
