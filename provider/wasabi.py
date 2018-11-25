@@ -10,8 +10,6 @@ def getMenu(today):
     dom = get_dom(URL, force_utf8=True)
     weekday = today.isoweekday()
     items = dom.xpath(f"//blockquote[{weekday}]/span/*/text()")
-    print(items)
-    raw_string = "".join(items)
     for course in ["LEVES", "FŐÉTEL", "DESSZERT", "ELŐÉTEL"]:
         items = [re.sub(f'({course}):? ?', '', i) for i in items]
     menu = "<br>".join(line.strip() for line in items if line)
