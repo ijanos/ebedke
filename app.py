@@ -22,10 +22,10 @@ places = {
 
     "szepvolgyi": [officebistro, semmiextra, wasabi],
 
-    "szell": [ezisbudai, joasszony, kbarcelona],
+    "szell": [ezisbudai, jegkert, joasszony, kbarcelona],
 
     "default": [tenminutes, tacsko, cbacorvin, dagoba, dezso, emi, ezisbudai, foodie, gilice, golvonal,
-                greenhouse, input, intenzo, joasszony, keg, kerova, kompot, kbarcelona, manga, muzikum,
+                greenhouse, input, intenzo, jegkert, joasszony, keg, kerova, kompot, kbarcelona, manga, muzikum,
                 officebistro, opus, portum, pqs, semmiextra, stex, subway, szatyor, veranda,
                 wasabi, zappa]
 }
