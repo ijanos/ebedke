@@ -30,7 +30,7 @@ places = {
                 wasabi, zappa]
 }
 
-app = Flask(__name__, static_url_path='', subdomain_matching=True)
+app = Flask(__name__, static_url_path='')
 app.config.update(
     JSON_AS_ASCII=False
 )
