@@ -44,13 +44,7 @@ function save_state() {
 }
 
 $(document).ready(function() {
-  const settings_cookie = document.cookie.replace(/(?:(?:^|.*;\s*)settings\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
-  if (settings_cookie) {
-    localStorage.setItem("settings_v1", decodeURIComponent(settings_cookie));
-    document.cookie = 'settings=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    loadstate();
-  } else if (localStorage.getItem("settings_v1") !== null) {
+  if (localStorage.getItem("settings_v1") !== null) {
     loadstate();
   }
 
