@@ -10,7 +10,7 @@
 
   <title>Ebédke</title>
 
-  <link rel="stylesheet" href="css/main.css?20180918">
+  <link rel="stylesheet" href="css/main.css?20181125">
   <link rel="icon" href="favicon.png">
   <link rel="manifest" href="manifest.webmanifest">
 
@@ -34,6 +34,17 @@
     </div>
   </header>
   <main>
+    {%- if welcome -%}
+    <div>
+      <h1>Használd az ebed.today aloldalakat!</h1>
+      <ul>
+        <li><a href="https://szell.ebed.today">Széll Kálmán tér és környéke</a></li>
+        <li><a href="https://corvin.ebed.today">Corvin negyed és környéke</a></li>
+        <li><a href="https://moricz.ebed.today">Móricz Zsigmond körtér és környéke</a></li>
+        <li><a href="https://szepvolgyi.ebed.today">Szépvölgyi út és környéke</a></li>
+      </ul>
+    </div>
+    {%- endif %}
     {%- for menu in menus %}
     <section data-id="{{ menu.id }}">
       <header>

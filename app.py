@@ -93,15 +93,17 @@ def root():
     subdomain = request.host.split(".ebed.today")[0]
     if subdomain in places:
         restaurants = places[subdomain]
+        welcome = False
     else:
         restaurants = places['default']
+        welcome = True
 
     today = dt.today()
     date = {
         'day': days_lower[today.weekday()],
         'date': today.strftime("%Y. %m. %d.")
     }
-    return render_template("index.html", menus=load_menus(today, restaurants), date=date)
+    return render_template("index.html", menus=load_menus(today, restaurants), date=date, welcome=welcome)
 
 @app.route('/menu')
 def dailymenu():

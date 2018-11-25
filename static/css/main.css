@@ -27,7 +27,7 @@ body > header {
   align-items: center;
   flex-wrap: wrap;
   top: 0;
-  padding: 0.3em 1em;
+  padding: 0.5em 1em;
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.25);
   justify-content: space-between;
   background-color: inherit;
@@ -58,8 +58,9 @@ section {
   background: #fefefe;
   padding: .8em;
   margin-bottom: 4px;
-	-webkit-transition: background 1s ease;
-	transition: background 1s ease;
+  -webkit-transition: background 1s ease;
+  transition: background 1s ease;
+  border-radius: 5px;
 }
 
 section header {
@@ -140,4 +141,10 @@ footer {
 
 .fade {
   background: #fffcb2;
+}
+
+li {
+  color: #2980b9;
+  list-style: none;
+  padding: 0.5em;
 }

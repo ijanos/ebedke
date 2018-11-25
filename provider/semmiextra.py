@@ -13,7 +13,7 @@ def getMenu(today):
     return menu
 
 menu = {
-    'name': 'Semmi Extra (Móricz)',
+    'name': 'Semmi Extra',
     'id': 'se',
     'url': URL,
     'get': getMenu,

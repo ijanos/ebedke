@@ -13,7 +13,7 @@ def getMenu(today):
     return menu
 
 menu = {
-    'name': 'Office Bistro (Szépvölgyi)',
+    'name': 'Office Bistro',
     'id': 'officebistro',
     'url': URL,
     'get': getMenu,
