@@ -13,8 +13,10 @@ MENU_SUFFIX = "/napimenu"
 @on_workdays
 def get_menu(today):
     dom = get_dom(URL_ROOT + MENU_SUFFIX)
-    menu_url = dom.xpath("/html/body//div[@class='art-post-body']//img/@src").pop()
-    menu_url = URL_ROOT + menu_url
+    menu_url = dom.xpath("/html/body//div[@class='art-post-body']//img/@src")
+    if not menu_url:
+        return ""
+    menu_url = URL_ROOT + menu_url.pop()
 
     date_limit = today - timedelta(days=6)
     image = get_fresh_image(menu_url, date_limit)
