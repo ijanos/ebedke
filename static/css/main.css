@@ -24,6 +24,8 @@ body > header {
   display: flex;
   position: sticky;
   position: -webkit-sticky;
+  align-items: center;
+  flex-wrap: wrap;
   top: 0;
   padding: 0.3em 1em;
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.25);
