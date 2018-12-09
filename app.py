@@ -15,7 +15,7 @@ import config
 places = {
     "corvin": [tenminutes, tacsko, cbacorvin, dagoba, dezso, emi,
                foodie, gilice, golvonal, greenhouse, input, intenzo, joasszony,
-               kerova, kompot, manga, muzikum, opus, portum, pqs, stex, subway,
+               kerova, kompot, manga, muzikum, opus, portum, pqs, subway,
                veranda, zappa],
 
     "moricz": [keg, semmiextra, szatyor],
@@ -26,7 +26,7 @@ places = {
 
     "default": [tenminutes, tacsko, cbacorvin, dagoba, dezso, emi, ezisbudai, foodie, gilice, golvonal,
                 greenhouse, input, intenzo, jegkert, joasszony, keg, kerova, kompot, kbarcelona, manga, muzikum,
-                officebistro, opus, portum, pqs, semmiextra, stex, subway, szatyor, veranda,
+                officebistro, opus, portum, pqs, semmiextra, subway, szatyor, veranda,
                 wasabi, zappa]
 }
 
