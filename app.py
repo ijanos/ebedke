@@ -113,7 +113,9 @@ def dailymenu():
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         provider = sys.argv[1]
-        offset = int(sys.argv[2]) if len(sys.argv) > 2 else 0
-        print(globals()[provider].menu['get'](dt.today() + timedelta(days=offset)))
+        offset_base = int(sys.argv[2]) if len(sys.argv) > 2 else 0
+        items = int(sys.argv[3]) if len(sys.argv) > 3 else 1
+        for i in range(items):
+            print(globals()[provider].menu['get'](dt.today() + timedelta(days=offset_base + i)))
     else:
         app.run(debug=True, use_reloader=True, host='0.0.0.0')
