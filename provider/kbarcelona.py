@@ -9,9 +9,12 @@ FB_ID = "2454065824618853"
 @on_workdays
 def getMenu(today):
     is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
-    menu_filter = lambda post: is_this_week(post['created_time']) and sum(day in post['message'].lower() for day in days_lower) >= 2
+    menu_filter = lambda post: is_this_week(post['created_time']) \
+                               and days_lower[today.weekday()] in post['message'].lower() \
+                               or "menü" in post['message'].lower()
     menu = get_filtered_fb_post(FB_ID, menu_filter)
-    menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()]], days_lower + ["menü"], inclusive=False)
+    menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()], "mai"], days_lower + ["ár:"])
+
     return '<br>'.join(skip_empty_lines(menu))
 
 menu = {
@@ -19,6 +22,6 @@ menu = {
     'id': 'kbarc',
     'url': FB_PAGE,
     'get': getMenu,
-    'ttl': timedelta(hours=23),
+    'ttl': timedelta(hours=1),
     'cards': []
 }
