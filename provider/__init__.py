@@ -34,4 +34,5 @@ __all__ = [
     "kbarcelona",
     "jegkert",
     "pastafresca",
+    "vanbisztro"
 ]
