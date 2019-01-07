@@ -98,7 +98,7 @@ def get_fb_post_attached_image(page_id, post_filter):
         "limit": 8,
         "access_token": config.FB_ACCESS_TOKEN
     }
-    response = http_get(f"{ FB_API_ROOT }/{ page_id }/posts", params=payload)
+    response = http_get(f"{ FB_API_ROOT }/{ page_id }/posts?fields=attachments", params=payload)
     posts = response.json()['data']
     post = None
     for p in posts:
