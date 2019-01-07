@@ -9,7 +9,7 @@ FB_ID = "728866253985071"
 def getMenu(today):
     is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
     menu_filter = lambda post: is_this_week(post['created_time']) and \
-        any(word in post['message'].lower() for word in ["lunch menü ", "business lunch", "előételek"])
+        any(word in post['message'].lower() for word in ["lunch menü ", "business lunch", "előételek", "déli menü", "heti menü"])
     menu = get_filtered_fb_post(FB_ID, menu_filter)
     drop_words = ["előételek", "főételek", "desszer", "étvágy", "menü", "lunch"]
     menu = '<br>'.join(skip_empty_lines(filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines())))
