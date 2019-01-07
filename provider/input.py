@@ -8,8 +8,8 @@ URL = "https://www.input.hu/#service-section"
 @on_workdays
 def get_menu(today):
     dom = get_dom(URL)
-    menu = dom.xpath(f'/html/body//div[@class="_serviceContainer" and contains(., "HETI MENÜ")]//text()')
-    menu = '<br>'.join(skip_empty_lines(menu))
+    menu = dom.xpath(f'/html/body//div[@class="_serviceContainer"]//text()')
+    menu = '<br>'.join(skip_empty_lines(line for line in menu if "menü" not in line.lower()))
 
     return menu
 
@@ -18,6 +18,6 @@ menu = {
     'id': 'ib',
     'url': URL,
     'get': get_menu,
-    'ttl': timedelta(minutes=60),
+    'ttl': timedelta(minutes=90),
     'cards': ["szep"]
 }
