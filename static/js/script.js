@@ -60,6 +60,8 @@ $("#settings").click(function(){
   $("section a,.left-controls").toggle();
   $(".right-controls,#reset").fadeToggle(350);
   $("#settings").toggleClass("settings-active");
+  var text = $('#settings').text();
+  $('#settings').text(text == "⇕ Átrendezés" ? "Kész" : "⇕ Átrendezés");
 });
 
 $(".right-controls button").click(function(){
