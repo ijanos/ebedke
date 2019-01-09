@@ -26,7 +26,7 @@ places = {
 
     "default": [tenminutes, tacsko, bocelli, cbacorvin, dagoba, dezso, emi, ezisbudai, foodie, gilice, golvonal,
                 greenhouse, input, intenzo, jegkert, joasszony, keg, kerova, kompot, kbarcelona, manga, muzikum,
-                officebistro, opus, pastafresca, portum, pqs, semmiextra, stex, subway, szatyor,  vanbisztro, veranda,
+                officebistro, opus, pastafresca, portum, pqs, semmiextra, stex, szatyor,  vanbisztro, veranda,
                 wasabi, zappa]
 }
 
