@@ -16,6 +16,7 @@ def getMenu(today):
                                or ("menü" in post['message'].lower() and is_today(post['created_time']))
 
     menu = get_filtered_fb_post(FB_ID, menu_filter)
+    menu = ''.join(char for char in menu if ord(char) < 500)
     menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()], "mai", "menü"], days_lower + ["ár:"])
 
     return '<br>'.join(skip_empty_lines(menu))
