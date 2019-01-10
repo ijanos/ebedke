@@ -57,7 +57,7 @@ def menu_loader(menu, today):
                 seconds_to_midnight = (23 - today.hour) * 3600 + (60 - today.minute) * 60
                 ttl = min(int(menu['ttl'].total_seconds()), seconds_to_midnight)
             else:
-                ttl = 15 * 60
+                ttl = 550 if today.hour >= 10 and today.hour <= 12 else 2000
             if config.DEBUG_CACHE_HTTP:
                 ttl = 10
             cache.set(menu['name'], daily_menu, ex=ttl)
