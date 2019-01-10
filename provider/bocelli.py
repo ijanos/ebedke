@@ -14,7 +14,7 @@ def getMenu(today):
     menu_filter = lambda post: is_today(post['created_time']) and any(word in post['message'].lower() for word in menu_keywords)
 
     menu = get_filtered_fb_post(FB_ID, menu_filter)
-    menu = (line for line in menu.splitlines() if not any(word in line for word in menu_keywords))
+    menu = (line for line in menu.splitlines() if not any(word in line.lower() for word in menu_keywords))
 
     return '<br>'.join(skip_empty_lines(menu))
 
