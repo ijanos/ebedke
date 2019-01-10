@@ -195,7 +195,7 @@ def pattern_slice(iterator, start_patterns, end_patterns, inclusive=False, modif
             if inclusive:
                 yield i
         elif not drop and any(p in modifier(i) for p in end_patterns):
-            drop = True
+            break
         elif not drop:
             yield i
 
