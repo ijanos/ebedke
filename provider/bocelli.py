@@ -23,6 +23,6 @@ menu = {
     'id': 'boc',
     'url': FB_PAGE,
     'get': getMenu,
-    'ttl': timedelta(hours=24),
+    'ttl': timedelta(hours=23),
     'cards': []
 }
