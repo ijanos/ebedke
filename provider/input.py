@@ -1,3 +1,4 @@
+import re
 from datetime import datetime, timedelta
 from provider.utils import get_dom, on_workdays, skip_empty_lines
 
@@ -8,7 +9,8 @@ URL = "https://www.input.hu/#service-section"
 @on_workdays
 def get_menu(today):
     dom = get_dom(URL)
-    menu = dom.xpath(f'/html/body//div[@class="_serviceContainer"]//text()')
+    menus = dom.xpath(f'/html/body//div[@class="_serviceContainer"]')
+    menu = menus[-1].xpath(".//p/text()")
     menu = '<br>'.join(skip_empty_lines(line for line in menu if "menü" not in line.lower()))
 
     return menu
