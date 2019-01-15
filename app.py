@@ -3,6 +3,7 @@ from datetime import datetime as dt, timedelta
 from concurrent.futures import ThreadPoolExecutor, Future
 from time import sleep, perf_counter
 import sys
+from random import randint
 
 import redis
 from flask import Flask, jsonify, render_template, request
@@ -57,7 +58,12 @@ def menu_loader(menu, today):
                 seconds_to_midnight = (23 - today.hour) * 3600 + (60 - today.minute) * 60
                 ttl = min(int(menu['ttl'].total_seconds()), seconds_to_midnight)
             else:
-                ttl = 550 if today.hour >= 10 and today.hour <= 12 else 2000
+                if today.hour >= 10 and today.hour <= 12:
+                    ttl = randint(520, 540)
+                elif today.hour < 10:
+                    ttl = randint(1900, 2100)
+                else:
+                    ttl = randint(3000, 3200)
             if config.DEBUG_CACHE_HTTP:
                 ttl = 10
             cache.set(menu['name'], daily_menu, ex=ttl)
