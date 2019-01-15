@@ -35,5 +35,6 @@ __all__ = [
     "jegkert",
     "pastafresca",
     "vanbisztro",
-    "bocelli"
+    "bocelli",
+    "seastars"
 ]

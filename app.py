@@ -16,7 +16,7 @@ places = {
     "corvin": [tenminutes, tacsko, cbacorvin, dagoba, dezso, emi,
                foodie, gilice, golvonal, greenhouse, input, intenzo,
                joasszony, kerova, kompot, manga, muzikum, opus,
-               portum, pqs, stex, veranda, zappa],
+               portum, pqs, seastars, stex, veranda, zappa],
 
     "moricz": [keg, semmiextra, szatyor],
 
@@ -26,7 +26,7 @@ places = {
 
     "default": [tenminutes, tacsko, bocelli, cbacorvin, dagoba, dezso, emi, ezisbudai, foodie, gilice, golvonal,
                 greenhouse, input, intenzo, jegkert, joasszony, keg, kerova, kompot, kbarcelona, manga, muzikum,
-                officebistro, opus, pastafresca, portum, pqs, semmiextra, stex, szatyor,  vanbisztro, veranda,
+                officebistro, opus, pastafresca, portum, pqs, semmiextra, seastars, stex, szatyor,  vanbisztro, veranda,
                 wasabi, zappa]
 }
 
