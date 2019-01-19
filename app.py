@@ -113,7 +113,13 @@ def root():
 
 @app.route('/menu')
 def dailymenu():
-    return jsonify(list(load_menus(dt.today(), places['default'])))
+    subdomain = request.host.split(".ebed.today")[0]
+    if subdomain in places:
+        restaurants = places[subdomain]
+    else:
+        restaurants = places['default']
+
+    return jsonify(list(load_menus(dt.today(), restaurants)))
 
 
 if __name__ == '__main__':
