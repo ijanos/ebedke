@@ -1,5 +1,4 @@
 __all__ = [
-    "bridges",
     "kompot",
     "gilice",
     "pqs",
