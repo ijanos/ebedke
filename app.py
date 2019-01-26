@@ -19,7 +19,7 @@ places = {
                joasszony, kerova, kompot, manga, muzikum, opus,
                portum, pqs, seastars, stex, veranda, zappa],
 
-    "ferenciek": [homefield],
+    "ferenciek": [fruccola, homefield],
 
     "moricz": [keg, semmiextra, szatyor],
 
