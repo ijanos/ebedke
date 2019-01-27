@@ -32,10 +32,9 @@ def get_menu(today):
         skip_words = ["menu", "menü", "fitnesz"] + days_lower
         menu = list(map(lambda l: l.replace("|", "").strip(), filter(lambda l: not any(word in l.lower() for word in skip_words), menu)))
         menu = sorted(set(menu), key=menu.index)
-        menu = "<br>".join(menu)
         return menu
     else:
-        return ""
+        return []
 
 
 menu = {

@@ -23,15 +23,15 @@ def getMenu(today):
         menu_post = get_filtered_fb_post(FB_ID, daily_menu_filter).splitlines()
     menu_post = list(menu_post)
 
-    menu = ''
+    menu = []
     for i, line in enumerate(menu_post):
         if "A:" in line:
-            menu = "<br>".join((menu_post[i-1], menu_post[i], menu_post[i+1]))
+            menu = list((menu_post[i - 1], menu_post[i], menu_post[i + 1]))
             break
 
     if menu == '':
-        skipfilter = lambda l:  not any(i in l.lower() for i in ["sütiket", "#", "jó étvágyat", "mai menü"])
-        menu = "<br>".join(filter(skipfilter, menu_post))
+        skipfilter = lambda l: not any(i in l.lower() for i in ["sütiket", "#", "jó étvágyat", "mai menü"])
+        menu = list(filter(skipfilter, menu_post))
 
     return menu
 
@@ -40,6 +40,6 @@ menu = {
     'id': 'kp',
     'url': FB_PAGE,
     'get': getMenu,
-    'ttl': timedelta(hours=10),
+    'ttl': timedelta(hours=23),
     'cards': ['szep']
 }

@@ -15,7 +15,7 @@ def getMenu(today):
     menu = get_filtered_fb_post(FB_ID, menu_filter)
     menu = (line for line in menu.splitlines() if not any(word in line.lower() for word in menu_keywords))
 
-    return '<br>'.join(skip_empty_lines(menu))
+    return list(skip_empty_lines(menu))
 
 menu = {
     'name': 'Bocelli Pizzeria Italia',

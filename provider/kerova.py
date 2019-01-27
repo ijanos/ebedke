@@ -19,12 +19,12 @@ def get_menu(today):
         image.save(f, format="png", optimize=True)
         menu = ocr_image(f).splitlines()
         if not menu:
-            return ""
+            return []
 
         menu = pattern_slice(menu, [days_lower[today.weekday()]], days_lower + ['desszert', "890"], inclusive=False)
-        menu = "<br>".join(skip_empty_lines(menu))
+        menu = list(skip_empty_lines(menu))
     else:
-        return ""
+        return []
 
     return menu
 

@@ -1,4 +1,4 @@
-from datetime import datetime as dt, timedelta
+from datetime import timedelta
 from itertools import dropwhile, islice
 from provider.utils import get_dom, days_lower, skip_empty_lines, on_workdays
 
@@ -12,7 +12,7 @@ def getMenu(today):
     menu = dom.xpath("/html/body//div[@class='fck']/*[self::h3 or self::p]//text()")
     menu = dropwhile(lambda line: days_lower[day] not in line.lower(), menu)
     menu = islice(skip_empty_lines(menu), 1, 3)
-    menu = '<br>'.join(menu)
+    menu = list(menu)
 
     return menu
 

@@ -1,4 +1,4 @@
-from datetime import datetime as dt, timedelta
+from datetime import timedelta
 from provider.utils import get_dom, on_workdays, skip_empty_lines
 
 URL = "http://cafeintenzo.hu/#hetimenu"
@@ -9,7 +9,7 @@ def getMenu(today):
     dom = get_dom(URL)
     menu = dom.xpath('//section[@id="hetimenu"]//div[contains(@class, "text_box")]')
     menu = filter(lambda l: "menü ára" not in l, menu[day].xpath("p/text()"))
-    menu = '<br>'.join(skip_empty_lines(menu))
+    menu = list(skip_empty_lines(menu))
 
     return menu
 

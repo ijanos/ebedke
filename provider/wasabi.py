@@ -12,7 +12,7 @@ def getMenu(today):
     items = dom.xpath(f"//blockquote[{weekday}]//text()")[1:]
     for stopword in ["LEVES", "FŐÉTEL", "DESSZERT", "ELŐÉTEL", ":"] + days_upper:
         items = [re.sub(f'({stopword}):? ?', '', i).strip() for i in items]
-    menu = "<br>".join(line.strip() for line in items if line)
+    menu = list(line.strip() for line in items if line)
     return menu
 
 menu = {

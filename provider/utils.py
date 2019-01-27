@@ -1,4 +1,4 @@
-from  urllib.parse import urlencode
+from urllib.parse import urlencode
 from base64 import b64encode
 from datetime import datetime
 from functools import partial
@@ -150,14 +150,15 @@ def ocr_image(image, langHint="hu"):
         return ""
     return response.json()['responses'][0]['textAnnotations'][0]['description']
 
-def normalize_menu(text):
+def normalize_menu(menu):
+    text = '\n'.join(line.strip() for line in menu)
     if len(text.strip()) < 16:
-        return ""
+        return []
     if any(word in text.lower() for word in ("zárva", "ünnep", "nincs menü")):
-        return ""
+        return []
     if len(text) > 2000:
         text = text[0:2000]
-    return text.strip()
+    return text.splitlines()
 
 def workday(date):
     datestr = date.strftime("%Y-%m-%d")

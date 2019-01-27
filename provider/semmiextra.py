@@ -8,7 +8,7 @@ URL = "http://semmiextra.hu/bartok-bela-ut-etterem#heti-menu"
 def getMenu(today):
     dom = get_dom(URL)
     menu = dom.xpath("/html/body//div[@id='heti-menu']//ul[@class='dotted']/li/text()")
-    menu = '<br>'.join(skip_empty_lines(menu))
+    menu = list(skip_empty_lines(menu))
 
     return menu
 

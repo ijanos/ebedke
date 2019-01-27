@@ -9,9 +9,9 @@ def getMenu(today):
     dom = get_dom(URL)
     menu = dom.xpath('/html/body//div[@class="sppb-menu-text"]')
     if len(menu) < 4:
-        menu = ''
+        menu = []
     else:
-        menu = '<br>'.join(menu[day].xpath("text()"))
+        menu = menu[day].xpath("text()")
 
     return menu
 

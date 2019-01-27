@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-from itertools import dropwhile, islice
 from provider.utils import get_filtered_fb_post, days_lower, skip_empty_lines, on_workdays
 
 
@@ -17,7 +16,7 @@ def getMenu(today):
     drop_words = ["mindenkit", "minden menü", "étlapunk", "csodás", days_lower[today.weekday()]]
     menu = (line for line in menu.splitlines() if not any(word in line.lower() for word in drop_words))
 
-    return '<br>'.join(skip_empty_lines(menu))
+    return list(skip_empty_lines(menu))
 
 menu = {
     'name': 'Seastars',

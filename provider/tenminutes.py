@@ -9,8 +9,8 @@ IMG_PATH = "images/home_1_06.png"
 
 @on_workdays
 def getMenu(today):
-    menu = ""
-    if today.weekday() == 0: # Monday
+    menu = []
+    if today.weekday() == 0:  # Monday
         yesterday = today - timedelta(days=3)
     else:
         yesterday = today - timedelta(days=1)
@@ -39,13 +39,13 @@ def getMenu(today):
         img.save(f, format="png", optimize=True, compress_level=9, bits=1)
         menu = ocr_image(f)
         if menu:
-            menu = '<br>'.join(menu.splitlines())
+            menu = menu.splitlines()
     return menu
 
 menu = {
     'name': '10 minutes',
     'id': 'tm',
-    'url' : URL,
+    'url': URL,
     'get': getMenu,
     'ttl': timedelta(hours=18),
     'cards': ['szep', 'erzs']

@@ -12,9 +12,9 @@ def getMenu(today):
     menu_date = dt.strptime(menu_date.split()[0], "%Y-%m-%d")
     if menu_date >= today - timedelta(days=6):
         tds = dom.xpath(f'(//div[@id="main-content"]//table)[1]//tr[position() > 0 and position() < 5]/td[{ day }]')
-        menu = "<br>".join(td.text_content().strip() for td in tds)
+        menu = list(td.text_content().strip() for td in tds)
     else:
-        menu = ""
+        menu = []
 
     return menu
 

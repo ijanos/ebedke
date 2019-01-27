@@ -1,4 +1,4 @@
-from datetime import datetime as dt, timedelta
+from datetime import timedelta
 from provider.utils import get_dom, on_workdays
 
 PQS_MENU = "http://pqs.hu/hu/etlapok?e=56"
@@ -19,7 +19,7 @@ def getMenu(today):
     menu = ''.join(texts)
     menu = menu.replace("Választott leves", "")
     menu = menu.replace("\t", "")
-    menu = '<br>'.join((i for i in menu.splitlines() if i))
+    menu = list(i for i in menu.splitlines() if i)
 
     return menu
 

@@ -11,10 +11,12 @@ def get_menu(today):
     menu_filter = lambda post: is_this_week(post['created_time']) and days_lower[today.weekday()] in post['message'].lower()
     menu = get_filtered_fb_post(FB_ID, menu_filter)
     menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()]], days_lower, inclusive=True)
-    menu = "<br>".join(menu)
-    menu = menu.split(":", maxsplit=1)[1] if ':' in menu else menu
+    menulist = []
+    for line in menu:
+        line = line.split(":", maxsplit=1)[1] if ':' in line else line
+        menulist.append(line)
 
-    return menu
+    return menulist
 
 menu = {
     'name': 'Pasta Fresca Buda',

@@ -1,4 +1,4 @@
-from datetime import datetime as dt, timedelta
+from datetime import timedelta
 from provider.utils import get_dom, on_workdays, skip_empty_lines
 
 
@@ -10,9 +10,9 @@ def getMenu(today):
     date = today.strftime("%Y-%m-%d")
     menu = dom.xpath(f'/html/body//div[@id="NapiEbedMenu"]//tr[.//div[contains(text(), "{ date }")]]/td[position()=2 or position()=3]//text()')
     if menu:
-        menu = '<br>'.join(skip_empty_lines(menu))
+        menu = list(skip_empty_lines(menu))
     else:
-        menu = ''
+        menu = []
 
     return menu
 

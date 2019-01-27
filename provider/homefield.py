@@ -13,7 +13,7 @@ def getMenu(today):
     menu = ''.join(char for char in menu if ord(char) < 500)
     menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()]], days_lower + ["tel:", "797"])
 
-    return '<br>'.join(skip_empty_lines(menu))
+    return list(skip_empty_lines(menu))
 
 menu = {
     'name': 'HomeField Pub',

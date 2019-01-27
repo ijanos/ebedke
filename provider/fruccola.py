@@ -8,10 +8,10 @@ API = "http://fruccola.hu/admin/api/daily_menu"
 def getMenu(today):
     date = today.strftime("%Y-%m-%d")
 
-    menu = ""
+    menu = []
     for menu in requests.get(API).json().values():
         if menu['place_id'] == 2 and menu["due_date"] == date:
-            menu = "<br>".join([menu['soup_hu'], menu['dish_hu']])
+            menu = [menu['soup_hu'], menu['dish_hu']]
             break
 
     return menu

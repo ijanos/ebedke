@@ -10,10 +10,10 @@ API = "https://appif.kajahu.com/jdmenu?jlang=hu&jseat=-"
 def getMenu(today):
     date = today.strftime("%Y-%m-%d")
     menujson = requests.get(API).json()
-    menu = ""
+    menu = []
     for day in menujson['jdata']:
         if day['ddate'] == date:
-            menu = "<br>".join([day['line1'], day['line2'], day['line3']])
+            menu = [day['line1'], day['line2'], day['line3']]
             break
 
     return menu

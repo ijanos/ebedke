@@ -11,9 +11,9 @@ def getMenu(today):
     menu = dom.xpath(f'//section[@id="weekly_menu"]/ul/li[.//time[contains(text(), "{ date }")]]'
                      '//div[@class="weeklyMenuPreview-content"]')
     if menu:
-        menu = '<br>'.join(menu[0].xpath("./p/text()"))
+        menu = list(menu[0].xpath("./p/text()"))
     else:
-        menu = ''
+        menu = []
 
     return menu
 

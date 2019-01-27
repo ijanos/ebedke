@@ -1,5 +1,4 @@
-import re
-from datetime import datetime, timedelta
+from datetime import timedelta
 from provider.utils import get_dom, on_workdays, skip_empty_lines
 
 FB_PAGE = "https://www.facebook.com/inputbistro/posts"
@@ -11,7 +10,7 @@ def get_menu(today):
     dom = get_dom(URL)
     menus = dom.xpath(f'/html/body//div[@class="_serviceContainer"]')
     menu = menus[-1].xpath(".//p/text()")
-    menu = '<br>'.join(skip_empty_lines(line for line in menu if "menü" not in line.lower()))
+    menu = list(skip_empty_lines(line for line in menu if "menü" not in line.lower()))
 
     return menu
 

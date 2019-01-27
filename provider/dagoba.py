@@ -14,8 +14,8 @@ def get_menu(today):
     drop = lambda l: l.strip().endswith((':', '!', '.', ','))
     for i in (n for n in (0, -1) if menu and drop(menu[n])):
         menu.pop(i)
-    menu = '<br>'.join(skip_empty_lines(menu))
-    return menu
+    menu = skip_empty_lines(menu)
+    return list(menu)
 
 menu = {
     'name': 'Dagoba',

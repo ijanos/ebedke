@@ -12,12 +12,13 @@ def getMenu(today):
         any(word in post['message'].lower() for word in ["lunch menü ", "business lunch", "előételek", "déli menü", "heti menü", "menünk"])
     menu = get_filtered_fb_post(FB_ID, menu_filter)
     drop_words = ["előételek", "főételek", "desszer", "étvágy", "menü", "lunch"]
-    menu = '<br>'.join(skip_empty_lines(filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines())))
-    menu = ''.join(char for char in menu if ord(char) < 500)
+    menu = skip_empty_lines(filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines()))
+    remove_emoji = lambda text: ''.join(char for char in text if ord(char) < 500)
+    menu = [remove_emoji(m) for m in menu]
 
     return menu
 
-menu ={
+menu = {
     'name': 'Portum',
     'id': 'pt',
     'url': URL,

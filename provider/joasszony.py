@@ -1,6 +1,5 @@
 from datetime import timedelta
 from provider.utils import get_dom, on_workdays
-import lxml
 
 URL = "http://www.gyorsetterem.hu/hetimenu.php"
 
@@ -11,12 +10,12 @@ def getMenu(today):
     date = date.pop().strip() if date else None
     if date == today.strftime("%Y-%m-%d"):
         menu = dom.xpath("/html/body//div[@class='napimenu']/p/text()")
-        menu = '<br>'.join(menu)
+        menu = list(menu)
     else:
         menu = ''
     return menu
 
-menu =  {
+menu = {
     'name': 'JóAsszony',
     'id': 'ja',
     'url': URL,

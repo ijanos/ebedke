@@ -3,6 +3,7 @@ from datetime import datetime as dt, timedelta
 from concurrent.futures import ThreadPoolExecutor, Future
 from time import sleep, perf_counter
 import sys
+import json
 from random import randint
 
 import redis
@@ -46,7 +47,7 @@ def menu_loader(menu, today):
     start = perf_counter()
     daily_menu = None
     while daily_menu is None:
-        if cache.set(f"{menu['name']}:lock", 1, ex=20, nx=True):
+        if cache.set(f"{menu['id']}:lock", 1, ex=20, nx=True):
             try:
                 daily_menu = menu['get'](today)
             except Timeout:
@@ -68,10 +69,10 @@ def menu_loader(menu, today):
                     ttl = randint(3000, 3200)
             if config.DEBUG_CACHE_HTTP:
                 ttl = 10
-            cache.set(menu['name'], daily_menu, ex=ttl)
+            cache.set(menu['id'], json.dumps(daily_menu), ex=ttl)
         else:
             sleep(0.05)
-            daily_menu = cache.get(menu['name'])
+            daily_menu = cache.get(menu['id'])
     elapsed = perf_counter() - start
     print(f"[ebedke] loading «{menu['name']}» took {elapsed} seconds")
     return daily_menu
@@ -86,15 +87,16 @@ def load_menus(today, restaurants):
                   executor.submit(menu_loader, provider.menu, today) if menu is None else menu)
                  for provider, menu in
                  zip(restaurants,
-                     cache.mget(provider.menu['name'] for provider in restaurants))
+                     cache.mget(provider.menu['id'] for provider in restaurants))
                 ]
-
-    return [{"name": provider.menu['name'],
+    out = [{"name": provider.menu['name'],
              "url": provider.menu['url'],
              "id": provider.menu["id"],
              "menu": menu.result() if isinstance(menu, Future) else menu,
              "cards": provider.menu.get('cards', [])
             } for provider, menu in menus]
+
+    return out
 
 @app.route('/')
 def root():
@@ -121,7 +123,29 @@ def dailymenu():
     else:
         restaurants = places['default']
 
-    return jsonify(list(load_menus(dt.today(), restaurants)))
+    jsonout = [{"name": menu['name'],
+             "url": menu['url'],
+             "menu": '<br>'.join(menu['menu']),
+             "cards": menu['cards']
+            } for menu in load_menus(dt.today(), restaurants)]
+
+    return jsonify(jsonout)
+
+@app.route('/menu.json')
+def api_v1():
+    subdomain = request.host.split(".ebed.today")[0]
+    if subdomain in places:
+        restaurants = places[subdomain]
+    else:
+        restaurants = places['default']
+
+    jsonout = [{"name": menu['name'],
+             "url": menu['url'],
+             "menu": list(menu['menu']),
+             "cards": menu['cards']
+            } for menu in load_menus(dt.today(), restaurants)]
+
+    return jsonify(jsonout)
 
 
 if __name__ == '__main__':

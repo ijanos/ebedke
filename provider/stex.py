@@ -9,7 +9,7 @@ def get_menu(today):
     dom = get_dom(URL_ROOT)
     menu = dom.xpath("/html/body//article//text()")
     menu = pattern_slice(menu, [days_lower[today.weekday()]], days_lower + ['ára', 'előfizetés', 'ajánlat'], inclusive=False)
-    return "<br>".join(skip_empty_lines(menu))
+    return list(skip_empty_lines(menu))
 
 menu = {
     'name': 'Stex',

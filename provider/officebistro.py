@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from provider.utils import get_dom, on_workdays, days_lower
+from provider.utils import get_dom, on_workdays, days_lower, skip_empty_lines
 
 URL = "http://szepvolgyi.officebistro.hu/heti-ajanlat"
 
@@ -18,10 +18,10 @@ def getMenu(today):
 
     table = list(map(list, zip(*table)))
 
-    menu = ""
+    menu = []
     for column in table:
         if days_lower[weekday] in column[0].lower():
-            menu = "<br>".join(column[1:])
+            menu = list(skip_empty_lines(column[1:]))
             break
 
     return menu

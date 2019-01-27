@@ -11,8 +11,8 @@ def get_menu(today):
     menu_filter = lambda post: is_today(post['created_time']) and "mai menü" in post['message'].lower()
     menu = get_filtered_fb_post(FB_ID, menu_filter)
     drop_words = ["mai menünk", "jó étvágyat"]
-    menu = '<br>'.join(skip_empty_lines(filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines())))
-    return menu
+    menu = skip_empty_lines(filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines()))
+    return list(menu)
 
 menu = {
     'name': 'Green House Grill',

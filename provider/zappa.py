@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-from itertools import dropwhile, islice
 from provider.utils import get_filtered_fb_post, days_lower, skip_empty_lines, on_workdays, pattern_slice
 
 
@@ -13,8 +12,7 @@ def getMenu(today):
     menu = get_filtered_fb_post(FB_ID, menu_filter)
     menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()]], days_lower + ["desszert"], inclusive=False)
     menu = skip_empty_lines(menu)
-    menu = '<br>'.join(menu)
-    return menu
+    return list(menu)
 
 
 menu = {

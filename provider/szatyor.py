@@ -9,7 +9,7 @@ def get_menu(today):
     is_today = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() == today.date()
     menu_filter = lambda post: is_today(post['created_time']) and "menü" in post['message'].lower()
     menu = get_filtered_fb_post(FB_ID, menu_filter).splitlines()
-    menu = '<br>'.join(skip_empty_lines(line.strip() for line in menu if "menü" not in line.lower()))
+    menu = list(skip_empty_lines(line.strip() for line in menu if "menü" not in line.lower()))
 
     return menu
 
