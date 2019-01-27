@@ -27,7 +27,7 @@ places = {
 
     "szell": [bocelli, ezisbudai, jegkert, joasszony, kbarcelona, pastafresca, vanbisztro],
 
-    "default": [tenminutes, tacsko, bocelli, cbacorvin, dagoba, dezso, emi, ezisbudai, foodie, gilice, golvonal,
+    "default": [tenminutes, tacsko, bocelli, cbacorvin, dagoba, dezso, emi, ezisbudai, foodie, fruccola, gilice, golvonal,
                 greenhouse, homefield, input, intenzo, jegkert, joasszony, keg, kerova, kompot, kbarcelona, manga, muzikum,
                 officebistro, opus, pastafresca, portum, pqs, semmiextra, seastars, stex, szatyor,  vanbisztro, veranda,
                 wasabi, zappa]
