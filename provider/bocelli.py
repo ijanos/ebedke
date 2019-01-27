@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
-from itertools import dropwhile, islice
-from provider.utils import get_filtered_fb_post, days_lower, skip_empty_lines, on_workdays
+from provider.utils import get_filtered_fb_post, skip_empty_lines, on_workdays
 
 
 FB_PAGE = "https://www.facebook.com/pg/bocellipizzeria/posts/"

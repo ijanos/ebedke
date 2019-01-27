@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 from provider.utils import get_dom, skip_empty_lines, days_lower, on_workdays, pattern_slice
 
 URL_ROOT = "http://stexhaz.hu/index.php/hu/etl/deli-ajanlat"
@@ -14,7 +14,7 @@ def get_menu(today):
 menu = {
     'name': 'Stex',
     'id': "st",
-    'url' : URL_ROOT,
+    'url': URL_ROOT,
     'get': get_menu,
     'ttl': timedelta(minutes=100),
     'cards': ['szep', 'erzs']
