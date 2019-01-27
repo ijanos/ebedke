@@ -37,5 +37,6 @@ __all__ = [
     "bocelli",
     "seastars",
     "homefield",
-    "fruccola"
+    "fruccola",
+    "kajahu"
 ]
