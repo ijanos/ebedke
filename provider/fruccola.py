@@ -10,7 +10,7 @@ def getMenu(today):
 
     menu = ""
     for menu in requests.get(API).json().values():
-        if menu['place_id'] == 3 and menu["due_date"] == date:
+        if menu['place_id'] == 2 and menu["due_date"] == date:
             menu = "<br>".join([menu['soup_hu'], menu['dish_hu']])
             break
 
