@@ -17,10 +17,10 @@ def getMenu(today):
     return menu
 
 menu = {
-    'name': 'Fruccola',
+    'name': 'Fruccola (Kristóf tér)',
     'id': 'frc',
     'url': URL,
     'get': getMenu,
     'ttl': timedelta(hours=23),
-    'cards': []
+    'cards': ['szep']
 }
