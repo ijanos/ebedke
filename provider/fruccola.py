@@ -7,11 +7,13 @@ API = "http://fruccola.hu/admin/api/daily_menu"
 
 def getMenu(today):
     date = today.strftime("%Y-%m-%d")
-    menujson = requests.get(API).json()['3']
-    if menujson["due_date"] == date:
-        menu = "<br>".join([menujson['soup_hu'], menujson['dish_hu']])
-    else:
-        menu = ""
+
+    menu = ""
+    for menu in requests.get(API).json().values():
+        if menu['place_id'] == 3 and menu["due_date"] == date:
+            menu = "<br>".join([menu['soup_hu'], menu['dish_hu']])
+            break
+
     return menu
 
 menu = {
