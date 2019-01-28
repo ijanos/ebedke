@@ -24,7 +24,7 @@ places = {
 
     "moricz": [keg, semmiextra, szatyor],
 
-    "szepvolgyi": [officebistro, semmiextra, wasabi],
+    "szepvolgyi": [officebistro, semmiextra, vegalife, wasabi],
 
     "szell": [bocelli, ezisbudai, jegkert, joasszony, kbarcelona, pastafresca, vanbisztro],
 

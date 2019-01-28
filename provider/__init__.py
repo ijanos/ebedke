@@ -28,6 +28,7 @@ __all__ = [
     "keg",
     "szatyor",
     "officebistro",
+    "vegalife",
     "wasabi",
     "ezisbudai",
     "kbarcelona",
