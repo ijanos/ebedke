@@ -10,7 +10,7 @@ def getMenu(today):
     weekday = today.isoweekday()
     week = today.isocalendar()[1]
     items = dom.xpath(f'/html/body//table[@id="week_{week:02d}"]//tr//td[{weekday + 1}]//div[@class="meal"]/h4/text()')
-    menu = "<br>".join(line.strip() for line in items if line.strip())
+    menu = list(line.strip() for line in items)
     return menu
 
 menu = {
