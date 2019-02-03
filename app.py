@@ -30,7 +30,7 @@ places = {
 
     "default": [tenminutes, tacsko, bocelli, cbacorvin, dagoba, dezso, emi, ezisbudai, foodie, fruccola, gilice, golvonal,
                 greenhouse, homefield, input, intenzo, jegkert, joasszony, kajahu, keg, kerova, kompot, kbarcelona, manga, muzikum,
-                officebistro, opus, pastafresca, portum, pqs, semmiextra, seastars, stex, szatyor,  vanbisztro, veranda,
+                officebistro, opus, pastafresca, portum, pqs, semmiextra, seastars, stex, szatyor, vanbisztro, veranda,
                 wasabi, zappa]
 }
 
@@ -40,8 +40,7 @@ app.config.update(
 )
 
 cache = redis.StrictRedis(host=config.REDIS_HOST,
-                          port=config.REDIS_PORT,
-                          decode_responses=True)
+                          port=config.REDIS_PORT)
 
 def menu_loader(menu, today):
     start = perf_counter()
@@ -50,12 +49,13 @@ def menu_loader(menu, today):
         if cache.set(f"{menu['id']}:lock", 1, ex=20, nx=True):
             try:
                 daily_menu = menu['get'](today)
+                assert isinstance(daily_menu, list)
             except Timeout:
                 print(f"[ebedke] timeout in «{menu['name']}» provider")
-                daily_menu = ""
+                daily_menu = []
             except:
-                print("[ebedke] exception:\n", traceback.format_exc())
-                daily_menu = ""
+                print(f"[ebedke] exception in «{menu['name']}» provider:\n", traceback.format_exc())
+                daily_menu = []
             daily_menu = normalize_menu(daily_menu)
             if daily_menu is not "":
                 seconds_to_midnight = (23 - today.hour) * 3600 + (60 - today.minute) * 60
@@ -72,7 +72,7 @@ def menu_loader(menu, today):
             cache.set(menu['id'], json.dumps(daily_menu), ex=ttl)
         else:
             sleep(0.05)
-            daily_menu = cache.get(menu['id'])
+            daily_menu = json.loads(cache.get(menu['id']))
     elapsed = perf_counter() - start
     print(f"[ebedke] loading «{menu['name']}» took {elapsed} seconds")
     return daily_menu
