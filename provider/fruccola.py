@@ -1,5 +1,5 @@
 from datetime import timedelta
-import requests
+from provider.utils import http_get
 
 
 URL = "http://fruccola.hu/hu"
@@ -8,13 +8,13 @@ API = "http://fruccola.hu/admin/api/daily_menu"
 def getMenu(today):
     date = today.strftime("%Y-%m-%d")
 
-    menu = []
-    for menu in requests.get(API).json().values():
-        if menu['place_id'] == 2 and menu["due_date"] == date:
-            menu = [menu['soup_hu'], menu['dish_hu']]
+    out = []
+    for place in http_get(API).json().values():
+        if "place_id" in menu and menu['place_id'] == 2 and menu["due_date"] == date:
+            out = [menu['soup_hu'], menu['dish_hu']]
             break
 
-    return menu
+    return out
 
 menu = {
     'name': 'Fruccola (Kristóf tér)',
