@@ -55,15 +55,13 @@
         </span>
         <span translate="no"><a href="{{ menu.url }}" target="_blank" rel="noopener">{{ menu.name }}</a></span>
         {%- for card in menu.cards -%}
-        <span class="card {{ card }}">{{ card }}</span>
+        <span class="card {{ card.name }}" title="{{ card.tooltip }}">{{ card.name }}</span>
         {%- endfor -%}
         <span class="right-controls" hidden>
           <button class="up">&#9650;</button><button class="down">&#9660;</button>
         </span>
       </header>
-      {%- if menu.menu -%}
-      <p>{{ menu.menu | safe }}</p>
-      {%- endif %}
+      {{ menu.menu|join('<br>'|safe) }}
     </section>
     {%- endfor -%}
   </main>
