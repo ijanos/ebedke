@@ -70,6 +70,7 @@ def loop():
 
 if __name__ == "__main__":
     while True:
-        print("starting loop")
+        print("starting update loop")
         loop()
+        print("ending update loop")
         sleep(20)
