@@ -1,0 +1,14 @@
+[Unit]
+Description=EBEDKE updater service
+After=multi-user.target
+
+[Service]
+Type=simple
+PrivateTmp=yes
+WorkingDirectory={{ app_root }}
+ExecStart={{ app_env }}/bin/python {{ app_root }}/updater.py
+Environment=PYTHONUNBUFFERED=1
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

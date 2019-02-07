@@ -1,0 +1,75 @@
+#!/usr/bin/env python3
+
+import json
+import traceback
+from time import sleep, perf_counter
+from datetime import datetime as dt, timedelta
+
+import redis
+from requests.exceptions import Timeout
+
+from provider import restaurants
+from provider.utils import normalize_menu
+import config
+
+redis = redis.StrictRedis(host=config.REDIS_HOST,
+                          port=config.REDIS_PORT)
+
+
+def update(id, downloader, now):
+    try:
+        daily_menu = downloader(now)
+        assert isinstance(daily_menu, list)
+    except Timeout:
+        print(f"timeout in «{id}» provider")
+        daily_menu = []
+    except:
+        print(f"exception in «{id}» provider:\n", traceback.format_exc())
+        daily_menu = []
+    daily_menu = normalize_menu(daily_menu)
+    redis.set(f"{id}:menu", json.dumps(daily_menu))
+    redis.set(f"{id}:timestamp", now.isoformat())
+
+def waittime(date):
+    if date.hour < 10:
+        wait = timedelta(minutes=45)
+    elif date.hour >= 10 and date.hour <= 12:
+        wait = timedelta(minutes=5)
+    else:
+        wait = timedelta(minutes=150)
+    return wait
+
+def loop():
+    now = dt.today()
+    wait = waittime(now)
+    restaurantlist = restaurants.places['all']
+
+    for r in restaurantlist:
+        timestamp = redis.get(f"{r.menu['id']}:timestamp")
+        if not timestamp:
+            timestamp = dt.utcfromtimestamp(0)
+        else:
+            timestamp = dt.fromisoformat(timestamp.decode("utf-8"))
+
+        menu = redis.get(f"{r.menu['id']}:menu")
+
+        do_update = False
+        if timestamp.date() != now.date():
+            do_update = True
+        elif now - timestamp > r.menu['ttl'] and menu:
+            do_update = True
+        elif not menu and now - timestamp > wait:
+            do_update = True
+
+        if do_update:
+            print(f"Updating «{r.menu['name']}»")
+            start = perf_counter()
+            update(r.menu['id'], r.menu['get'], now)
+            elapsed = perf_counter() - start
+            print(f"Updating «{r.menu['name']}» took {elapsed} seconds")
+
+if __name__ == "__main__":
+    while True:
+        print("starting loop")
+        loop()
+        sleep(20)
