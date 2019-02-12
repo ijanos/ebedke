@@ -129,6 +129,12 @@
         setype: httpd_sys_rw_content_t
         state: present
 
+    - name:  enable executing python by systemd
+      sefcontext:
+        target: "{{ app_env }}/bin/python3.7m"
+        setype: bin_t
+        state: present
+
     - name: restore the SELinux context on all the files
       command: "restorecon -Rv {{ site_root }}"
 
