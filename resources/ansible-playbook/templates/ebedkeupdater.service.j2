@@ -5,6 +5,9 @@ After=multi-user.target
 [Service]
 Type=simple
 PrivateTmp=yes
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ebedkeupdater
 WorkingDirectory={{ app_root }}
 ExecStart={{ app_env }}/bin/python {{ app_root }}/updater.py
 Environment=PYTHONUNBUFFERED=1
