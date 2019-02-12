@@ -27,8 +27,11 @@ def update(id, downloader, now):
         print(f"exception in «{id}» provider:\n", traceback.format_exc())
         daily_menu = []
     daily_menu = normalize_menu(daily_menu)
-    redis.set(f"{id}:menu", json.dumps(daily_menu))
-    redis.set(f"{id}:timestamp", now.isoformat())
+
+    redis.mset({
+        f"{id}:menu": json.dumps(daily_menu),
+        f"{id}:timestamp": now.isoformat()
+    })
 
 def waittime(date):
     if date.hour < 10:
@@ -39,19 +42,16 @@ def waittime(date):
         wait = timedelta(minutes=150)
     return wait
 
-def loop():
+def loop(restaurantlist):
     now = dt.today()
     wait = waittime(now)
-    restaurantlist = restaurants.places['all']
 
     for r in restaurantlist:
-        timestamp = redis.get(f"{r.menu['id']}:timestamp")
+        menu, timestamp = redis.mget(f"{r.menu['id']}:menu", f"{r.menu['id']}:timestamp")
         if not timestamp:
             timestamp = dt.utcfromtimestamp(0)
         else:
             timestamp = dt.fromisoformat(timestamp.decode("utf-8"))
-
-        menu = redis.get(f"{r.menu['id']}:menu")
 
         do_update = False
         if timestamp.date() != now.date():
@@ -69,8 +69,9 @@ def loop():
             print(f"Updating «{r.menu['name']}» took {elapsed} seconds")
 
 if __name__ == "__main__":
+    restaurantlist = restaurants.places['all']
     while True:
         print("starting update loop")
-        loop()
+        loop(restaurantlist)
         print("ending update loop")
         sleep(20)
