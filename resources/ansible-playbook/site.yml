@@ -145,7 +145,7 @@
 
     - name:  enable executing python by systemd
       sefcontext:
-        target: "{{ app_env }}/bin/python3.7m"
+        target: "{{ app_env }}/bin/python3.6m"
         setype: bin_t
         state: present
 
