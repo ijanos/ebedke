@@ -183,7 +183,7 @@ def workday(date):
 def on_workdays(func):
     def wrapper(*args, **kwargs):
         if not workday(args[0]):
-            return ""
+            return []
         else:
             return func(*args, **kwargs)
     return wrapper
