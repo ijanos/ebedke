@@ -26,6 +26,11 @@ days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat",
 days_lower_ascii = ["hetfo", "kedd", "szerda", "csutortok", "pentek", "szombat", "vasarnap"]
 days_upper = [day.upper() for day in days_lower]
 
+months_hu_capitalized = ["Január", "Február", "Március",
+                         "Április", "Május", "Június",
+                         "Július", "Augusztus", "Szeptember",
+                         "Október", "November", "December"]
+
 DEBUG_CACHE = None
 
 def http_get(url, params=None):
