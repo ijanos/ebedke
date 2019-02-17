@@ -5,9 +5,9 @@ server {
     server_name {{ ebedke_domain }};
     root {{ static_files }};
 
-    location ~ ^(/|/menu)$ {
+    location ~ ^(/|/menu|/menu.json)$ {
         add_header Cache-Control 'public, max-age=60';
-        add_header Content-Security-Policy "default-src 'self';  img-src 'self' data:";
+        add_header Content-Security-Policy "default-src 'self';  img-src 'self'";
         add_header X-XSS-Protection "1; mode=block";
         include uwsgi_params;
         uwsgi_buffering off;
