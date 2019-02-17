@@ -27,23 +27,14 @@
         state: latest
 
     - name: install packages
-      dnf: name="{{ item }}" state=latest
-      with_items:
-        - nginx
-        - uwsgi
-        - uwsgi-plugin-python3
-        - python3
-        - python3-virtualenv
-        - redis
-        - git
-        - firewalld
+      dnf:
+        name: ['nginx', 'uwsgi', 'uwsgi-plugin-python3', 'python3', 'python3-virtualenv', 'redis', 'git', 'firewalld']
+        state: latest
 
     - name: install pipenv
       pip:
-        name: "{{ item }}"
+        name: pipenv
         executable: pip3
-      with_items:
-        - pipenv
 
     - name: change ssh port
       lineinfile: dest=/etc/ssh/sshd_config
