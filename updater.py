@@ -16,6 +16,8 @@ redis = redis.StrictRedis(host=config.REDIS_HOST,
                           port=config.REDIS_PORT)
 
 
+DATEFORMAT = "%Y-%m-%d %H:%M:%S.%f"
+
 def update(id, downloader, now):
     try:
         daily_menu = downloader(now)
@@ -30,7 +32,7 @@ def update(id, downloader, now):
 
     redis.mset({
         f"{id}:menu": json.dumps(daily_menu),
-        f"{id}:timestamp": now.isoformat()
+        f"{id}:timestamp": now.strftime(DATEFORMAT)
     })
 
 def waittime(date):
@@ -51,7 +53,7 @@ def loop(restaurantlist):
         if not timestamp:
             timestamp = dt.utcfromtimestamp(0)
         else:
-            timestamp = dt.fromisoformat(timestamp.decode("utf-8"))
+            timestamp = dt.strptime(timestamp.decode("utf-8"), DATEFORMAT)
 
         do_update = False
         if timestamp.date() != now.date():
