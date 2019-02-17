@@ -6,27 +6,10 @@ from flask import Flask, jsonify, render_template, request
 
 from provider.utils import days_lower
 from provider import *
+from provider import restaurants
 import config
 
-places = {
-    "corvin": [tenminutes, tacsko, cbacorvin, dagoba, dezso, emi,
-               foodie, gilice, golvonal, greenhouse, input, intenzo,
-               joasszony, kerova, kompot, manga, muzikum, opus,
-               portum, pqs, seastars, stex, veranda, zappa],
-
-    "ferenciek": [fruccola, homefield, kajahu],
-
-    "moricz": [keg, semmiextra, szatyor],
-
-    "szepvolgyi": [officebistro, semmiextra, wasabi],
-
-    "szell": [bocelli, ezisbudai, jegkert, joasszony, kbarcelona, pastafresca, vanbisztro],
-
-    "default": [tenminutes, tacsko, bocelli, cbacorvin, dagoba, dezso, emi, ezisbudai, foodie, fruccola, gilice, golvonal,
-                greenhouse, homefield, input, intenzo, jegkert, joasszony, kajahu, keg, kerova, kompot, kbarcelona, manga, muzikum,
-                officebistro, opus, pastafresca, portum, pqs, semmiextra, seastars, stex, szatyor, vanbisztro, veranda,
-                wasabi, zappa]
-}
+places = restaurants.places
 
 app = Flask(__name__, static_url_path='')
 app.config.update(
@@ -65,7 +48,7 @@ def load_subdomain_menu():
         restaurants = places[subdomain]
         welcome = False
     else:
-        restaurants = places['default']
+        restaurants = places['all']
         welcome = True
     return restaurants, welcome
 
