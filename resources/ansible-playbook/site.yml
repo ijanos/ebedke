@@ -96,6 +96,20 @@
         owner: "{{ app_user }}"
         group: "{{ app_group }}"
 
+    - name: set up updater service
+      template:
+        src: ebedkeupdater.service.j2
+        dest: /etc/systemd/system/ebedkeupdater.service
+        owner: "{{ app_user }}"
+        group: "{{ app_group }}"
+
+    - name: enable updater service
+      systemd:
+        daemon_reload: yes
+        name: ebedkeupdater.service
+        state: started
+        enabled: yes
+
     - name: create user writeable directory for uwsgi socket
       file:
         path: "{{ uwsgi_socket_dir }}"
