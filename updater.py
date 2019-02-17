@@ -58,9 +58,9 @@ def loop(restaurantlist):
         do_update = False
         if timestamp.date() != now.date():
             do_update = True
-        elif now - timestamp > r.menu['ttl'] and menu:
+        elif now - timestamp > r.menu['ttl'] and menu != b"[]":
             do_update = True
-        elif not menu and now - timestamp > wait:
+        elif menu == b"[]" and now - timestamp > wait:
             do_update = True
 
         if do_update:
