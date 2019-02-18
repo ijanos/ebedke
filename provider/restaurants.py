@@ -6,7 +6,7 @@ places = {
                joasszony, kerova, kompot, manga, muzikum, opus,
                portum, pqs, seastars, stex, veranda, zappa],
 
-    "ferenciek": [fruccola, homefield, kajahu, vigvarju],
+    "ferenciek": [fruccola, homefield, kajahu, kiosk, vigvarju],
 
     "moricz": [keg, semmiextra, szatyor],
 
@@ -15,7 +15,7 @@ places = {
     "szell": [bocelli, ezisbudai, jegkert, joasszony, kbarcelona, pastafresca, vanbisztro],
 
     "all": [tenminutes, tacsko, bocelli, cbacorvin, dagoba, dezso, emi, ezisbudai, foodie, fruccola, gilice, golvonal,
-            greenhouse, homefield, input, intenzo, jegkert, joasszony, kajahu, keg, kerova, kompot, kbarcelona, manga, muzikum,
+            greenhouse, homefield, input, intenzo, jegkert, joasszony, kajahu, keg, kerova, kiosk, kompot, kbarcelona, manga, muzikum,
             officebistro, opus, pastafresca, portum, pqs, semmiextra, seastars, stex, szatyor, vanbisztro, veranda, vigvarju,
             wasabi, zappa]
 }

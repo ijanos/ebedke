@@ -39,5 +39,6 @@ __all__ = [
     "homefield",
     "fruccola",
     "kajahu",
-    "vigvarju"
+    "vigvarju",
+    "kiosk"
 ]
