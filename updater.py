@@ -48,6 +48,9 @@ def loop(restaurantlist):
     now = dt.today()
     wait = waittime(now)
 
+    if now.hour >= 13:
+        return
+
     for r in restaurantlist:
         menu, timestamp = redis.mget(f"{r.menu['id']}:menu", f"{r.menu['id']}:timestamp")
         if not timestamp:
