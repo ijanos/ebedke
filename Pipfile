@@ -7,11 +7,12 @@ name = "pypi"
 python_version = '3.6'
 
 [packages]
-lxml = "==4.3.0"
+lxml = "==4.3.1"
 flask = "==1.0.2"
 pillow = "==5.4.1"
 requests = "==2.21.0"
-redis = "==3.0.1"
+redis = "==3.2.0"
 
 [dev-packages]
 pylint = "*"
+flake8 = "*"
