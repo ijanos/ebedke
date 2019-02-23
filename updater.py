@@ -44,39 +44,47 @@ def waittime(date):
         wait = timedelta(minutes=150)
     return wait
 
-def loop(restaurantlist):
+
+def do_update(place, now):
+    print(f"Updating «{place.menu['name']}»")
+    start = perf_counter()
+    update(place.menu['id'], place.menu['get'], now)
+    elapsed = perf_counter() - start
+    print(f"Updating «{place.menu['name']}» took {elapsed} seconds")
+
+
+def loop(restaurantlist, must_update=False):
     now = dt.today()
     wait = waittime(now)
 
-    if now.hour >= 13:
+    if not must_update and now.hour >= 13:
         return
 
-    for r in restaurantlist:
-        menu, timestamp = redis.mget(f"{r.menu['id']}:menu", f"{r.menu['id']}:timestamp")
+    for place in restaurantlist:
+        menu, timestamp = redis.mget(f"{place.menu['id']}:menu",
+                                     f"{place.menu['id']}:timestamp")
         if not timestamp:
             timestamp = dt.utcfromtimestamp(0)
         else:
             timestamp = dt.strptime(timestamp.decode("utf-8"), DATEFORMAT)
 
-        do_update = False
-        if timestamp.date() != now.date():
-            do_update = True
-        elif now - timestamp > r.menu['ttl'] and menu != b"[]":
-            do_update = True
-        elif menu == b"[]" and now - timestamp > wait:
-            do_update = True
+        menu_empty = menu == b"[]" or menu is None
+        timestamp_is_today = timestamp.date() == now.date()
+        timestamp_age = now - timestamp
 
-        if do_update:
-            print(f"Updating «{r.menu['name']}»")
-            start = perf_counter()
-            update(r.menu['id'], r.menu['get'], now)
-            elapsed = perf_counter() - start
-            print(f"Updating «{r.menu['name']}» took {elapsed} seconds")
+        if not timestamp_is_today:
+            do_update(place, now)
+        elif timestamp_age > place.menu['ttl']:
+            do_update(place, now)
+        elif menu_empty and timestamp_age > wait:
+            do_update(place, now)
 
 if __name__ == "__main__":
     restaurantlist = restaurants.places['all']
+    first_loop = True
     while True:
         print("starting update loop")
-        loop(restaurantlist)
+        loop(restaurantlist, must_update=first_loop)
         print("ending update loop")
-        sleep(20)
+        first_loop = False
+        sleep(25)
