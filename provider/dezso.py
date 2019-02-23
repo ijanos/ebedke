@@ -20,6 +20,6 @@ menu = {
     'id': 'db',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(minutes=26),
+    'ttl': timedelta(minutes=20),
     'cards': ['erzs']
 }

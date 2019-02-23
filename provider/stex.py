@@ -16,6 +16,6 @@ menu = {
     'id': "st",
     'url': URL_ROOT,
     'get': get_menu,
-    'ttl': timedelta(minutes=100),
+    'ttl': timedelta(minutes=25),
     'cards': ['szep', 'erzs']
 }

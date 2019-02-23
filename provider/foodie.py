@@ -18,6 +18,6 @@ menu = {
     'id': 'fd',
     'url': FB_PAGE,
     'get': getMenu,
-    'ttl': timedelta(hours=8),
+    'ttl': timedelta(hours=24),
     'cards': ['szep', 'erzs']
 }

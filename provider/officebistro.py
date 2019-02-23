@@ -31,6 +31,6 @@ menu = {
     'id': 'officebistro',
     'url': URL,
     'get': getMenu,
-    'ttl': timedelta(hours=2),
+    'ttl': timedelta(hours=24),
     'cards': ['erzs']
 }
