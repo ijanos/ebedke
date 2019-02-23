@@ -13,7 +13,8 @@ places = restaurants.places
 
 app = Flask(__name__, static_url_path='')
 app.config.update(
-    JSON_AS_ASCII=False
+    JSON_AS_ASCII=False,
+    JSONIFY_MIMETYPE="application/json; charset=utf-8"
 )
 
 cache = redis.StrictRedis(host=config.REDIS_HOST,
