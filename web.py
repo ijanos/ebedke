@@ -5,7 +5,6 @@ import redis
 from flask import Flask, jsonify, render_template, request
 
 from provider.utils import days_lower
-from provider import *
 from provider import restaurants
 import config
 

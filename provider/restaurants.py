@@ -3,7 +3,7 @@ from provider import *
 places = {
     "corvin": [tenminutes, tacsko, dagoba, dezso, emi,
                foodie, gilice, golvonal, greenhouse, input, intenzo,
-               joasszony, kerova, kompot, manga, muzikum, opus,
+               joasszony, kerova, kompot, manga, muzikum, ninetables, opus,
                portum, pqs, seastars, stex, veranda, zappa],
 
     "ferenciek": [fruccola, homefield, kajahu, kiosk, vigvarju],
@@ -16,6 +16,6 @@ places = {
 
     "all": [tenminutes, tacsko, bocelli, dagoba, dezso, emi, ezisbudai, foodie, fruccola, gilice, golvonal,
             greenhouse, homefield, input, intenzo, jegkert, joasszony, kajahu, keg, kerova, kiosk, kompot, kbarcelona, manga, marcello, muzikum,
-            officebistro, opus, pastafresca, portum, pqs, semmiextra, seastars, stex, szatyor, vanbisztro, veranda, vigvarju,
+            ninetables, officebistro, opus, pastafresca, portum, pqs, semmiextra, seastars, stex, szatyor, vanbisztro, veranda, vigvarju,
             wasabi, zappa]
 }
