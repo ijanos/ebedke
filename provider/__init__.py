@@ -42,5 +42,6 @@ __all__ = [
     "vigvarju",
     "kiosk",
     "marcello",
-    "ninetables"
+    "ninetables",
+    "monks"
 ]
