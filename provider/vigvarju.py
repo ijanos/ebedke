@@ -6,7 +6,7 @@ URL = "http://vigvarju.vakvarju.com/deli-menu/"
 @on_workdays
 def getMenu(today):
     dom = get_dom(URL)
-    date = f"{months_hu_capitalized[today.month - 1]} {today.day:02}"
+    date = f"{months_hu_capitalized[today.month - 1]} {today.day}"
     menu = dom.xpath(f'/html/body//p[contains(preceding-sibling::p, "{date}")]/text()')
     menu = list(dish.strip() for dish in menu)
 
