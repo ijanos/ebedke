@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from provider.utils import get_filtered_fb_post, on_workdays, skip_empty_lines
 
 
-FB_PAGE = "https://www.facebook.com/aranytacsko/posts"
+FB_PAGE = "https://www.facebook.com/aranytacsko/"
 FB_ID = "211285456287124"
 
 @on_workdays
@@ -11,7 +11,7 @@ def get_menu(today):
     menu_filter = lambda post: is_today(post['created_time']) and \
         any(word in post['message'].lower() for word in ["ebédmenü", "ebéd menü", "mai menü", "déli menü", "mai ebéd", "ajánlat"])
     menu = get_filtered_fb_post(FB_ID, menu_filter)
-    drop_words = ["ajánlat", "tacskó", "ebéd", "menü"]
+    drop_words = ["ajánlat", "tacskó", "ebéd", "menü", "="]
     menu = list(skip_empty_lines(filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines())))
     return menu
 
