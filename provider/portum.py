@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from provider.utils import get_filtered_fb_post, on_workdays, skip_empty_lines
+from provider.utils import get_filtered_fb_post, on_workdays, skip_empty_lines, pattern_slice
 
 
 URL = "https://www.facebook.com/PortumCorvin/posts/"
@@ -15,8 +15,9 @@ def getMenu(today):
     menu = skip_empty_lines(filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines()))
     remove_emoji = lambda text: ''.join(char for char in text if ord(char) < 500)
     menu = [remove_emoji(m) for m in menu]
+    menu = pattern_slice(menu, [""], ["---", "broth", "soup"], inclusive=True)
 
-    return menu
+    return list(menu)
 
 menu = {
     'name': 'Portum',
