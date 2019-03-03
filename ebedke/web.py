@@ -43,7 +43,7 @@ def load_menus(today, restaurants):
 
 
 def load_subdomain_menu():
-    subdomain = request.host.split(".ebed.today")[0]
+    subdomain = request.host.split(".")[0]
     if subdomain in places:
         restaurants = places[subdomain]
         welcome = False
