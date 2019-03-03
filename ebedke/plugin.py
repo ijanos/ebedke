@@ -19,6 +19,7 @@ class EbedkePlugin(object):
 
     def check_inputs(self):
         valid_groups = ["szell", "corvin", "moricz", "ferenciek", "szepvolgyi"]
+        valid_cards = ["szep", "erzs"]
         assert isinstance(self.name, str), "Plugin name must be a string"
         assert isinstance(self.id, str), "Plugin ID should be a short string"
         assert isinstance(self.enabled, bool)
@@ -29,7 +30,8 @@ class EbedkePlugin(object):
         assert isinstance(self.ttl, timedelta), "TTL must be a Timedelta"
         assert isinstance(self.url, str)
         assert self.url.startswith("http")
-        # assert cards
+        assert isinstance(self.cards, list)
+        assert all(c in valid_cards for c in self.cards)
 
     def __repr__(self):
         return f"EbedkePlugin «{self.name}»"
