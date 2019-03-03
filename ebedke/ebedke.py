@@ -6,10 +6,14 @@ from collections import defaultdict
 def load_plugins():
     groups = defaultdict(list)
     all = []
+    ids = set()
     with os.scandir("plugins") as direntries:
         for entry in direntries:
             if entry.name.endswith('.py') and entry.is_file():
                 module = importlib.import_module(f"plugins.{entry.name[:-3]}")
+                if module.plugin.id in ids:
+                    raise Exception(f"Duplicate ids! {module.plugin.name}: {module.plugin.id}")
+                ids.add(module.plugin.id)
                 if module.plugin.enabled:
                     all.append(module.plugin)
                     for group in module.plugin.groups:
