@@ -18,10 +18,13 @@ class EbedkePlugin(object):
         print(">>> run standalone")
 
     def check_inputs(self):
+        valid_groups = ["szell", "corvin", "moricz", "ferenciek", "szepvolgyi"]
         assert isinstance(self.name, str), "Plugin name must be a string"
         assert isinstance(self.id, str), "Plugin ID should be a short string"
         assert isinstance(self.enabled, bool)
         assert isinstance(self.groups, list)
+        assert all(g in valid_groups for g in self.groups)
+        assert len(self.groups) > 0
         assert callable(self.downloader), "Download must be a function"
         assert isinstance(self.ttl, timedelta), "TTL must be a Timedelta"
         assert isinstance(self.url, str)
