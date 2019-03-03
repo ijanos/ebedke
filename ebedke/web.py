@@ -4,11 +4,11 @@ import json
 import redis
 from flask import Flask, jsonify, render_template, request
 
-from provider.utils import days_lower
-from provider import restaurants
+from utils.utils import days_lower
 import config
+import ebedke
 
-places = restaurants.places
+places = ebedke.load_plugins()
 
 app = Flask(__name__, static_url_path='')
 app.config.update(
@@ -31,13 +31,13 @@ def cafeteriacard(cardname):
 
 
 def load_menus(today, restaurants):
-    menus = zip(restaurants, cache.mget(f"{provider.menu['id']}:menu" for provider in restaurants))
-    out = [{"name": provider.menu['name'],
-            "url": provider.menu['url'],
-            "id": provider.menu["id"],
+    menus = zip(restaurants, cache.mget(f"{place.id}:menu" for place in restaurants))
+    out = [{"name": place.name,
+            "url": place.url,
+            "id": place.id,
             "menu": json.loads(menu),
-            "cards": map(cafeteriacard, provider.menu.get('cards', []))
-            } for provider, menu in menus]
+            "cards": map(cafeteriacard, place.cards)
+            } for place, menu in menus]
 
     return out
 

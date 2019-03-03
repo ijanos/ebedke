@@ -8,9 +8,9 @@ from datetime import datetime as dt, timedelta
 import redis
 from requests.exceptions import Timeout
 
-from provider import restaurants
-from provider.utils import normalize_menu
+from utils.utils import normalize_menu
 import config
+import ebedke
 
 redis = redis.StrictRedis(host=config.REDIS_HOST,
                           port=config.REDIS_PORT)
@@ -18,21 +18,21 @@ redis = redis.StrictRedis(host=config.REDIS_HOST,
 
 DATEFORMAT = "%Y-%m-%d %H:%M:%S.%f"
 
-def update(id, downloader, now):
+def update(place, now):
     try:
-        daily_menu = downloader(now)
+        daily_menu = place.downloader(now)
         assert isinstance(daily_menu, list)
     except Timeout:
-        print(f"timeout in «{id}» provider")
+        print(f"timeout in «{place.id}» provider")
         daily_menu = []
     except:
-        print(f"exception in «{id}» provider:\n", traceback.format_exc())
+        print(f"exception in «{place.name}» provider:\n", traceback.format_exc())
         daily_menu = []
     daily_menu = normalize_menu(daily_menu)
 
     redis.mset({
-        f"{id}:menu": json.dumps(daily_menu),
-        f"{id}:timestamp": now.strftime(DATEFORMAT)
+        f"{place.id}:menu": json.dumps(daily_menu),
+        f"{place.id}:timestamp": now.strftime(DATEFORMAT)
     })
 
 def waittime(date):
@@ -46,11 +46,11 @@ def waittime(date):
 
 
 def do_update(place, now):
-    print(f"Updating «{place.menu['name']}»")
+    print(f"Updating «{place.name}»")
     start = perf_counter()
-    update(place.menu['id'], place.menu['get'], now)
+    update(place, now)
     elapsed = perf_counter() - start
-    print(f"Updating «{place.menu['name']}» took {elapsed} seconds")
+    print(f"Updating «{place.name}» took {elapsed} seconds")
 
 
 def loop(restaurantlist, must_update=False):
@@ -61,8 +61,8 @@ def loop(restaurantlist, must_update=False):
         return
 
     for place in restaurantlist:
-        menu, timestamp = redis.mget(f"{place.menu['id']}:menu",
-                                     f"{place.menu['id']}:timestamp")
+        menu, timestamp = redis.mget(f"{place.id}:menu",
+                                     f"{place.id}:timestamp")
         if not timestamp:
             timestamp = dt.utcfromtimestamp(0)
         else:
@@ -74,13 +74,13 @@ def loop(restaurantlist, must_update=False):
 
         if not timestamp_is_today:
             do_update(place, now)
-        elif timestamp_age > place.menu['ttl']:
+        elif timestamp_age > place.ttl:
             do_update(place, now)
         elif menu_empty and timestamp_age > wait:
             do_update(place, now)
 
 if __name__ == "__main__":
-    restaurantlist = restaurants.places['all']
+    restaurantlist = ebedke.load_plugins()["all"]
     first_loop = True
     while True:
         print("starting update loop")
