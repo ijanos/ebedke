@@ -1,5 +1,5 @@
 import sys
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 
 class EbedkePlugin(object):
@@ -14,8 +14,15 @@ class EbedkePlugin(object):
         self.cards = cards
         self.check_inputs()
 
+        # ugly hack... but it works, depends on cpython interals
+        # it will only run if the caller is __main__
+        if sys._getframe(1).f_globals["__name__"] == "__main__":
+            self.run()
+
     def run(self):
-        print(">>> run standalone")
+        date_offstet = int(sys.argv[1]) if len(sys.argv) >= 2 else 0
+        date_offstet = timedelta(days=date_offstet)
+        print(self.downloader(datetime.today() + date_offstet))
 
     def check_inputs(self):
         valid_groups = ["szell", "corvin", "moricz", "ferenciek", "szepvolgyi"]
