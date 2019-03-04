@@ -155,15 +155,6 @@ def ocr_image(image, langHint="hu"):
         return ""
     return response.json()['responses'][0]['textAnnotations'][0]['description']
 
-def normalize_menu(menu):
-    text = '\n'.join(line.strip() for line in menu)
-    if len(text.strip()) < 16:
-        return []
-    if any(word in text.lower() for word in ("zárva", "ünnep", "nincs menü")):
-        return []
-    if len(text) > 2000:
-        text = text[0:2000]
-    return text.splitlines()
 
 def workday(date):
     datestr = date.strftime("%Y-%m-%d")

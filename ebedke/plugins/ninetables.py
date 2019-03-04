@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
-from utils.utils import get_filtered_fb_post, skip_empty_lines, on_workdays
+from utils.utils import get_filtered_fb_post, on_workdays
+from utils.text import skip_empty_lines
 from plugin import EbedkePlugin
 
 FB_PAGE = "https://www.facebook.com/Nine-Tables-Corvin-255153518398246/"
@@ -14,7 +15,6 @@ def get_menu(today):
     if menu:
         drop_words = ["#", "mai menü", "napi menü", '"', "hétvég", "590", "...", "!", "“"]
         menu = filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines())
-        menu = ''.join(char for char in '\n'.join(menu) if ord(char) < 500).splitlines()
         return list(skip_empty_lines(menu))
     else:
         return []

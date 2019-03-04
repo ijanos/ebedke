@@ -8,7 +8,7 @@ from datetime import datetime as dt, timedelta
 import redis
 from requests.exceptions import Timeout
 
-from utils.utils import normalize_menu
+from utils.text import normalize_menu
 import config
 import ebedke
 
