@@ -1,7 +1,7 @@
 [uwsgi]
 plugin = python3
 socket = {{ uwsgi_socket }}
-chdir = {{ app_root }}
+chdir = {{ py_workdir }}
 virtualenv = {{ app_env }}
 module = web:app
 chmod-socket = 666

@@ -8,9 +8,10 @@
     app_user: fedora
     app_group: fedora
     site_root: "/srv/{{ ebedke_domain }}"
-    app_root: "{{ site_root}}/app"
-    app_env: "{{ app_root }}/.venv"
-    static_files: "{{ app_root }}/static"
+    git_root: "{{ site_root}}/app"
+    app_env: "{{ git_root }}/.venv"
+    py_workdir: "{{ git_root}}/ebedke"
+    static_files: "{{ py_workdir }}/static"
     uwsgi_socket_dir: "{{ site_root }}/wsgi"
     uwsgi_socket: "{{ uwsgi_socket_dir }}/socket"
 
@@ -57,7 +58,7 @@
     - name: clone ebedke git repository
       git:
         repo: 'https://github.com/ijanos/ebedke.git'
-        dest: "{{ app_root }}"
+        dest: "{{ git_root }}"
         update: no
 
     - name: create the virtual env directory
@@ -68,7 +69,7 @@
     - name: create virtual env
       shell: python3 -m pipenv sync
       args:
-        chdir: "{{ app_root }}"
+        chdir: "{{ git_root }}"
 
     - name: owerwrite default nginx config
       copy:
@@ -120,11 +121,11 @@
     - name: add config file
       copy:
         src: config.py
-        dest: "{{ app_root }}/config.py"
+        dest: "{{ py_workdir }}/config.py"
 
     - name: enable reading static files
       sefcontext:
-        target: "{{ app_root }}/static(/.*)?"
+        target: "{{ py_workdir }}/static(/.*)?"
         setype: httpd_sys_content_t
         state: present
 
