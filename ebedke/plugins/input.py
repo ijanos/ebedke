@@ -13,7 +13,7 @@ def get_menu(today):
     date = date.pop() if date else None
     date = datetime.strptime(date.split("-")[0], "%Y.%m.%d")
 
-    if today - timedelta(days=7) < date:
+    if date <= today < date + timedelta(days=6):
         menu = dom.xpath("/html/body//div[p and ul]//text()")
     else:
         menu = []
@@ -26,7 +26,7 @@ plugin = EbedkePlugin(
     id='ib',
     url=URL,
     downloader=get_menu,
-    ttl=timedelta(minutes=90),
+    ttl=timedelta(hours=24),
     cards=["szep"],
     groups=["corvin"]
 )
