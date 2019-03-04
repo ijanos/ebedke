@@ -28,6 +28,7 @@ class EbedkePlugin(object):
         assert len(self.groups) > 0
         assert callable(self.downloader), "Download must be a function"
         assert isinstance(self.ttl, timedelta), "TTL must be a Timedelta"
+        assert self.ttl >= timedelta(minutes=5), "TTL must be larger than 5 minutes"
         assert isinstance(self.url, str)
         assert self.url.startswith("http")
         assert isinstance(self.cards, list)
