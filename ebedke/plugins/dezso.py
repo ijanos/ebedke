@@ -24,6 +24,6 @@ plugin = EbedkePlugin(
     url=URL,
     downloader=getMenu,
     ttl=timedelta(minutes=20),
-    cards=['erzs'],
+    cards=[],
     groups=["corvin"]
 )
