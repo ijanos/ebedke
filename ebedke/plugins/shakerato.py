@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta
-from utils.utils import get_filtered_fb_post, days_lower, skip_empty_lines, on_workdays, pattern_slice
+from utils.utils import get_filtered_fb_post, on_workdays, pattern_slice
 from plugin import EbedkePlugin
 
 
 FB_PAGE = "https://www.facebook.com/pg/shakeratocaffe/posts/"
 FB_ID = "151093992248397"
+
 
 def fb_filter(post, today):
     created = datetime.strptime(post['created_time'], '%Y-%m-%dT%H:%M:%S%z')
