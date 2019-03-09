@@ -1,6 +1,6 @@
 import sys
 from datetime import timedelta, datetime
-
+from utils.text import normalize_menu
 
 class EbedkePlugin(object):
     def __init__(self, *, id, enabled, name, groups, downloader, ttl, url, cards):
@@ -22,7 +22,9 @@ class EbedkePlugin(object):
     def run(self):
         date_offstet = int(sys.argv[1]) if len(sys.argv) >= 2 else 0
         date_offstet = timedelta(days=date_offstet)
-        print(self.downloader(datetime.today() + date_offstet))
+        menu = list(self.downloader(datetime.today() + date_offstet))
+        print("Menu:", menu)
+        print("Normalized:", normalize_menu(menu))
 
     def check_inputs(self):
         valid_groups = ["szell", "corvin", "moricz", "ferenciek", "szepvolgyi"]
