@@ -22,6 +22,7 @@ def getMenu(today):
         menu = pattern_slice(weekly_menu.splitlines(), [days_lower[day]], days_lower + ["sütiket", "#", "jó étvágyat", "mai menü"])
     else:
         menu_post = get_filtered_fb_post(FB_ID, daily_menu_filter).splitlines()
+        menu = []
         for i, line in enumerate(menu_post):
             if "A:" in line:
                 menu = list((menu_post[i - 1], menu_post[i], menu_post[i + 1]))
