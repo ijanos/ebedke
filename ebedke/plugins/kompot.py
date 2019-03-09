@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from itertools import dropwhile
-from utils.utils import get_filtered_fb_post, days_lower, skip_empty_lines, on_workdays
+from utils.utils import get_filtered_fb_post, days_lower, skip_empty_lines, on_workdays, pattern_slice
 from plugin import EbedkePlugin
 
 
@@ -19,21 +19,13 @@ def getMenu(today):
                             and days_lower[day] in ignore_hashtags(post['message'])
     weekly_menu = get_filtered_fb_post(FB_ID, weekly_menu_filter)
     if weekly_menu:
-        menu_post = dropwhile(lambda line: days_lower[day] not in line.lower(), skip_empty_lines(weekly_menu.splitlines()))
+        menu = pattern_slice(weekly_menu.splitlines(), [days_lower[day]], days_lower + ["sütiket", "#", "jó étvágyat", "mai menü"])
     else:
         menu_post = get_filtered_fb_post(FB_ID, daily_menu_filter).splitlines()
-    menu_post = list(menu_post)
-
-    menu = []
-    for i, line in enumerate(menu_post):
-        if "A:" in line:
-            menu = list((menu_post[i - 1], menu_post[i], menu_post[i + 1]))
-            break
-
-    if menu == '':
-        skipfilter = lambda l: not any(i in l.lower() for i in ["sütiket", "#", "jó étvágyat", "mai menü"])
-        menu = list(filter(skipfilter, menu_post))
-
+        for i, line in enumerate(menu_post):
+            if "A:" in line:
+                menu = list((menu_post[i - 1], menu_post[i], menu_post[i + 1]))
+                break
     return menu
 
 plugin = EbedkePlugin(
@@ -43,6 +35,6 @@ plugin = EbedkePlugin(
     id='kp',
     url=FB_PAGE,
     downloader=getMenu,
-    ttl=timedelta(hours=23),
+    ttl=timedelta(hours=24),
     cards=['szep']
 )
