@@ -22,7 +22,9 @@ class EbedkePlugin(object):
     def run(self):
         date_offstet = int(sys.argv[1]) if len(sys.argv) >= 2 else 0
         date_offstet = timedelta(days=date_offstet)
-        menu = list(self.downloader(datetime.today() + date_offstet))
+        run_date = datetime.today() + date_offstet
+        menu = list(self.downloader(run_date))
+        print("Date:", run_date.strftime("%Y-%m-%d, %A"))
         print("Menu:", menu)
         print("Normalized:", normalize_menu(menu))
 
