@@ -6,21 +6,20 @@ from plugin import EbedkePlugin
 FB_PAGE = "https://www.facebook.com/pg/vanbisztro/posts/"
 FB_ID = "168579617153632"
 
+
+def fb_filter(post, today):
+    created = datetime.strptime(post['created_time'], '%Y-%m-%dT%H:%M:%S%z')
+    not_too_long = len(post["message"]) < 160
+    today_morning = created.date() == today.date() and 9 <= created.hour < 13
+    return not_too_long and today_morning
+
+
 @on_workdays
 def getMenu(today):
-    is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
-    is_today = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() == today.date()
-
-    menu_filter = lambda post: (is_this_week(post['created_time'])
-                               and days_lower[today.weekday()] in post['message'].lower()) \
-                               or ("menü" in post['message'].lower() and is_today(post['created_time']))
-
-    menu = get_filtered_fb_post(FB_ID, menu_filter)
-    menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()], "mai", "menü"], days_lower + ["ár:"])
-
-    remove_emoji = lambda text: ''.join(char for char in text if ord(char) < 500)
-    menu = [remove_emoji(m) for m in skip_empty_lines(menu)]
-
+    fbfilter = lambda post: fb_filter(post, today)
+    menu = get_filtered_fb_post(FB_ID, fbfilter)
+    drop_words = ["menü"] + days_lower
+    menu = filter(lambda line: not any(word in line.lower() for word in drop_words), menu.splitlines())
     return menu
 
 plugin = EbedkePlugin(
