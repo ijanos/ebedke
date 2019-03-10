@@ -45,11 +45,11 @@ def http_get(url, params=None):
         if not DEBUG_CACHE:
             DEBUG_CACHE = redis.StrictRedis(host=config.REDIS_HOST, port=config.REDIS_PORT, decode_responses=False)
 
-        cached = DEBUG_CACHE.get(url)
+        cached = DEBUG_CACHE.get(f"cache:{url}")
         if not cached:
             print("[ebedke] saving to redis cache\n")
             cached = get(url)
-            DEBUG_CACHE.set(url, pickle.dumps(cached), ex=3600)
+            DEBUG_CACHE.set(f"cache:{url}", pickle.dumps(cached), ex=3600)
             response = cached
         else:
             print("[ebedke] loaded from redis cache\n")
