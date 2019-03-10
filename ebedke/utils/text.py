@@ -1,4 +1,5 @@
 from unicodedata import category
+from unicodedata import normalize
 
 def normalize_menu(menu):
     text = '\n'.join(line.strip() for line in menu)
@@ -26,3 +27,7 @@ def skip_empty_lines(text):
         line = line.strip()
         if len(line) > 1:
             yield line
+
+def remove_accents(text):
+    accentless = normalize('NFD', text).encode('ascii', 'ignore').decode("ascii")
+    return accentless
