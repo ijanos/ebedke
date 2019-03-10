@@ -19,7 +19,7 @@ def get_menu(today):
     fbfilter = lambda post: fb_filter(post, today)
     menu = get_filtered_fb_post(FB_ID, fbfilter)
     drop_words = ["ajánlatunk"]
-    menu = filter(lambda line: not any(word in line for word in drop_words), menu.splitlines())
+    menu = filter(lambda line: not any(word in line.lower() for word in drop_words), menu.splitlines())
     return menu
 
 

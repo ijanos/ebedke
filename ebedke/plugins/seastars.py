@@ -12,7 +12,6 @@ def getMenu(today):
 
     menu_filter = lambda post: is_today(post['created_time']) and any(word in post['message'].lower() for word in menu_keywords)
     menu = get_filtered_fb_post(FB_ID, menu_filter)
-    menu = ''.join(char for char in menu if ord(char) < 500)
     drop_words = ["mindenkit", "minden menü", "étlapunk", "csodás", days_lower[today.weekday()]]
     menu = (line for line in menu.splitlines() if not any(word in line.lower() for word in drop_words))
 

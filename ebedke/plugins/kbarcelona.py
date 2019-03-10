@@ -18,7 +18,6 @@ def getMenu(today):
                                     and "asztalfoglalás" not in post['message'].lower())
 
     menu = get_filtered_fb_post(FB_ID, menu_filter)
-    menu = ''.join(char for char in menu if ord(char) < 500)
     menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()], "mai", "menü"], days_lower + ["ár:"])
 
     return list(skip_empty_lines(menu))

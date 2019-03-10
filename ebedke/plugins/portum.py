@@ -13,8 +13,6 @@ def getMenu(today):
     menu = get_filtered_fb_post(FB_ID, menu_filter)
     drop_words = ["előételek", "főételek", "desszer", "étvágy", "menü", "lunch"]
     menu = skip_empty_lines(filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines()))
-    remove_emoji = lambda text: ''.join(char for char in text if ord(char) < 500)
-    menu = [remove_emoji(m) for m in menu]
     menu = pattern_slice(menu, [""], ["---", "broth", "soup"], inclusive=True)
 
     return list(menu)

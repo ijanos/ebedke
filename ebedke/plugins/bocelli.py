@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from utils.utils import get_filtered_fb_post, skip_empty_lines, on_workdays
+from utils.utils import get_filtered_fb_post, on_workdays
 from plugin import EbedkePlugin
 
 FB_PAGE = "https://www.facebook.com/pg/bocellipizzeria/posts/"
@@ -15,7 +15,7 @@ def getMenu(today):
     menu = get_filtered_fb_post(FB_ID, menu_filter)
     menu = (line for line in menu.splitlines() if not any(word in line.lower() for word in menu_keywords))
 
-    return list(skip_empty_lines(menu))
+    return menu
 
 
 plugin = EbedkePlugin(
