@@ -5,3 +5,4 @@ debug_cache.sqlite
 .mypy_cache/
 site.retry
 dump.rdb
+.tox/
