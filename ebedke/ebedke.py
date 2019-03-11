@@ -9,7 +9,7 @@ def load_plugins():
     ids = set()
     with os.scandir("plugins") as direntries:
         for entry in direntries:
-            if entry.name.endswith('.py') and entry.is_file():
+            if entry.name.endswith('.py') and not entry.name.startswith("__") and entry.is_file():
                 module = importlib.import_module(f"plugins.{entry.name[:-3]}")
                 if module.plugin.id in ids:
                     raise Exception(f"Duplicate ids! {module.plugin.name}: {module.plugin.id}")
