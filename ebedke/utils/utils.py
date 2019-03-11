@@ -56,7 +56,6 @@ def http_get(url, params=None):
             response = pickle.loads(cached)
     else:
         response = get(url)
-
     return response
 
 def get_dom(url, force_utf8=False):
