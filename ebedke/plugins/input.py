@@ -17,7 +17,10 @@ def get_menu(today):
         menu = dom.xpath("/html/body//div[p and ul]//text()")
     else:
         menu = []
-    return list(skip_empty_lines(menu))
+
+    drop_words = ["fogásos"]
+    menu = filter(lambda line: not any(word in line.lower() for word in drop_words), menu)
+    return menu
 
 
 plugin = EbedkePlugin(
