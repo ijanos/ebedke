@@ -13,7 +13,7 @@ def normalize_menu(menu):
     # remove emojis, "So" -> Symbol, other
     # https://en.wikipedia.org/wiki/Template:General_Category_(Unicode)
     emoji = lambda char: category(char) in ["So", "Cn"]
-    text = ''.join(char for char in text if not emoji)
+    text = ''.join(char for char in text if not emoji(char))
 
     lines = []
     for line in text.splitlines():
