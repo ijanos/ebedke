@@ -19,9 +19,17 @@ def normalize_menu(menu):
     for line in text.splitlines():
         line = line.strip()
         if len(line) > 2:
+            line = capitalize_if_shouting(line)
             lines.append(line)
 
     return lines
+
+def capitalize_if_shouting(text):
+    capitals = sum(1 for c in text if c.isupper())
+    if capitals / len(text) > 0.6:
+        return text.capitalize()
+    else:
+        return text
 
 def skip_empty_lines(text):
     for line in text:
