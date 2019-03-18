@@ -10,8 +10,9 @@ FB_ID = "168579617153632"
 def fb_filter(post, today):
     created = datetime.strptime(post['created_time'], '%Y-%m-%dT%H:%M:%S%z')
     not_too_long = len(post["message"]) < 160
+    more_than_oneline = post["message"].count("\n") > 1
     today_morning = created.date() == today.date() and 9 <= created.hour < 13
-    return not_too_long and today_morning
+    return not_too_long and today_morning and more_than_oneline
 
 
 @on_workdays
