@@ -3,7 +3,7 @@
 import json
 import traceback
 from time import sleep, perf_counter
-from datetime import datetime as dt, timedelta
+from datetime import datetime as dt, time, timedelta
 from collections.abc import Iterable
 
 import redis
@@ -39,12 +39,15 @@ def update(place, now):
 
 
 def waittime(date):
-    if date.hour < 10:
-        wait = timedelta(minutes=45)
-    elif date.hour >= 10 and date.hour <= 12:
+    now = date.time()
+    if now < time(10, 30):
+        wait = timedelta(minutes=90)
+    elif now < time(11, 10):
+        wait = timedelta(minutes=10)
+    elif now < time(12, 45):
         wait = timedelta(minutes=5)
     else:
-        wait = timedelta(minutes=150)
+        wait = timedelta(minutes=120)
     return wait
 
 
@@ -60,7 +63,7 @@ def loop(restaurantlist, must_update=False):
     now = dt.today()
     wait = waittime(now)
 
-    if not must_update and now.hour >= 13:
+    if not must_update and now.time() > time(12, 45):
         return
 
     for place in restaurantlist:
