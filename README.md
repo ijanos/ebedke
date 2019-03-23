@@ -3,8 +3,8 @@
 > There are two hard things in computer science, cache invalidation and deciding
 > where to eat.
 
-Ebédke is Flask frontend and a web crawler that collects the daily menu from
-pages of restaurants. The collected menus are cached in redis and can be view in
+Ebédke is a Flask web crawler that collects the daily menu from
+restaurants' webpages. The collected menus are cached in redis and can be viewed in
 an HTML page or in JSON format.
 
 ## Development
@@ -21,10 +21,10 @@ pipenv sync
 
 Copy `config.py.example` as `config.py` and set the values. A [Facebook app
 token](https://developers.facebook.com/docs/facebook-login/access-tokens#apptokens)
-is required to read posts from facebook pages.
+is required to read posts from Facebook pages.
 
 
-Running `app.py` directly will run the Flask dev server, enough for testing
+Running `app.py` directly will run the Flask dev server. This is enough for testing
 purposes but not ideal for production.
 
 ```
