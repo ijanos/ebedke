@@ -29,7 +29,7 @@ def cafeteriacard(cardname):
     }
 
 
-def load_menus(today, restaurants):
+def load_menus(restaurants):
     menus = zip(restaurants, cache.mget(f"{place.id}:menu" for place in restaurants))
     out = [{"name": place.name,
             "url": place.url,
@@ -59,7 +59,7 @@ def root():
         'day': days_lower[today.weekday()],
         'date': today.strftime("%Y. %m. %d.")
     }
-    return render_template("index.html", menus=load_menus(today, restaurants), date=date, welcome=welcome)
+    return render_template("index.html", menus=load_menus(restaurants), date=date, welcome=welcome)
 
 @app.route('/menu')
 def dailymenu():
@@ -69,7 +69,7 @@ def dailymenu():
                 "url": menu['url'],
                 "menu": '<br>'.join(menu['menu']),
                 "cards": [card['name'] for card in menu['cards']]
-                } for menu in load_menus(dt.today(), restaurants)]
+                } for menu in load_menus(restaurants)]
 
     return jsonify(jsonout)
 
@@ -81,7 +81,7 @@ def api_v1():
                 "url": menu['url'],
                 "menu": menu['menu'],
                 "cards": [card['name'] for card in menu['cards']]
-                } for menu in load_menus(dt.today(), restaurants)]
+                } for menu in load_menus(restaurants)]
 
     return jsonify(jsonout)
 
