@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "ebedke"
+version = "1.0.0"
+description = "restaurant site crawler"
+authors = ["János Illés <ijanos@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+flask = "^1.0"
+requests = "^2.21"
+redis = "^3.2"
+lxml = "^4.3"
+pillow = "^5.4"
+
+[tool.poetry.dev-dependencies]
+pylint = "^2.3"
+
+[tool.poetry.scripts]
+updater = 'ebedke.updater:main'
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
