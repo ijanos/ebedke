@@ -38,6 +38,7 @@ class EbedkePlugin(object):
         valid_cards = ["szep", "erzs"]
         assert isinstance(self.name, str), "Plugin name must be a string"
         assert isinstance(self.id, str), "Plugin ID should be a short string"
+        assert len(self.id) > 1, "Plugin ID must be at least 2 characters"
         assert isinstance(self.enabled, bool)
         assert isinstance(self.groups, list)
         assert all(g in valid_groups for g in self.groups)
