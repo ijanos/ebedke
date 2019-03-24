@@ -10,7 +10,7 @@ import redis
 from requests.exceptions import Timeout
 
 from ebedke.utils.text import normalize_menu
-import ebedke.config
+from ebedke import config
 from ebedke import pluginmanager
 
 redis = redis.StrictRedis(host=config.REDIS_HOST,

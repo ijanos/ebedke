@@ -5,9 +5,9 @@ import redis
 from flask import Flask, jsonify, render_template, request
 
 from ebedke.utils.utils import days_lower
-import ebedke.config
+from ebedke import config, pluginmanager
 
-places = ebedke.pluginmanager.load_plugins()
+places = pluginmanager.load_plugins()
 
 app = Flask(__name__, static_url_path='')
 app.config.update(

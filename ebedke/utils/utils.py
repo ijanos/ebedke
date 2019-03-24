@@ -10,7 +10,7 @@ import requests
 from lxml import html
 import redis
 
-import ebedke.config
+from ebedke import config
 
 
 FB_TOKEN = urlencode({"access_token": config.FB_ACCESS_TOKEN})
