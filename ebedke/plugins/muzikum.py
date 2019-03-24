@@ -1,6 +1,6 @@
 from datetime import timedelta, datetime
-from utils.utils import get_dom, on_workdays
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_dom, on_workdays
+from ebedke.pluginmanager import EbedkePlugin
 
 URL = "http://muzikum.hu/heti-menu/"
 

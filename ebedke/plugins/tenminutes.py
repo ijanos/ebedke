@@ -1,8 +1,8 @@
 from io import BytesIO
 from datetime import timedelta
 from PIL import Image
-from utils.utils import ocr_image, get_fresh_image, on_workdays
-from plugin import EbedkePlugin
+from ebedke.utils.utils import ocr_image, get_fresh_image, on_workdays
+from ebedke.pluginmanager import EbedkePlugin
 
 URL = "http://www.10minutes.hu/"
 IMG_PATH = "images/home_1_06.png"

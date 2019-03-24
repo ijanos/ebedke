@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import re
-from utils.utils import get_dom, on_workdays, days_lower
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_dom, on_workdays, days_lower
+from ebedke.pluginmanager import EbedkePlugin
 
 
 URL = "http://www.monks.hu/etlap"

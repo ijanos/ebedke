@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
-from utils.utils import get_dom, on_workdays, skip_empty_lines
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_dom, on_workdays, skip_empty_lines
+from ebedke.pluginmanager import EbedkePlugin
 
 FB_PAGE = "https://www.facebook.com/inputbistro/posts"
 FB_ID = "339892963137631"

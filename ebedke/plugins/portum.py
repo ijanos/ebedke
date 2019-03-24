@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
-from utils.utils import get_filtered_fb_post, on_workdays, skip_empty_lines, pattern_slice
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_filtered_fb_post, on_workdays, skip_empty_lines, pattern_slice
+from ebedke.pluginmanager import EbedkePlugin
 
 URL = "https://www.facebook.com/PortumCorvin/posts/"
 FB_ID = "728866253985071"

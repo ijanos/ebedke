@@ -1,6 +1,6 @@
 from datetime import timedelta
-from utils.utils import get_dom, on_workdays
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_dom, on_workdays
+from ebedke.pluginmanager import EbedkePlugin
 
 PQS_MENU = "http://pqs.hu/hu/etlapok?e=56"
 

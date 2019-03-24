@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
-from utils.utils import get_filtered_fb_post, on_workdays
-from utils.text import skip_empty_lines
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_filtered_fb_post, on_workdays
+from ebedke.utils.text import skip_empty_lines
+from ebedke.pluginmanager import EbedkePlugin
 
 FB_PAGE = "https://www.facebook.com/Nine-Tables-Corvin-255153518398246/"
 FB_ID = "255153518398246"

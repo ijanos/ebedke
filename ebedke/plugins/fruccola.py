@@ -1,6 +1,6 @@
 from datetime import timedelta
-from utils.utils import http_get
-from plugin import EbedkePlugin
+from ebedke.utils.utils import http_get
+from ebedke.pluginmanager import EbedkePlugin
 
 
 URL = "http://fruccola.hu/hu"

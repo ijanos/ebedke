@@ -3,8 +3,8 @@ from io import BytesIO
 from itertools import dropwhile, takewhile, islice
 from unicodedata import normalize
 from PIL import Image
-from utils.utils import get_fb_post_attached_image, on_workdays, ocr_image, days_lower
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_fb_post_attached_image, on_workdays, ocr_image, days_lower
+from ebedke.pluginmanager import EbedkePlugin
 
 
 FB_PAGE = "https://www.facebook.com/primacorvin/"

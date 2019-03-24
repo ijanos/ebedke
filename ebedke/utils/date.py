@@ -1,4 +1,4 @@
-from utils.text import remove_accents
+from ebedke.utils.text import remove_accents
 
 
 def parse_hungarian_month(month):

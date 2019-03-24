@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta
 from io import BytesIO
 from PIL import Image
-from utils.utils import get_fb_post_attached_image, on_workdays, ocr_image, days_lower, pattern_slice, skip_empty_lines
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_fb_post_attached_image, on_workdays, ocr_image, days_lower, pattern_slice, skip_empty_lines
+from ebedke.pluginmanager import EbedkePlugin
 
 
 FB_PAGE = "https://www.facebook.com/pg/kerovaetelbar/posts/"

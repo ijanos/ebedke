@@ -4,7 +4,7 @@ import json
 import redis
 from flask import Flask, jsonify, render_template, request
 
-from utils.utils import days_lower
+from ebedke.utils.utils import days_lower
 import config
 import ebedke
 

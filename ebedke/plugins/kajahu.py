@@ -1,6 +1,6 @@
 from datetime import timedelta
-from utils.utils import on_workdays, http_get
-from plugin import EbedkePlugin
+from ebedke.utils.utils import on_workdays, http_get
+from ebedke.pluginmanager import EbedkePlugin
 
 
 URL = "https://www.kajahu.com/etlap/d"

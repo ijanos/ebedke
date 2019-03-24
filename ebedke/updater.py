@@ -9,9 +9,9 @@ from collections.abc import Iterable
 import redis
 from requests.exceptions import Timeout
 
-from utils.text import normalize_menu
+from ebedke.utils.text import normalize_menu
 import config
-import ebedke
+from ebedke import pluginmanager
 
 redis = redis.StrictRedis(host=config.REDIS_HOST,
                           port=config.REDIS_PORT)
@@ -47,7 +47,7 @@ def waittime(date):
     elif now < time(12, 45):
         wait = timedelta(minutes=5)
     else:
-        wait = timedelta(minutes=120)
+        wait = timedelta(minutes=180)
     return wait
 
 
@@ -85,8 +85,9 @@ def loop(restaurantlist, must_update=False):
         elif menu_empty and timestamp_age > wait:
             do_update(place, now)
 
-if __name__ == "__main__":
-    restaurantlist = ebedke.load_plugins()["all"]
+
+def main():
+    restaurantlist = pluginmanager.load_plugins()["all"]
     first_loop = True
     while True:
         print("starting update loop")
@@ -94,3 +95,6 @@ if __name__ == "__main__":
         print("ending update loop")
         first_loop = False
         sleep(25)
+
+if __name__ == "__main__":
+    main()

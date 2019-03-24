@@ -1,8 +1,8 @@
 from datetime import timedelta
 import re
 
-from utils.utils import get_dom, on_workdays, days_upper
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_dom, on_workdays, days_upper
+from ebedke.pluginmanager import EbedkePlugin
 
 URL = "https://www.wasabi.hu/szolgaltatas/napimenu"
 

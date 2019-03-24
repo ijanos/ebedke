@@ -1,7 +1,7 @@
 from datetime import timedelta
-from utils.utils import get_dom, on_workdays, days_lower_ascii, pattern_slice
-from utils.text import remove_accents
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_dom, on_workdays, days_lower_ascii, pattern_slice
+from ebedke.utils.text import remove_accents
+from ebedke.pluginmanager import EbedkePlugin
 
 
 URL = "http://www.magyarqtr.com/index.php?option=com_k2&view=item&layout=item&id=13&Itemid=231&lang=hu"

@@ -1,6 +1,6 @@
 from datetime import timedelta, datetime
-from utils.utils import get_filtered_fb_post, days_lower, on_workdays, pattern_slice
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_filtered_fb_post, days_lower, on_workdays, pattern_slice
+from ebedke.pluginmanager import EbedkePlugin
 
 FB_PAGE = "https://www.facebook.com/pg/gilicekonyha/posts/"
 FB_ID = "910845662306901"

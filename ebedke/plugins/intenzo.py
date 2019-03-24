@@ -1,6 +1,6 @@
 from datetime import timedelta
-from utils.utils import get_dom, on_workdays, skip_empty_lines
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_dom, on_workdays, skip_empty_lines
+from ebedke.pluginmanager import EbedkePlugin
 
 URL = "http://cafeintenzo.hu/#hetimenu"
 

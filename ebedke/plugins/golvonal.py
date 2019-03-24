@@ -1,7 +1,7 @@
 from datetime import timedelta
 from itertools import dropwhile, islice
-from utils.utils import get_dom, days_lower, skip_empty_lines, on_workdays
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_dom, days_lower, skip_empty_lines, on_workdays
+from ebedke.pluginmanager import EbedkePlugin
 
 
 URL = "http://www.golvonalbisztro.hu/heti-menuajanlat.html"

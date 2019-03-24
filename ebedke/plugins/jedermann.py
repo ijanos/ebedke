@@ -1,8 +1,8 @@
 from datetime import timedelta, date
 from re import split
-from utils.utils import get_dom, on_workdays, days_lower, pattern_slice
-from utils.date import parse_hungarian_month
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_dom, on_workdays, days_lower, pattern_slice
+from ebedke.utils.date import parse_hungarian_month
+from ebedke.pluginmanager import EbedkePlugin
 
 
 URL = "http://www.jedermann.hu/#napi"

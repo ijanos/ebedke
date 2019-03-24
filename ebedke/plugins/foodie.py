@@ -1,6 +1,6 @@
 from datetime import datetime as dt, timedelta
-from utils.utils import get_filtered_fb_post, on_workdays
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_filtered_fb_post, on_workdays
+from ebedke.pluginmanager import EbedkePlugin
 
 
 FB_PAGE = "https://www.facebook.com/pg/Foodie-MinuteBistro-494549960697458/posts"

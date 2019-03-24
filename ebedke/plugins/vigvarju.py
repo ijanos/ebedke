@@ -1,6 +1,6 @@
 from datetime import timedelta
-from utils.utils import get_dom, on_workdays, months_hu_capitalized
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_dom, on_workdays, months_hu_capitalized
+from ebedke.pluginmanager import EbedkePlugin
 
 URL = "http://vigvarju.vakvarju.com/deli-menu/"
 

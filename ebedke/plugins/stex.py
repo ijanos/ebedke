@@ -1,6 +1,6 @@
 from datetime import timedelta
-from utils.utils import get_dom, skip_empty_lines, days_lower, on_workdays, pattern_slice
-from plugin import EbedkePlugin
+from ebedke.utils.utils import get_dom, skip_empty_lines, days_lower, on_workdays, pattern_slice
+from ebedke.pluginmanager import EbedkePlugin
 
 
 URL_ROOT = "http://stexhaz.hu/index.php/hu/etl/deli-ajanlat"
