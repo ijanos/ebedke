@@ -32,9 +32,9 @@
         name: ['nginx', 'uwsgi', 'uwsgi-plugin-python3', 'python3', 'python3-virtualenv', 'redis', 'git', 'firewalld']
         state: latest
 
-    - name: install pipenv
+    - name: install poetry
       pip:
-        name: pipenv
+        name: poetry
         executable: pip3
 
     - name: change ssh port
@@ -67,7 +67,7 @@
         state: directory
 
     - name: create virtual env
-      shell: python3 -m pipenv sync
+      shell: poetry install --no-dev
       args:
         chdir: "{{ git_root }}"
 

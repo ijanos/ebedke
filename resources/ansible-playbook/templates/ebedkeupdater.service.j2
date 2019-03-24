@@ -8,8 +8,8 @@ PrivateTmp=yes
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=ebedkeupdater
-WorkingDirectory={{ py_workdir }}
-ExecStart={{ app_env }}/bin/python {{ py_workdir }}/updater.py
+WorkingDirectory={{ git_root }}
+ExecStart={{ app_env }}/bin/python -m ebedke.updater
 Environment=PYTHONUNBUFFERED=1
 Restart=always
 

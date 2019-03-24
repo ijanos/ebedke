@@ -1,9 +1,9 @@
 [uwsgi]
 plugin = python3
 socket = {{ uwsgi_socket }}
-chdir = {{ py_workdir }}
+chdir = {{ git_root }}
 virtualenv = {{ app_env }}
-module = web:app
+module = ebedke.web:app
 chmod-socket = 666
 processes = 4
 enable-threads = True
