@@ -11,7 +11,7 @@ def getMenu(today):
     menu_filter = lambda post: is_this_week(post['created_time']) and \
         any(word in post['message'].lower() for word in ["lunch menü ", "business lunch", "előételek", "déli menü", "heti menü", "menünk"])
     menu = get_filtered_fb_post(FB_ID, menu_filter)
-    drop_words = ["előételek", "főételek", "desszer", "étvágy", "menü", "lunch"]
+    drop_words = ["előételek", "főételek", "desszer", "étvágy", "menü", "lunch", str(today.year)]
     menu = skip_empty_lines(filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines()))
     menu = pattern_slice(menu, [""], ["---", "broth", "soup"], inclusive=True)
 
