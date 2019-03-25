@@ -13,6 +13,10 @@ jobs:
           command: |
             poetry install
       - run:
+          name: Setup config
+          command: |
+            cp ~/ebedke/ebedke/config.py.example ~/ebedke/ebedke/config.py
+      - run:
           name: Test
           command: |
             poetry run pytest
