@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from ebedke.utils.utils import get_dom, on_workdays, skip_empty_lines
+from ebedke.utils.utils import get_dom, on_workdays, skip_empty_lines, pattern_slice
 from ebedke.pluginmanager import EbedkePlugin
 
 FB_PAGE = "https://www.facebook.com/inputbistro/posts"
@@ -9,17 +9,17 @@ URL = "https://www.input.hu/?page_id=1981"
 @on_workdays
 def get_menu(today):
     dom = get_dom(URL)
-    date = dom.xpath(f"/html/body//div/h2[contains(text(), {today.year})]/text()")
-    date = date.pop() if date else None
-    date = datetime.strptime(date.split("-")[0], "%Y.%m.%d")
+    page = dom.xpath("/html/body//div[@id='heti-men-page']//text()")
+    looks_like_a_date = lambda text: text.count(".") > 2 and str(today.year) in text
+    date = next(filter(looks_like_a_date, page))
+    date = datetime.strptime(date.split("-")[0].strip(" ."), "%Y.%m.%d")
 
     if date <= today < date + timedelta(days=6):
-        menu = dom.xpath("/html/body//div[p and ul]//text()")
+        menu = page
     else:
         menu = []
 
-    drop_words = ["fogásos"]
-    menu = filter(lambda line: not any(word in line.lower() for word in drop_words), menu)
+    menu = pattern_slice(menu, ["levesek"], ["étlap", "function", "getElementById"])
     return menu
 
 
