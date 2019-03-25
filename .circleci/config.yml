@@ -1,0 +1,18 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6
+
+    working_directory: ~/ebedke
+
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: |
+            poetry install
+      - run:
+          name: Test
+          command: |
+            poetry run pytest
