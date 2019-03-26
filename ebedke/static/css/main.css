@@ -39,6 +39,23 @@ body > header {
   cursor: pointer;
 }
 
+main > header > h1 {
+  display: flex;
+  justify-content: center;
+}
+
+main > header > ul {
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+main > header li {
+  background: cornsilk;
+  margin: 0.2em;
+}
+
 @media (hover: hover) {
   #settings:hover {
     text-decoration: underline;
