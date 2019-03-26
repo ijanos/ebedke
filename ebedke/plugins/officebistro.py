@@ -30,7 +30,7 @@ plugin = EbedkePlugin(
     enabled=True,
     groups=["szepvolgyi"],
     name='Office Bistro',
-    id='officebistro',
+    id='van',
     url=URL,
     downloader=getMenu,
     ttl=timedelta(hours=24),
