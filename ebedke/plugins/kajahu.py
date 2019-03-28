@@ -21,7 +21,7 @@ def getMenu(today):
 
 plugin = EbedkePlugin(
     enabled=True,
-    groups=["ferenciek"],
+    groups=["ferenciek", "corvin"],
     name='KAJAHU',
     id='kjh',
     url=URL,

@@ -6,3 +6,4 @@ debug_cache.sqlite
 site.retry
 dump.rdb
 .tox/
+.idea
