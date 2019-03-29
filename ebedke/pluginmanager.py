@@ -42,7 +42,7 @@ class EbedkePlugin(object):
         assert isinstance(self.enabled, bool)
         assert isinstance(self.groups, list)
         assert all(g in valid_groups for g in self.groups)
-        assert len(self.groups) > 0
+        assert self.groups, "Groups must not be empty"
         assert callable(self.downloader), "Download must be a function"
         assert isinstance(self.ttl, timedelta), "TTL must be a Timedelta"
         assert self.ttl >= timedelta(minutes=5), "TTL must be larger than 5 minutes"
