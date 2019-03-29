@@ -30,10 +30,10 @@ def capitalize_if_shouting(text):
     else:
         return text
 
-def skip_empty_lines(text):
+def skip_empty_lines(text, dropwords=[]):
     for line in text:
         line = line.strip()
-        if len(line) > 1:
+        if len(line) > 1 and not any(word in line for word in dropwords):
             yield line
 
 def remove_accents(text):
