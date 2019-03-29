@@ -1,5 +1,4 @@
-from unicodedata import category
-from unicodedata import normalize
+import unicodedata
 
 def normalize_menu(menu):
     text = '\n'.join(line.strip() for line in menu)
@@ -12,7 +11,7 @@ def normalize_menu(menu):
 
     # remove emojis, "So" -> Symbol, other
     # https://en.wikipedia.org/wiki/Template:General_Category_(Unicode)
-    emoji = lambda char: category(char) in ["So", "Cn"]
+    emoji = lambda char: unicodedata.category(char) in ["So", "Cn", "Sk", "Cf"]
     text = ''.join(char for char in text if not emoji(char))
 
     lines = []
@@ -38,5 +37,5 @@ def skip_empty_lines(text):
             yield line
 
 def remove_accents(text):
-    accentless = normalize('NFD', text).encode('ascii', 'ignore').decode("ascii")
+    accentless = unicodedata.normalize('NFD', text).encode('ascii', 'ignore').decode("ascii")
     return accentless
