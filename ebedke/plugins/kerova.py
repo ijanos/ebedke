@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 from io import BytesIO
 from PIL import Image
-from ebedke.utils.utils import get_fb_post_attached_image, on_workdays, ocr_image, days_lower, pattern_slice, skip_empty_lines
+from ebedke.utils.utils import get_fb_post_attached_image, on_workdays, ocr_image, days_lower, pattern_slice
+from ebedke.utils.text import skip_empty_lines
 from ebedke.pluginmanager import EbedkePlugin
 
 
@@ -23,7 +24,7 @@ def get_menu(today):
             return []
 
         menu = pattern_slice(menu, [days_lower[today.weekday()]], days_lower + ['desszert', "890"], inclusive=False)
-        menu = list(skip_empty_lines(menu))
+        menu = skip_empty_lines(menu, dropwords=["shutt", "stock"])
     else:
         return []
 
