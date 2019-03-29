@@ -5,7 +5,7 @@ from ebedke.pluginmanager import EbedkePlugin
 URL = "http://semmiextra.hu/bartok-bela-ut-etterem#heti-menu"
 
 @on_workdays
-def getMenu(today):
+def getMenu(_today):
     dom = get_dom(URL)
     menu = dom.xpath("/html/body//div[@id='heti-menu']//ul[@class='dotted']/li/text()")
     menu = list(skip_empty_lines(menu))
@@ -19,6 +19,6 @@ plugin = EbedkePlugin(
     id='se',
     url=URL,
     downloader=getMenu,
-    ttl=timedelta(hours=4),
+    ttl=timedelta(minutes=45),
     cards=['erzs']
 )

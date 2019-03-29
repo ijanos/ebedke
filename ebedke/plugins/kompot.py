@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from itertools import dropwhile
-from ebedke.utils.utils import get_filtered_fb_post, days_lower, skip_empty_lines, on_workdays, pattern_slice
+from ebedke.utils.utils import get_filtered_fb_post, days_lower, on_workdays, pattern_slice
 from ebedke.pluginmanager import EbedkePlugin
 
 

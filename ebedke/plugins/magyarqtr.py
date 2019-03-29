@@ -11,7 +11,7 @@ URL = "http://www.magyarqtr.com/index.php?option=com_k2&view=item&layout=item&id
 def get_menu(today):
     dom = get_dom(URL)
     menu_week_number = dom.xpath("/html/body//div[@class='itemBody']//h2[@class='itemTitle']//text()")
-    menu_week_number =  ''.join(char for char  in ''.join(menu_week_number) if char.isnumeric())
+    menu_week_number = ''.join(char for char  in ''.join(menu_week_number) if char.isnumeric())
     _, current_week_number, _ = today.date().isocalendar()
 
     if menu_week_number == str(current_week_number):

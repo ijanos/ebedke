@@ -16,8 +16,8 @@ def get_menu(today):
         drop_words = ["#", "mai menü", "napi menü", '"', "hétvég", "590", "...", "!", "“"]
         menu = filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines())
         return list(skip_empty_lines(menu))
-    else:
-        return []
+
+    return []
 
 plugin = EbedkePlugin(
     enabled=True,
