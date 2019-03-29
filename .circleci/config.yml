@@ -8,10 +8,18 @@ jobs:
 
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-poetry-cache-{{ checksum "poetry.lock" }}
       - run:
           name: Install
           command: |
+            poetry config settings.virtualenvs.in-project true
             poetry install
+      - save_cache:
+          paths:
+            - ~/ebedke/.venv
+          key: v1-poetry-cache-{{ checksum "poetry.lock" }}
       - run:
           name: Setup config
           command: |
