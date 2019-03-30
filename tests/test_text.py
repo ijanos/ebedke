@@ -18,3 +18,5 @@ def test_normalize():
     assert text.normalize_menu(menu) == ["test menu", "this is a longer test text"]
     closed_menu = ["sajnos ma zárva vagyunk"]
     assert text.normalize_menu(closed_menu) == []
+    menu = [" test test", "1234Ft", "test test ", "aa!#!!aa"]
+    assert text.normalize_menu(menu) == ["test test", "test test"]

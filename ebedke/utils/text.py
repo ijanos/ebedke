@@ -17,11 +17,15 @@ def normalize_menu(menu):
     lines = []
     for line in text.splitlines():
         line = line.strip()
-        if len(line) > 2:
+        if len(line) > 2 and mostly_contains_letters(line):
             line = capitalize_if_shouting(line)
             lines.append(line)
 
     return lines
+
+def mostly_contains_letters(text):
+    letters = sum(1 for c in text if c.isalpha())
+    return letters / len(text) > 0.5
 
 def capitalize_if_shouting(text):
     capitals = sum(1 for c in text if c.isupper())
