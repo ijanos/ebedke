@@ -1,6 +1,7 @@
 import os
 import sys
 import importlib
+from pprint import pprint
 from collections import defaultdict
 from datetime import timedelta, datetime
 
@@ -30,8 +31,10 @@ class EbedkePlugin(object):
         run_date = datetime.today() + date_offstet
         menu = list(self.downloader(run_date))
         print("Date:", run_date.strftime("%Y-%m-%d, %A"))
-        print("Menu:", menu)
-        print("Normalized:", normalize_menu(menu))
+        print("Raw menu:")
+        pprint(menu)
+        print("\nNormalized menu:")
+        pprint(normalize_menu(menu))
 
     def check_inputs(self):
         valid_groups = ["szell", "corvin", "moricz", "ferenciek", "szepvolgyi"]
