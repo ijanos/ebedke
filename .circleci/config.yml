@@ -12,7 +12,7 @@ jobs:
           keys:
             - v1-poetry-cache-{{ checksum "poetry.lock" }}
       - run:
-          name: Install
+          name: Install dependencies with poetry
           command: |
             poetry config settings.virtualenvs.in-project true
             poetry install
@@ -21,10 +21,10 @@ jobs:
             - ~/ebedke/.venv
           key: v1-poetry-cache-{{ checksum "poetry.lock" }}
       - run:
-          name: Setup config
+          name: Rename example config
           command: |
             cp ~/ebedke/ebedke/config.py.example ~/ebedke/ebedke/config.py
       - run:
-          name: Test
+          name: Run pytest
           command: |
             poetry run pytest
