@@ -5,19 +5,19 @@ from ebedke.pluginmanager import EbedkePlugin
 FB_PAGE = "https://www.facebook.com/pg/kubalabarca/posts/"
 FB_ID = "2454065824618853"
 
+def fb_filter(post, today):
+    more_than_5_lines = post["message"].count("\n") > 5
+    created = datetime.strptime(post['created_time'], '%Y-%m-%dT%H:%M:%S%z')
+    trigger_words = ["menünk", "leves", "menü", days_lower[today.weekday()]]
+    triggered = any(word in post["message"].lower() for word in trigger_words)
+    current = today.date() - timedelta(days=5) < created.date()
+    return triggered and current and more_than_5_lines
+
+
 @on_workdays
 def getMenu(today):
-    is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
-    is_today = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() == today.date()
-
-    menu_filter = lambda post: (is_this_week(post['created_time'])
-                               and days_lower[today.weekday()] in post['message'].lower()
-                               and "asztalfoglalás" not in post['message'].lower()) \
-                               or ("menü" in post['message'].lower()
-                                    and is_today(post['created_time'])
-                                    and "asztalfoglalás" not in post['message'].lower())
-
-    menu = get_filtered_fb_post(FB_ID, menu_filter)
+    fbfilter = lambda post: fb_filter(post, today)
+    menu = get_filtered_fb_post(FB_ID, fbfilter)
     menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()], "mai", "menü"], days_lower + ["ár:"])
 
     return list(skip_empty_lines(menu))
