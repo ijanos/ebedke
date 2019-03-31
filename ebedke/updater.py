@@ -4,7 +4,6 @@ import json
 import traceback
 from time import sleep, perf_counter
 from datetime import datetime as dt, time, timedelta
-from collections.abc import Iterable
 
 import redis
 from requests.exceptions import Timeout
@@ -23,7 +22,6 @@ DATEFORMAT = "%Y-%m-%d %H:%M:%S.%f"
 def update(place, now):
     try:
         daily_menu = place.downloader(now)
-        assert isinstance(daily_menu, Iterable), "Download function must return a list or other iteratable"
         daily_menu = normalize_menu(daily_menu)
     except Timeout:
         print(f"timeout in «{place.id}» provider")

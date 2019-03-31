@@ -3,6 +3,7 @@ import sys
 import importlib
 from pprint import pprint
 from collections import defaultdict
+from collections.abc import Iterable
 from datetime import timedelta, datetime
 
 from ebedke.utils.text import normalize_menu
@@ -30,6 +31,8 @@ class EbedkePlugin(object):
         date_offstet = timedelta(days=date_offstet)
         run_date = datetime.today() + date_offstet
         menu = list(self.downloader(run_date))
+        assert isinstance(menu, Iterable) and not isinstance(menu, (str, bytes)),\
+            "Download function must return a list or other iterable that is not a string or bytestring"
         print("Date:", run_date.strftime("%Y-%m-%d, %A"))
         print("Raw menu:")
         pprint(menu)
