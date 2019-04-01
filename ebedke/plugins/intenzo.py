@@ -1,5 +1,6 @@
 from datetime import timedelta
-from ebedke.utils.utils import get_dom, on_workdays, skip_empty_lines
+from ebedke.utils.utils import get_dom, on_workdays
+from ebedke.utils.text import skip_empty_lines
 from ebedke.pluginmanager import EbedkePlugin
 
 URL = "http://cafeintenzo.hu/#hetimenu"
@@ -9,8 +10,9 @@ def getMenu(today):
     day = today.weekday()
     dom = get_dom(URL)
     menu = dom.xpath('/html/body//section[@id="hetimenu"]//div[contains(@class, "text_box")]')
-    menu = filter(lambda l: "menü ára" not in l, menu[day].xpath("p//text()"))
-    menu = list(skip_empty_lines(menu))
+    ptags = menu[day].xpath("p")
+    menu = (p.text_content() for p in ptags)
+    menu = skip_empty_lines(menu, dropwords=["menü ára"])
 
     return menu
 
