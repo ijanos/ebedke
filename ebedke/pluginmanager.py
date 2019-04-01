@@ -1,7 +1,6 @@
 import os
 import sys
 import importlib
-from pprint import pprint
 from collections import defaultdict
 from collections.abc import Iterable
 from datetime import timedelta, datetime
@@ -35,9 +34,9 @@ class EbedkePlugin(object):
             "Download function must return a list or other iterable that is not a string or bytestring"
         print("Date:", run_date.strftime("%Y-%m-%d, %A"))
         print("Raw menu:")
-        pprint(menu)
+        print(menu)
         print("\nNormalized menu:")
-        pprint(normalize_menu(menu))
+        print(normalize_menu(menu))
 
     def check_inputs(self):
         valid_groups = ["szell", "corvin", "moricz", "ferenciek", "szepvolgyi"]
