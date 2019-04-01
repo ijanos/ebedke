@@ -15,7 +15,6 @@ def menu_filter(post, today):
     is_this_week = datetime.strptime(post['created_time'],
                                      '%Y-%m-%dT%H:%M:%S%z').date() >= today.date() - timedelta(days=7)
     text = post['message'].lower()
-    print(post['created_time'], post['message'])
     return is_this_week and ("menu" in text or "menü" in text)
 
 @on_workdays
