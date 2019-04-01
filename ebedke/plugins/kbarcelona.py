@@ -10,8 +10,8 @@ def fb_filter(post, today):
     created = datetime.strptime(post['created_time'], '%Y-%m-%dT%H:%M:%S%z')
     trigger_words = ["menünk", "leves", "menü", days_lower[today.weekday()]]
     triggered = any(word in post["message"].lower() for word in trigger_words)
-    current = today.date() - timedelta(days=5) < created.date()
-    return triggered and current and more_than_5_lines
+    is_today = today.date() == created.date()
+    return triggered and is_today and more_than_5_lines
 
 
 @on_workdays
