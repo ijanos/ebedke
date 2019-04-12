@@ -2,12 +2,7 @@
 
 FB_ACCESS_TOKEN=""
 GCP_API_KEY = ""
-POOL_SIZE = 4
-OFFSET = None
-# Offset the current date for debug purposes
-# OFFSET = -2
 USER_AGENT = ""
 DEBUG_CACHE_HTTP = False
-REQUEST_TIMEOUT = 5 # seconds
 REDIS_HOST = "localhost"
 REDIS_PORT = 6379

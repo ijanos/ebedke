@@ -39,7 +39,7 @@ def http_get(url, params=None):
     headers = {
         'User-Agent': config.USER_AGENT,
     }
-    get = partial(requests.get, headers=headers, params=params, timeout=config.REQUEST_TIMEOUT)
+    get = partial(requests.get, headers=headers, params=params, timeout=10)
 
     if config.DEBUG_CACHE_HTTP:
         if not DEBUG_CACHE:
