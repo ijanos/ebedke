@@ -10,7 +10,7 @@ flask = "^1.0"
 requests = "^2.21"
 redis = "^3.2"
 lxml = "^4.3"
-pillow = "^5.4"
+pillow = "^6.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.3"
