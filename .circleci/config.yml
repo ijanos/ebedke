@@ -21,10 +21,6 @@ jobs:
             - ~/ebedke/.venv
           key: v1-poetry-cache-{{ checksum "poetry.lock" }}
       - run:
-          name: Rename example config
-          command: |
-            cp ~/ebedke/ebedke/config.py.example ~/ebedke/ebedke/config.py
-      - run:
           name: Run linter
           command: |
             poetry run pylint -E ebedke
