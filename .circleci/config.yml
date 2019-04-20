@@ -25,6 +25,10 @@ jobs:
           command: |
             cp ~/ebedke/ebedke/config.py.example ~/ebedke/ebedke/config.py
       - run:
+          name: Run linter
+          command: |
+            poetry run pylint -E ebedke
+      - run:
           name: Run pytest
           command: |
             poetry run pytest
