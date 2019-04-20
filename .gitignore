@@ -8,3 +8,5 @@ dump.rdb
 .tox/
 .venv
 .idea
+ebedke.egg-info/
+export_settings.sh
