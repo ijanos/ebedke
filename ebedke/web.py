@@ -5,7 +5,8 @@ import redis
 from flask import Flask, jsonify, render_template, request
 
 from ebedke.utils.utils import days_lower
-from ebedke import config, pluginmanager
+from ebedke import pluginmanager
+from ebedke.connections import redis
 
 places = pluginmanager.load_plugins()
 
@@ -14,9 +15,6 @@ app.config.update(
     JSON_AS_ASCII=False,
     JSONIFY_MIMETYPE="application/json; charset=utf-8"
 )
-
-cache = redis.StrictRedis(host=config.REDIS_HOST,
-                          port=config.REDIS_PORT)
 
 def cafeteriacard(cardname):
     tooltip = {
@@ -30,7 +28,7 @@ def cafeteriacard(cardname):
 
 
 def load_menus(restaurants):
-    menus = zip(restaurants, cache.mget(f"{place.id}:menu" for place in restaurants))
+    menus = zip(restaurants, redis.mget(f"{place.id}:menu" for place in restaurants))
     out = [{"name": place.name,
             "url": place.url,
             "id": place.id,

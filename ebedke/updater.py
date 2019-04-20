@@ -9,12 +9,8 @@ import redis
 from requests.exceptions import Timeout
 
 from ebedke.utils.text import normalize_menu
-from ebedke import config
+from ebedke.connections import redis
 from ebedke import pluginmanager
-
-redis = redis.StrictRedis(host=config.REDIS_HOST,
-                          port=config.REDIS_PORT)
-
 
 DATEFORMAT = "%Y-%m-%d %H:%M:%S.%f"
 

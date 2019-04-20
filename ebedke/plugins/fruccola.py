@@ -1,5 +1,5 @@
 from datetime import timedelta
-from ebedke.utils.utils import http_get
+from ebedke.utils import http
 from ebedke.pluginmanager import EbedkePlugin
 
 
@@ -9,7 +9,7 @@ API = "http://fruccola.hu/admin/api/daily_menu"
 def getMenu(today):
     date = today.strftime("%Y-%m-%d")
     out = []
-    for place in http_get(API).json().values():
+    for place in http.get(API).json().values():
         if "place_id" in place and place['place_id'] == 2 and place["due_date"] == date:
             out = [place['soup_hu'], place['dish_hu']]
             break

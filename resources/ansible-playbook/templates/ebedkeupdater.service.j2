@@ -8,6 +8,9 @@ PrivateTmp=yes
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=ebedkeupdater
+Environment="FACEBOOK_ACCESS_TOKEN=secret"
+Environment="GOOGLE_API_KEY=secret"
+Environment="EBEDKE_LIVE=1"
 WorkingDirectory={{ git_root }}
 ExecStart={{ app_env }}/bin/python -m ebedke.updater
 Environment=PYTHONUNBUFFERED=1

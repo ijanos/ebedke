@@ -10,16 +10,17 @@ import requests
 from lxml import html
 import redis
 
-from ebedke import config
+from ebedke.utils import http
+from ebedke import settings
 
 
-FB_TOKEN = urlencode({"access_token": config.FB_ACCESS_TOKEN})
+FB_TOKEN = urlencode({"access_token": settings.facebook_token})
 FB_API_ROOT = "https://graph.facebook.com/v3.1"
 VISION_API_ROOT = "https://vision.googleapis.com/v1/images:annotate"
 
 
 HEADERS = {
-    'User-Agent': config.USER_AGENT,
+    'User-Agent': settings.user_agent
 }
 
 days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat", "vasárnap"]
@@ -31,41 +32,14 @@ months_hu_capitalized = ["Január", "Február", "Március",
                          "Július", "Augusztus", "Szeptember",
                          "Október", "November", "December"]
 
-DEBUG_CACHE = None
-
-def http_get(url, params=None):
-    global DEBUG_CACHE
-
-    headers = {
-        'User-Agent': config.USER_AGENT,
-    }
-    get = partial(requests.get, headers=headers, params=params, timeout=10)
-
-    if config.DEBUG_CACHE_HTTP:
-        if not DEBUG_CACHE:
-            DEBUG_CACHE = redis.StrictRedis(host=config.REDIS_HOST, port=config.REDIS_PORT, decode_responses=False)
-
-        cached = DEBUG_CACHE.get(f"cache:{url}")
-        if not cached:
-            print("[ebedke] saving to redis cache\n")
-            cached = get(url)
-            DEBUG_CACHE.set(f"cache:{url}", pickle.dumps(cached), ex=3600)
-            response = cached
-        else:
-            print("[ebedke] loaded from redis cache\n")
-            response = pickle.loads(cached)
-    else:
-        response = get(url)
-    return response
-
 def get_dom(url, force_utf8=False):
-    response = http_get(url)
+    response = http.get(url)
     if force_utf8:
-        response.encoding = 'utf-8'
+            response.encoding = 'utf-8'
     return html.fromstring(response.text)
 
 def get_fresh_image(url, fresh_date):
-    response = http_get(url)
+    response = http.get(url)
     lastmod = response.headers.get('last-modified')
     if not lastmod:
         print("[ebedke] image is missing last-modified header")
@@ -79,9 +53,9 @@ def get_fresh_image(url, fresh_date):
 def get_filtered_fb_post(page_id, post_filter):
     payload = {
         "limit": 10,
-        "access_token": config.FB_ACCESS_TOKEN
+        "access_token": settings.facebook_token
     }
-    response = http_get(f"{ FB_API_ROOT }/{ page_id }/posts", params=payload)
+    response = http.get(f"{ FB_API_ROOT }/{ page_id }/posts", params=payload)
     json = response.json()
     if "error" in json:
         print("[ebedke] Facebook API error:", json['error']['message'])
@@ -94,15 +68,15 @@ def get_filtered_fb_post(page_id, post_filter):
 
 def get_post_attachments(post_id):
     url = f"{ FB_API_ROOT }/{ post_id }/attachments?{ FB_TOKEN }"
-    return http_get(url).json()
+    return http.get(url).json()
 
 def get_fb_post_attached_image(page_id, post_filter):
     payload = {
         "fields": "message,created_time,attachments{target{id}}",
         "limit": 8,
-        "access_token": config.FB_ACCESS_TOKEN
+        "access_token": settings.facebook_token
     }
-    response = http_get(f"{ FB_API_ROOT }/{ page_id }/posts?fields=attachments", params=payload)
+    response = http.get(f"{ FB_API_ROOT }/{ page_id }/posts?fields=attachments", params=payload)
     posts = response.json()['data']
     post = None
     for p in posts:
@@ -113,19 +87,19 @@ def get_fb_post_attached_image(page_id, post_filter):
         attachments_id = post["attachments"]["data"][0]["target"]["id"]
         payload = {
             "fields": "images",
-            "access_token": config.FB_ACCESS_TOKEN
+            "access_token": settings.facebook_token
         }
-        response = http_get(f"{ FB_API_ROOT }/{ attachments_id }", params=payload)
+        response = http.get(f"{ FB_API_ROOT }/{ attachments_id }", params=payload)
         images = response.json()["images"]
         large_image = max(images, key=operator.itemgetter("height"))
-        return http_get(large_image["source"]).content
+        return http.get(large_image["source"]).content
     else:
         return None
 
 
 def get_fb_cover_url(page_id):
     url = f"{ FB_API_ROOT }/{ page_id }?fields=cover&{ FB_TOKEN }"
-    response = http_get(url)
+    response = http.get(url)
     cover_url = response.json()['cover']['source']
     return cover_url
 
@@ -146,7 +120,7 @@ def ocr_image(image, langHint="hu"):
         "imageContext": {"languageHints": [langHint]}
     }]}
     response = requests.post(VISION_API_ROOT, json=img_request,
-                             params={'key': config.GCP_API_KEY},
+                             params={'key': settings.google_token},
                              headers={'Content-Type': 'application/json'},
                              timeout=10)
     if response.status_code != 200 or response.json().get('error'):

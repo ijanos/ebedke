@@ -1,8 +1,0 @@
-## Rename this file to config.py
-
-FB_ACCESS_TOKEN=""
-GCP_API_KEY = ""
-USER_AGENT = ""
-DEBUG_CACHE_HTTP = False
-REDIS_HOST = "localhost"
-REDIS_PORT = 6379
