@@ -4,11 +4,11 @@ import requests
 from ebedke import connections
 from ebedke import settings
 
-def get(url, params=None):
+def get(url, *, params=None, verify=True):
     headers = {
         'User-Agent': settings.user_agent,
     }
-    get = partial(requests.get, headers=headers, params=params, timeout=10)
+    get = partial(requests.get, headers=headers, params=params, timeout=10, verify=verify)
 
     if settings.debug_mode:
         cached = connections.redis.get(f"cache:{url}")
