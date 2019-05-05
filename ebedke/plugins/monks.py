@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import re
-from ebedke.utils.utils import get_dom, on_workdays, days_lower
+from ebedke.utils.utils import on_workdays, days_lower
+from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
 
 

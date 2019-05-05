@@ -1,6 +1,7 @@
 from datetime import timedelta
 from itertools import dropwhile, islice
-from ebedke.utils.utils import get_dom, days_lower, skip_empty_lines, on_workdays
+from ebedke.utils.utils import days_lower, skip_empty_lines, on_workdays
+from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
 
 

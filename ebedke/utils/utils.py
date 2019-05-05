@@ -32,11 +32,6 @@ months_hu_capitalized = ["Január", "Február", "Március",
                          "Július", "Augusztus", "Szeptember",
                          "Október", "November", "December"]
 
-def get_dom(url, force_utf8=False, verify=True):
-    response = http.get(url, verify=verify)
-    if force_utf8:
-            response.encoding = 'utf-8'
-    return html.fromstring(response.text)
 
 def get_fresh_image(url, fresh_date):
     response = http.get(url)

@@ -1,5 +1,6 @@
 from datetime import timedelta
-from ebedke.utils.utils import get_dom, on_workdays, days_lower, skip_empty_lines
+from ebedke.utils.utils import on_workdays, days_lower, skip_empty_lines
+from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
 
 URL = "http://szepvolgyi.officebistro.hu/heti-ajanlat"

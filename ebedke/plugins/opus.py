@@ -1,5 +1,6 @@
 from datetime import timedelta
-from ebedke.utils.utils import get_dom, on_workdays
+from ebedke.utils.utils import on_workdays
+from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
 
 URL = "https://opusjazzclub.hu/etlap"

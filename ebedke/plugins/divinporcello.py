@@ -1,5 +1,6 @@
 from datetime import timedelta
-from ebedke.utils.utils import get_dom, on_workdays, months_hu_capitalized
+from ebedke.utils.utils import on_workdays, months_hu_capitalized
+from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
 
 URL = "https://divinporcello.hu/napi-menu"

@@ -1,8 +1,8 @@
 import pickle
 from functools import partial
 import requests
-from ebedke import connections
-from ebedke import settings
+from lxml import html
+from ebedke import connections, settings
 
 def get(url, *, params=None, verify=True):
     headers = {
@@ -23,3 +23,9 @@ def get(url, *, params=None, verify=True):
     else:
         response = get(url)
     return response
+
+def get_dom(url, force_utf8=False, verify=True):
+    response = get(url, verify=verify)
+    if force_utf8:
+        response.encoding = 'utf-8'
+    return html.fromstring(response.text)
