@@ -3,14 +3,12 @@ from ebedke.utils.utils import skip_empty_lines, on_workdays
 from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
 
-URL = "http://semmiextra.hu/bartok-bela-ut-etterem#heti-menu"
+URL = "https://semmiextra.hu/#menu-heti-b"
 
 @on_workdays
 def getMenu(_today):
     dom = get_dom(URL)
-    menu = dom.xpath("/html/body//div[@id='heti-menu']//ul[@class='dotted']/li/text()")
-    menu = list(skip_empty_lines(menu))
-
+    menu = dom.xpath('/html/body//div[@id="menu-heti-b"]//div[@class="row "]/div[@class="title"]/text()')
     return menu
 
 plugin = EbedkePlugin(
