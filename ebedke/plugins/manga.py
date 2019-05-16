@@ -21,7 +21,7 @@ def getMenu(today):
 plugin = EbedkePlugin(
     enabled=True,
     groups=["corvin"],
-    name='Manga',
+    name='Manga Cowboy',
     id='mc',
     url=URL,
     downloader=getMenu,
