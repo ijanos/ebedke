@@ -16,7 +16,7 @@ def get_menu(today):
 
 
 plugin = EbedkePlugin(
-    enabled=True,
+    enabled=False,
     name='Gólya',
     id='gl',
     url=FB_PAGE,
