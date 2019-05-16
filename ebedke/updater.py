@@ -34,12 +34,14 @@ def update(place, now):
 
 def waittime(date):
     now = date.time()
+    if now < time(7, 00):
+        wait = timedelta(minutes=120)
     if now < time(10, 30):
-        wait = timedelta(minutes=90)
+        wait = timedelta(minutes=35)
     elif now < time(11, 10):
         wait = timedelta(minutes=10)
     elif now < time(12, 45):
-        wait = timedelta(minutes=5)
+        wait = timedelta(minutes=6)
     else:
         wait = timedelta(minutes=180)
     return wait
