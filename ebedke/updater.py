@@ -20,7 +20,7 @@ def update(place, now):
         daily_menu = place.downloader(now)
         daily_menu = normalize_menu(daily_menu)
     except Timeout:
-        print(f"timeout in «{place.id}» provider")
+        print(f"timeout in «{place.name}» provider")
         daily_menu = []
     except:
         print(f"exception in «{place.name}» provider:\n", traceback.format_exc())
@@ -48,11 +48,10 @@ def waittime(date):
 
 
 def do_update(place, now):
-    print(f"Updating «{place.name}»")
     start = perf_counter()
     update(place, now)
     elapsed = perf_counter() - start
-    print(f"Updating «{place.name}» took {elapsed} seconds")
+    print(f"Updated «{place.name}» in {elapsed:.2f} seconds")
 
 
 def loop(restaurantlist, must_update=False):
