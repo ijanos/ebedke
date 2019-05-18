@@ -8,7 +8,8 @@ from datetime import timedelta, datetime
 from ebedke.utils.text import normalize_menu
 
 
-class EbedkePlugin(object):
+class EbedkePlugin:
+    # pylint: disable=redefined-builtin,protected-access,too-many-instance-attributes
     def __init__(self, *, id, enabled, name, groups, downloader, ttl, url, cards):
         self.id = id
         self.enabled = enabled
@@ -62,7 +63,7 @@ class EbedkePlugin(object):
 
 def load_plugins():
     groups = defaultdict(list)
-    all = []
+    plugins = []
     ids = set()
     with os.scandir("ebedke/plugins") as direntries:
         for entry in direntries:
@@ -72,16 +73,20 @@ def load_plugins():
                     raise Exception(f"Duplicate ids! {module.plugin.name}: {module.plugin.id}")
                 ids.add(module.plugin.id)
                 if module.plugin.enabled:
-                    all.append(module.plugin)
+                    plugins.append(module.plugin)
                     for group in module.plugin.groups:
                         groups[group].append(module.plugin)
-    groups["all"] = all
+    groups["all"] = plugins
     for pluginlist in groups.values():
         pluginlist.sort(key=lambda plugin: plugin.name)
     return groups
 
 
-if __name__ == "__main__":
+def main():
     groups = load_plugins()
     for group in groups:
         print(group, groups[group], "\n")
+
+
+if __name__ == "__main__":
+    main()

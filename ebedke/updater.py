@@ -14,7 +14,7 @@ from ebedke import pluginmanager
 
 DATEFORMAT = "%Y-%m-%d %H:%M:%S.%f"
 
-
+# pylint: disable=bare-except
 def update(place, now):
     try:
         daily_menu = place.downloader(now)

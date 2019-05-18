@@ -1,7 +1,7 @@
+import re
 from datetime import datetime, timedelta
 from io import BytesIO
 from PIL import Image
-import re
 
 from ebedke.utils.utils import on_workdays, ocr_image
 from ebedke.utils import facebook
@@ -32,9 +32,9 @@ def get_menu(today):
 
     menu = []
     for i in raw_menu:
-      m = re.match('(.*?)\s+(\d+,-)', i)
-      if m:
-        menu.append(m.groups()[0])
+        m = re.match(r'(.*?)\s+(\d+,-)', i)
+        if m:
+            menu.append(m.groups()[0])
     return menu
 
 

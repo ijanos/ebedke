@@ -9,8 +9,9 @@ FB_ID = "728866253985071"
 @on_workdays
 def getMenu(today):
     is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() > today.date() - timedelta(days=7)
+    triggers = ["lunch menü ", "business lunch", "előételek", "déli menü", "heti menü", "menünk"]
     menu_filter = lambda post: is_this_week(post['created_time']) and \
-        any(word in post['message'].lower() for word in ["lunch menü ", "business lunch", "előételek", "déli menü", "heti menü", "menünk"]) and \
+        any(word in post['message'].lower() for word in triggers) and \
         post['message'].count("\n") > 5
     menu = facebook.get_filtered_post(FB_ID, menu_filter)
     drop_words = ["előételek", "főételek", "desszer", "étvágy", "menü", "lunch", str(today.year), "várunk"]
