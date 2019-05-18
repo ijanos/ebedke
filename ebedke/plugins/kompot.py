@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-from itertools import dropwhile
 from ebedke.utils.utils import days_lower, on_workdays, pattern_slice
 from ebedke.utils import facebook
 from ebedke.pluginmanager import EbedkePlugin

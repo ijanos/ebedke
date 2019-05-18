@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from ebedke.utils.utils import on_workdays, skip_empty_lines, pattern_slice
+from ebedke.utils.utils import on_workdays, pattern_slice
 from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
 

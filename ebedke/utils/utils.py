@@ -1,23 +1,13 @@
 from base64 import b64encode
 from datetime import datetime
-from functools import partial
-import operator
-import pickle
 import unicodedata
 
 import requests
-from lxml import html
-import redis
 
 from ebedke.utils import http
 from ebedke import settings
 
 VISION_API_ROOT = "https://vision.googleapis.com/v1/images:annotate"
-
-
-HEADERS = {
-    'User-Agent': settings.user_agent
-}
 
 days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat", "vasárnap"]
 days_lower_ascii = ["hetfo", "kedd", "szerda", "csutortok", "pentek", "szombat", "vasarnap"]
