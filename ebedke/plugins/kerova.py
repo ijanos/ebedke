@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 from io import BytesIO
 from PIL import Image
-from ebedke.utils.utils import get_fb_post_attached_image, on_workdays, ocr_image, days_lower, pattern_slice
+from ebedke.utils.utils import on_workdays, ocr_image, days_lower, pattern_slice
+from ebedke.utils import facebook
 from ebedke.utils.text import skip_empty_lines
 from ebedke.pluginmanager import EbedkePlugin
 
@@ -14,7 +15,7 @@ FB_ID = "582373908553561"
 def get_menu(today):
     is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() >= today.date() - timedelta(days=7)
     menu_filter = lambda post: is_this_week(post['created_time']) and "heti menü" in post['message'].lower()
-    image = get_fb_post_attached_image(FB_ID, menu_filter)
+    image = facebook.get_post_attached_image(FB_ID, menu_filter)
     if image:
         image = Image.open(BytesIO(image)).convert('L')
         f = BytesIO()

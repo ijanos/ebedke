@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
-from ebedke.utils.utils import get_filtered_fb_post, on_workdays, skip_empty_lines
+from ebedke.utils.utils import on_workdays, skip_empty_lines
+from ebedke.utils import facebook
 from ebedke.pluginmanager import EbedkePlugin
 
 
@@ -10,7 +11,7 @@ FB_ID = "140232679345332"
 def get_menu(today):
     is_today = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() == today.date()
     menu_filter = lambda post: is_today(post['created_time']) and "menü" in post['message'].lower()
-    menu = get_filtered_fb_post(FB_ID, menu_filter).splitlines()
+    menu = facebook.get_filtered_post(FB_ID, menu_filter).splitlines()
     menu = list(skip_empty_lines(line.strip() for line in menu if "menü" not in line.lower()))
 
     return menu

@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
-from ebedke.utils.utils import get_filtered_fb_post, on_workdays, days_lower, pattern_slice
+from ebedke.utils.utils import on_workdays, days_lower, pattern_slice
+from ebedke.utils import facebook
 from ebedke.pluginmanager import EbedkePlugin
 
 FB_PAGE = "https://www.facebook.com/pg/Pastafresca-Buda-235959913862289/posts/"
@@ -9,7 +10,7 @@ FB_ID = "235959913862289"
 def get_menu(today):
     is_this_week = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() >= today.date() - timedelta(days=7)
     menu_filter = lambda post: is_this_week(post['created_time']) and days_lower[today.weekday()] in post['message'].lower()
-    menu = get_filtered_fb_post(FB_ID, menu_filter)
+    menu = facebook.get_filtered_post(FB_ID, menu_filter)
     menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()]], days_lower, inclusive=True)
     menulist = []
     for line in menu:

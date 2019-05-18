@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from itertools import dropwhile
-from ebedke.utils.utils import get_filtered_fb_post, days_lower, on_workdays, pattern_slice
+from ebedke.utils.utils import days_lower, on_workdays, pattern_slice
+from ebedke.utils import facebook
 from ebedke.pluginmanager import EbedkePlugin
 
 
@@ -17,11 +18,11 @@ def getMenu(today):
                             and "menü" in post['message'].lower()
     weekly_menu_filter = lambda post: is_this_week(post['created_time']) \
                             and days_lower[day] in ignore_hashtags(post['message'])
-    weekly_menu = get_filtered_fb_post(FB_ID, weekly_menu_filter)
+    weekly_menu = facebook.get_filtered_post(FB_ID, weekly_menu_filter)
     if weekly_menu:
         menu = pattern_slice(weekly_menu.splitlines(), [days_lower[day]], days_lower + ["sütiket", "#", "jó étvágyat", "mai menü"])
     else:
-        menu_post = get_filtered_fb_post(FB_ID, daily_menu_filter).splitlines()
+        menu_post = facebook.get_filtered_post(FB_ID, daily_menu_filter).splitlines()
         menu = []
         for i, line in enumerate(menu_post):
             if "A:" in line:

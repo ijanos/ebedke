@@ -3,7 +3,8 @@ from io import BytesIO
 from PIL import Image
 import re
 
-from ebedke.utils.utils import get_fb_post_attached_image, on_workdays, ocr_image
+from ebedke.utils.utils import on_workdays, ocr_image
+from ebedke.utils import facebook
 from ebedke.pluginmanager import EbedkePlugin
 
 
@@ -19,7 +20,7 @@ def menu_filter(post, today):
 
 @on_workdays
 def get_menu(today):
-    image = get_fb_post_attached_image(FB_ID, lambda post: menu_filter(post, today))
+    image = facebook.get_post_attached_image(FB_ID, lambda post: menu_filter(post, today))
     if not image:
         return []
     image = Image.open(BytesIO(image)).convert('L')
