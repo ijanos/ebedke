@@ -32,18 +32,17 @@ def update(place, now):
     })
 
 
-def waittime(date):
+def get_refresh_time(date):
+    minutes = lambda n: timedelta(minutes=n)
     now = date.time()
-    if now < time(7, 00):
-        wait = timedelta(minutes=120)
-    if now < time(10, 30):
-        wait = timedelta(minutes=35)
-    elif now < time(11, 10):
-        wait = timedelta(minutes=10)
-    elif now < time(12, 45):
-        wait = timedelta(minutes=6)
-    else:
-        wait = timedelta(minutes=180)
+    if now < time(8, 00):
+        wait = minutes(120)
+    elif now < time(10, 00):
+        wait = minutes(20)
+    elif now < time(11, 00):
+        wait = minutes(10)
+    elif now < time(13, 00):
+        wait = minutes(5)
     return wait
 
 
@@ -54,13 +53,8 @@ def do_update(place, now):
     print(f"Updated «{place.name}» in {elapsed:.2f} seconds")
 
 
-def loop(restaurantlist, must_update=False):
-    now = dt.today()
-    wait = waittime(now)
-
-    if not must_update and now.time() > time(12, 45):
-        return
-
+def update_restaurants(restaurantlist, now):
+    refresh_time = get_refresh_time(now)
     for place in restaurantlist:
         menu, timestamp = redis.mget(f"{place.id}:menu",
                                      f"{place.id}:timestamp")
@@ -72,24 +66,26 @@ def loop(restaurantlist, must_update=False):
         menu_empty = menu == b"[]" or menu is None
         timestamp_is_today = timestamp.date() == now.date()
         timestamp_age = now - timestamp
+        refreshable = timestamp_age > refresh_time
 
-        if not timestamp_is_today:
-            do_update(place, now)
-        elif timestamp_age > place.ttl:
-            do_update(place, now)
-        elif menu_empty and timestamp_age > wait:
+        empty_expired = menu_empty and refreshable
+        expired = not timestamp_is_today or (timestamp_age > place.ttl and refreshable)
+
+        if empty_expired or expired:
             do_update(place, now)
 
-
-def main():
+def main_loop():
     restaurantlist = pluginmanager.load_plugins()["all"]
     first_loop = True
+
     while True:
-        print("starting update loop")
-        loop(restaurantlist, must_update=first_loop)
-        print("ending update loop")
+        now = dt.today()
+        if first_loop or now.time() < time(13, 00):
+            update_restaurants(restaurantlist, now)
+
         first_loop = False
-        sleep(25)
+        sleep(20)
+
 
 if __name__ == "__main__":
-    main()
+    main_loop()
