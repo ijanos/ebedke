@@ -19,7 +19,7 @@ def get_menu(today):
 
 
 plugin = EbedkePlugin(
-    enabled=True,
+    enabled=False,
     groups=["corvin"],
     name='Arany Tacskó bistro',
     id='tc',
