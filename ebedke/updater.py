@@ -43,6 +43,8 @@ def get_refresh_time(date):
         wait = minutes(10)
     elif now < time(13, 00):
         wait = minutes(5)
+    else:
+        wait = minutes(60)
     return wait
 
 
