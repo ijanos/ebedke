@@ -12,9 +12,10 @@ Environment="FACEBOOK_ACCESS_TOKEN=secret"
 Environment="GOOGLE_API_KEY=secret"
 Environment="EBEDKE_LIVE=1"
 WorkingDirectory={{ git_root }}
-ExecStart={{ app_env }}/bin/python -m ebedke.updater
+ExecStart={{ app_env }}/bin/python -OO -m ebedke.updater
 Environment=PYTHONUNBUFFERED=1
 Restart=always
+RestartSec=60
 
 [Install]
 WantedBy=multi-user.target
