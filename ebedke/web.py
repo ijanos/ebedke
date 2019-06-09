@@ -1,12 +1,11 @@
 from datetime import datetime as dt
-import json
 
-import redis
 from flask import Flask, jsonify, render_template, request
 
 from ebedke.utils.utils import days_lower
+import ebedke.utils.cache as cache
 from ebedke import pluginmanager
-from ebedke.connections import redis
+
 
 places = pluginmanager.load_plugins()
 
@@ -28,15 +27,17 @@ def cafeteriacard(cardname):
 
 
 def load_menus(restaurants):
-    menus = zip(restaurants, redis.mget(f"{place.id}:menu" for place in restaurants))
-    out = [{"name": place.name,
+    parsed_menu_list = cache.get_menu(restaurants)
+    result = []
+    for i, place in enumerate(restaurants):
+        result.append({
+            "name": place.name,
             "url": place.url,
             "id": place.id,
-            "menu": json.loads(menu),
+            "menu": parsed_menu_list[i].get("menu", []),
             "cards": map(cafeteriacard, place.cards)
-            } for place, menu in menus]
-
-    return out
+        })
+    return result
 
 
 def load_subdomain_menu():

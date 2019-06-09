@@ -4,12 +4,11 @@ import json
 import traceback
 from time import sleep, perf_counter
 from datetime import datetime as dt, time, timedelta
-
-import redis
 from requests.exceptions import Timeout
 
 from ebedke.utils.text import normalize_menu
 from ebedke.connections import redis
+from ebedke.utils import cache
 from ebedke import pluginmanager
 
 DATEFORMAT = "%Y-%m-%d %H:%M:%S.%f"
@@ -26,10 +25,16 @@ def update(place, now):
         print(f"exception in «{place.name}» provider:\n", traceback.format_exc())
         daily_menu = []
 
-    redis.mset({
-        f"{place.id}:menu": json.dumps(daily_menu),
-        f"{place.id}:timestamp": now.strftime(DATEFORMAT)
-    })
+    menu = {
+        "menu": daily_menu,
+        "timestamp": now.strftime(DATEFORMAT)
+    }
+
+    redis.set(
+        name=f"{place.id}:menu",
+        value=json.dumps(menu),
+        ex=86400 # 24 hours
+    )
 
 
 def get_refresh_time(date):
@@ -57,13 +62,16 @@ def do_update(place, now):
 
 def update_restaurants(restaurantlist, now):
     refresh_time = get_refresh_time(now)
-    for place in restaurantlist:
-        menu, timestamp = redis.mget(f"{place.id}:menu",
-                                     f"{place.id}:timestamp")
+    parsed_menu_list = cache.get_menu(restaurantlist)
+    for i, place in enumerate(restaurantlist):
+        current_menu = parsed_menu_list[i]
+        timestamp = current_menu.get("timestamp")
+        menu = current_menu.get("menu")
+
         if not timestamp:
             timestamp = dt.utcfromtimestamp(0)
         else:
-            timestamp = dt.strptime(timestamp.decode("utf-8"), DATEFORMAT)
+            timestamp = dt.strptime(timestamp.decode("ascii"), DATEFORMAT)
 
         menu_empty = menu == b"[]" or menu is None
         timestamp_is_today = timestamp.date() == now.date()
@@ -82,7 +90,7 @@ def main_loop():
 
     while True:
         now = dt.today()
-        if first_loop or now.time() < time(13, 00):
+        if first_loop or now.time() < time(12, 40):
             update_restaurants(restaurantlist, now)
 
         first_loop = False
