@@ -1,6 +1,7 @@
 import os
 import sys
 import importlib
+from typing import List, Set, Dict
 from collections import defaultdict
 from collections.abc import Iterable
 from datetime import timedelta, datetime
@@ -27,8 +28,8 @@ class EbedkePlugin:
             self.run()
 
     def run(self):
-        date_offstet = int(sys.argv[1]) if len(sys.argv) >= 2 else 0
-        date_offstet = timedelta(days=date_offstet)
+        argv1 = int(sys.argv[1]) if len(sys.argv) >= 2 else 0
+        date_offstet = timedelta(days=argv1)
         run_date = datetime.today() + date_offstet
         menu = list(self.downloader(run_date))
         assert isinstance(menu, Iterable) and not isinstance(menu, (str, bytes)),\
@@ -62,20 +63,20 @@ class EbedkePlugin:
         return f"EbedkePlugin «{self.name}»"
 
 def load_plugins():
-    groups = defaultdict(list)
-    plugins = []
-    ids = set()
+    groups: Dict[str, List[EbedkePlugin]] = defaultdict(list)
+    plugins: List[EbedkePlugin] = []
+    ids: Set[str] = set()
     with os.scandir("ebedke/plugins") as direntries:
         for entry in direntries:
             if entry.name.endswith('.py') and not entry.name.startswith("__") and entry.is_file():
                 module = importlib.import_module(f"ebedke.plugins.{entry.name[:-3]}")
-                if module.plugin.id in ids:
-                    raise Exception(f"Duplicate ids! {module.plugin.name}: {module.plugin.id}")
-                ids.add(module.plugin.id)
-                if module.plugin.enabled:
-                    plugins.append(module.plugin)
-                    for group in module.plugin.groups:
-                        groups[group].append(module.plugin)
+                plugin = module.plugin
+                assert plugin.id not in ids, "IDs must be unique"
+                ids.add(plugin.id)
+                if plugin.enabled:
+                    plugins.append(plugin)
+                    for group in plugin.groups:
+                        groups[group].append(plugin)
     groups["all"] = plugins
     for pluginlist in groups.values():
         pluginlist.sort(key=lambda plugin: plugin.name)

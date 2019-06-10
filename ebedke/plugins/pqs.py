@@ -21,9 +21,8 @@ def getMenu(today):
     menu = ''.join(texts)
     menu = menu.replace("Választott leves", "")
     menu = menu.replace("\t", "")
-    menu = list(i for i in menu.splitlines() if i)
+    return list(i for i in menu.splitlines() if i)
 
-    return menu
 
 plugin = EbedkePlugin(
     enabled=True,

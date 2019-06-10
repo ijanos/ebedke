@@ -1,3 +1,4 @@
+from typing import List
 from io import BytesIO
 from datetime import timedelta
 from PIL import Image
@@ -9,7 +10,7 @@ IMG_PATH = "images/home_1_06.png"
 
 @on_workdays
 def getMenu(today):
-    menu = []
+    menu: List[str] = []
     if today.weekday() == 0:  # Monday
         yesterday = today - timedelta(days=3)
     else:
