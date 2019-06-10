@@ -25,6 +25,10 @@ jobs:
           command: |
             poetry run pylint --rcfile=pylintrc ebedke
       - run:
+          name: Run mypy type-cheker
+          command: |
+            poetry run mypy --ignore-missing-imports -p ebedke
+      - run:
           name: Run pytest
           command: |
             poetry run pytest
