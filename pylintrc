@@ -25,6 +25,7 @@ enable=all
 disable=no-else-return,
       missing-docstring,
       invalid-name,
+      too-many-locals,
       line-too-long,
 
 [REPORTS]
