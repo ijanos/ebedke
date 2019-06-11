@@ -27,7 +27,7 @@ class EbedkePlugin:
         if sys._getframe(1).f_globals["__name__"] == "__main__":
             self.run()
 
-    def run(self):
+    def run(self) -> None:
         argv1 = int(sys.argv[1]) if len(sys.argv) >= 2 else 0
         date_offstet = timedelta(days=argv1)
         run_date = datetime.today() + date_offstet
@@ -40,7 +40,7 @@ class EbedkePlugin:
         print("\nNormalized menu:")
         print(normalize_menu(menu))
 
-    def check_inputs(self):
+    def check_inputs(self) -> None:
         valid_groups = ["szell", "corvin", "moricz", "ferenciek", "szepvolgyi"]
         valid_cards = ["szep", "erzs"]
         assert isinstance(self.name, str), "Plugin name must be a string"
@@ -59,25 +59,23 @@ class EbedkePlugin:
         assert isinstance(self.cards, list)
         assert all(c in valid_cards for c in self.cards)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"EbedkePlugin «{self.name}»"
 
-def load_plugins():
+def load_plugins() -> Dict[str, List[EbedkePlugin]]:
     groups: Dict[str, List[EbedkePlugin]] = defaultdict(list)
-    plugins: List[EbedkePlugin] = []
     ids: Set[str] = set()
     with os.scandir("ebedke/plugins") as direntries:
         for entry in direntries:
             if entry.name.endswith('.py') and not entry.name.startswith("__") and entry.is_file():
                 module = importlib.import_module(f"ebedke.plugins.{entry.name[:-3]}")
-                plugin = module.plugin
+                plugin: EbedkePlugin = getattr(module, "plugin")
                 assert plugin.id not in ids, "IDs must be unique"
                 ids.add(plugin.id)
                 if plugin.enabled:
-                    plugins.append(plugin)
+                    groups["all"].append(plugin)
                     for group in plugin.groups:
                         groups[group].append(plugin)
-    groups["all"] = plugins
     for pluginlist in groups.values():
         pluginlist.sort(key=lambda plugin: plugin.name)
     return groups
