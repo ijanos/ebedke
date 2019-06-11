@@ -3,6 +3,7 @@
 import json
 import traceback
 from time import sleep, perf_counter
+from typing import List, Dict
 from datetime import datetime as dt, time, timedelta
 from requests.exceptions import Timeout
 
@@ -14,7 +15,8 @@ from ebedke import pluginmanager
 DATEFORMAT = "%Y-%m-%d %H:%M:%S.%f"
 
 # pylint: disable=bare-except
-def update(place, now):
+def update(place: pluginmanager.EbedkePlugin, now: dt) -> None:
+    daily_menu: List[str]
     try:
         daily_menu = place.downloader(now)
         daily_menu = normalize_menu(daily_menu)
@@ -37,7 +39,7 @@ def update(place, now):
     )
 
 
-def get_refresh_time(date):
+def get_refresh_time(date: dt) -> timedelta:
     minutes = lambda n: timedelta(minutes=n)
     now = date.time()
     if now < time(8, 00):
@@ -53,26 +55,27 @@ def get_refresh_time(date):
     return wait
 
 
-def do_update(place, now):
+def do_update(place: pluginmanager.EbedkePlugin, now: dt) -> None:
     start = perf_counter()
     update(place, now)
     elapsed = perf_counter() - start
     print(f"Updated «{place.name}» in {elapsed:.2f} seconds")
 
 
-def update_restaurants(restaurantlist, now):
+def update_restaurants(restaurantlist: List[pluginmanager.EbedkePlugin], now: dt) -> None:
     refresh_time = get_refresh_time(now)
-    parsed_menu_list = cache.get_menu(restaurantlist)
+    parsed_menu_list: List[Dict[str, str]] = cache.get_menu(restaurantlist)
     for i, place in enumerate(restaurantlist):
         current_menu = parsed_menu_list[i]
-        timestamp = current_menu.get("timestamp")
-        menu = current_menu.get("menu")
 
-        if not timestamp:
+        timestamp: dt
+        current_timestamp = current_menu.get("timestamp")
+        if current_timestamp is None:
             timestamp = dt.utcfromtimestamp(0)
         else:
-            timestamp = dt.strptime(timestamp.decode("ascii"), DATEFORMAT)
+            timestamp = dt.strptime(current_timestamp, DATEFORMAT)
 
+        menu = current_menu.get("menu")
         menu_empty = menu == b"[]" or menu is None
         timestamp_is_today = timestamp.date() == now.date()
         timestamp_age = now - timestamp
@@ -84,7 +87,7 @@ def update_restaurants(restaurantlist, now):
         if empty_expired or expired:
             do_update(place, now)
 
-def main_loop():
+def main_loop() -> None:
     restaurantlist = pluginmanager.load_plugins()["all"]
     first_loop = True
 

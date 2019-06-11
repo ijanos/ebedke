@@ -1,6 +1,7 @@
+from typing import List, Iterable
 import unicodedata
 
-def normalize_menu(menu):
+def normalize_menu(menu: Iterable[str]) -> List[str]:
     text = '\n'.join(line.strip() for line in menu)
     if len(text.strip()) < 16:
         return []
@@ -23,11 +24,11 @@ def normalize_menu(menu):
 
     return lines
 
-def mostly_contains_letters(text):
+def mostly_contains_letters(text: str) -> bool:
     letters = sum(1 for c in text if c.isalpha())
     return letters / len(text) > 0.5
 
-def capitalize_if_shouting(text):
+def capitalize_if_shouting(text: str) -> str:
     capitals = sum(1 for c in text if c.isupper())
     if capitals / len(text) > 0.6:
         return text.capitalize()
