@@ -62,10 +62,10 @@ class EbedkePlugin:
     def __repr__(self) -> str:
         return f"EbedkePlugin «{self.name}»"
 
-def load_plugins() -> Dict[str, List[EbedkePlugin]]:
+def load_plugins(plugin_dir="ebedke/plugins") -> Dict[str, List[EbedkePlugin]]:
     groups: Dict[str, List[EbedkePlugin]] = defaultdict(list)
     ids: Set[str] = set()
-    with os.scandir("ebedke/plugins") as direntries:
+    with os.scandir(plugin_dir) as direntries:
         for entry in direntries:
             if entry.name.endswith('.py') and not entry.name.startswith("__") and entry.is_file():
                 module = importlib.import_module(f"ebedke.plugins.{entry.name[:-3]}")
