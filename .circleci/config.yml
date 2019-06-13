@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Run mypy type-cheker
           command: |
-            poetry run mypy --ignore-missing-imports -p ebedke
+            poetry run mypy --ignore-missing-imports --warn-redundant-casts --warn-unused-ignores -p ebedke
             # untyped defs are skipped by default, this will threw false positives
             # poetry run mypy --ignore-missing-imports --check-untyped-defs -p ebedke
       - run:
