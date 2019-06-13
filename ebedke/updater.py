@@ -3,7 +3,7 @@
 import json
 import traceback
 from time import sleep, perf_counter
-from typing import List, Dict
+from typing import List, Dict, Union
 from datetime import datetime as dt, time, timedelta
 from requests.exceptions import Timeout
 
@@ -64,19 +64,18 @@ def do_update(place: pluginmanager.EbedkePlugin, now: dt) -> None:
 
 def update_restaurants(restaurantlist: List[pluginmanager.EbedkePlugin], now: dt) -> None:
     refresh_time = get_refresh_time(now)
-    parsed_menu_list: List[Dict[str, str]] = cache.get_menu(restaurantlist)
+    parsed_menu_list: List[Dict[str, Union[str, List[str]]]] = cache.get_menu(restaurantlist)
     for i, place in enumerate(restaurantlist):
         current_menu = parsed_menu_list[i]
 
         timestamp: dt
         current_timestamp = current_menu.get("timestamp")
-        if current_timestamp is None:
-            timestamp = dt.utcfromtimestamp(0)
-        else:
-            timestamp = dt.strptime(current_timestamp, DATEFORMAT)
+        timestamp: dt = dt.strptime(current_timestamp, DATEFORMAT) \
+            if isinstance(current_timestamp, str) else dt.utcfromtimestamp(0)
 
-        menu = current_menu.get("menu")
-        menu_empty = menu == b"[]" or menu is None
+        cached_menu = current_menu.get("menu", [])
+        menu: List[str] = cached_menu if isinstance(cached_menu, list) else []
+        menu_empty = not menu
         timestamp_is_today = timestamp.date() == now.date()
         timestamp_age = now - timestamp
         refreshable = timestamp_age > refresh_time
