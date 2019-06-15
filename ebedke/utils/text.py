@@ -22,7 +22,11 @@ def normalize_menu(menu: Iterable[str]) -> List[str]:
             line = capitalize_if_shouting(line)
             lines.append(line)
 
-    return lines
+    return remove_duplicates(lines)
+
+def remove_duplicates(lines: List[str]) -> List[str]:
+    return sorted(set(lines), key=lines.index)
+
 
 def mostly_contains_letters(text: str) -> bool:
     letters = sum(1 for c in text if c.isalpha())

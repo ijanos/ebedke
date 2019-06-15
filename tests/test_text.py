@@ -18,5 +18,13 @@ def test_normalize():
     assert text.normalize_menu(menu) == ["test menu", "this is a longer test text"]
     closed_menu = ["sajnos ma zárva vagyunk"]
     assert text.normalize_menu(closed_menu) == []
-    menu = [" test test", "1234Ft", "test test ", "aa!#!!aa"]
-    assert text.normalize_menu(menu) == ["test test", "test test"]
+    menu = [" test test 1 ", "1234Ft", "test test 2   ", "aa!#!!aa"]
+    assert text.normalize_menu(menu) == ["test test 1", "test test 2"]
+
+def test_no_duplicates():
+    menu = ["line 1", "line 2", "line 2"]
+    assert text.normalize_menu(menu) == ["line 1", "line 2"]
+    menu = ["line 1", "    line 2", "line 2   "]
+    assert text.normalize_menu(menu) == ["line 1", "line 2"]
+    menu = ["line 1", "line 2", "line 3", "line 2"]
+    assert text.normalize_menu(menu) == ["line 1", "line 2", "line 3"]
