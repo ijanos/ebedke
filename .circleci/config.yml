@@ -25,7 +25,7 @@ jobs:
           command: |
             poetry run pylint --rcfile=pylintrc ebedke
       - run:
-          name: Run mypy type-cheker
+          name: Run mypy type-checker
           command: |
             poetry run mypy --ignore-missing-imports --warn-redundant-casts --warn-unused-ignores --disallow-any-generics -p ebedke
       - run:
