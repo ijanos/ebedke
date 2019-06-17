@@ -1,7 +1,8 @@
-from ebedke.utils.text import remove_accents
 
+days_lower_ascii = ["hetfo", "kedd", "szerda", "csutortok", "pentek", "szombat", "vasarnap"]
 
 def parse_hungarian_month(month):
+    from ebedke.utils.text import remove_accents
     month = remove_accents(month).lower()
     months = {
         "januar": 1,

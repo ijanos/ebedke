@@ -20,6 +20,8 @@ def test_normalize():
     assert text.normalize_menu(closed_menu) == []
     menu = [" test test 1 ", "1234Ft", "test test 2   ", "aa!#!!aa"]
     assert text.normalize_menu(menu) == ["test test 1", "test test 2"]
+    menu = [" test test 1 ", "1234Ft", "hétfo   ", "aa!#!!aa", "test 3"]
+    assert text.normalize_menu(menu) == ["test test 1", "test 3"]
 
 def test_no_duplicates():
     menu = ["line 1", "line 2", "line 2"]
@@ -28,3 +30,13 @@ def test_no_duplicates():
     assert text.normalize_menu(menu) == ["line 1", "line 2"]
     menu = ["line 1", "line 2", "line 3", "line 2"]
     assert text.normalize_menu(menu) == ["line 1", "line 2", "line 3"]
+
+def test_lines_with_just_days():
+    assert text.just_dayname("hétfő")
+    assert text.just_dayname("kedd")
+    assert text.just_dayname("csütörtok")
+    assert text.just_dayname("csutortok!!")
+    assert text.just_dayname("  péntek")
+    assert not text.just_dayname("csütörtök abcdef")
+    assert not text.just_dayname("abcdef")
+    assert not text.just_dayname("testtest kedd")

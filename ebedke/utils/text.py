@@ -1,6 +1,8 @@
 from typing import List, Iterable
 import unicodedata
 
+from ebedke.utils.date import days_lower_ascii
+
 def normalize_menu(menu: Iterable[str]) -> List[str]:
     text = '\n'.join(line.strip() for line in menu)
     if len(text.strip()) < 16:
@@ -18,7 +20,7 @@ def normalize_menu(menu: Iterable[str]) -> List[str]:
     lines = []
     for line in text.splitlines():
         line = line.strip()
-        if len(line) > 2 and mostly_contains_letters(line):
+        if len(line) > 2 and mostly_contains_letters(line) and not just_dayname(line):
             line = capitalize_if_shouting(line)
             lines.append(line)
 
@@ -26,6 +28,13 @@ def normalize_menu(menu: Iterable[str]) -> List[str]:
 
 def remove_duplicates(lines: List[str]) -> List[str]:
     return sorted(set(lines), key=lines.index)
+
+
+def just_dayname(text: str) -> bool:
+    for day in days_lower_ascii:
+        if day in remove_accents(text.lower()) and len(text) <= len(day) + 4:
+            return True
+    return False
 
 
 def mostly_contains_letters(text: str) -> bool:
