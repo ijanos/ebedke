@@ -5,7 +5,6 @@ from ebedke.pluginmanager import EbedkePlugin
 
 
 URL = "http://www.ballahus.hu/mai_menu"
-URL = "https://web.archive.org/web/20170720021640/http://ballahus.hu:80/mai_menu"
 
 @on_workdays
 def get_menu(today):
