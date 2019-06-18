@@ -40,3 +40,19 @@ def test_lines_with_just_days():
     assert not text.just_dayname("csütörtök abcdef")
     assert not text.just_dayname("abcdef")
     assert not text.just_dayname("testtest kedd")
+
+def test_slicer():
+    wordlist = []
+    assert text.pattern_slice(wordlist, ["b"], ["g"]) == []
+    wordlist = ["a"]
+    assert text.pattern_slice(wordlist, ["b"], ["g"]) == []
+    wordlist = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    assert text.pattern_slice(wordlist, ["b"], ["g"]) == ["c", "d", "e", "f"]
+    wordlist = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    assert text.pattern_slice(wordlist, ["b"], ["g"], inclusive=True) == ["b", "c", "d", "e", "f"]
+    wordlist = ["b", "a", "b", "c", "d", "e", "f", "g", "h"]
+    assert text.pattern_slice(wordlist, ["b"], ["g"]) == ["c", "d", "e", "f"]
+    wordlist = ["b", "a", "b", "c", "d", "x", "f", "g", "y"]
+    assert text.pattern_slice(wordlist, ["b"], ["x", "y"]) == ["c", "d"]
+    wordlist = ["b", "a", "b", "c", "d", "x", "f", "g", "y"]
+    assert text.pattern_slice(wordlist, ["z"], ["x", "y"]) == []

@@ -57,3 +57,15 @@ def skip_empty_lines(text, dropwords=()):
 def remove_accents(text):
     accentless = unicodedata.normalize('NFD', text).encode('ascii', 'ignore').decode("ascii")
     return accentless
+
+def pattern_slice(iterator, start_patterns, end_patterns, inclusive=False, modifier=str.lower):
+    start = [len(iterator)]
+    end = []
+    for i, line in enumerate(iterator):
+        if any(p in modifier(line) for p in start_patterns):
+            start.append(i if inclusive else i + 1)
+        elif any(p in modifier(line) for p in end_patterns):
+            end.append(i)
+    start = start.pop()
+    end = next((x for x in end if x > start), len(iterator))
+    return iterator[start:end]
