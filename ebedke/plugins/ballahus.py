@@ -11,7 +11,7 @@ def get_menu(today):
     dom = get_dom(URL)
     menu_date = dom.xpath('/html/body//span[@class="date-display-single"]//text()')
     menu_date = dt.strptime(menu_date.pop(), '%Y-%m-%d') if menu_date else None
-    if today.date() == menu_date:
+    if today.date() == menu_date.date():
         menu = dom.xpath('/html/body//div[contains(@class, "mai-menu")]//td[contains(@class, "etel-leiras")]/text()')
     else:
         menu = []
