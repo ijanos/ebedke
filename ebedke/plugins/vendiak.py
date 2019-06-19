@@ -11,6 +11,8 @@ URL = "https://www.vendiaketterem.hu/"
 def get_menu(today):
     dom = get_dom(URL)
     menu = dom.xpath("/html/body//div[@class='panel-heading' or @class='offer-item']//text()")
+    drop_words = ["házi tea"]
+    menu = filter(lambda line: not any(word in line.lower() for word in drop_words), menu)
     return pattern_slice(menu, [days_lower[today.weekday()]], days_lower)
 
 plugin = EbedkePlugin(
