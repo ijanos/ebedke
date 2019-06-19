@@ -59,6 +59,8 @@ def remove_accents(text):
     return accentless
 
 def pattern_slice(iterator, start_patterns, end_patterns, inclusive=False, modifier=str.lower):
+    if not isinstance(iterator, list):
+        iterator = list(iterator)
     start = [len(iterator)]
     end = []
     for i, line in enumerate(iterator):

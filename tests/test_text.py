@@ -56,3 +56,5 @@ def test_slicer():
     assert text.pattern_slice(wordlist, ["b"], ["x", "y"]) == ["c", "d"]
     wordlist = ["b", "a", "b", "c", "d", "x", "f", "g", "y"]
     assert text.pattern_slice(wordlist, ["z"], ["x", "y"]) == []
+    wordlist = filter(lambda _: True, ["a", "b"])
+    assert text.pattern_slice(wordlist, ["z"], ["x", "y"]) == []
