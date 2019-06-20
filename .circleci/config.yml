@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Run mypy type-checker
           command: |
-            poetry run mypy --ignore-missing-imports --warn-redundant-casts --warn-unused-ignores --disallow-any-generics -p ebedke
+            poetry run mypy -p ebedke
       - run:
           name: Run pytest
           command: |
