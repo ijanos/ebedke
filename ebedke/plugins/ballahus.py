@@ -13,7 +13,7 @@ def get_menu(today):
     menu_date = dt.strptime(menu_date.pop(), '%Y-%m-%d') if menu_date else None
     if today.date() == menu_date.date():
         menu = dom.xpath('/html/body//div[contains(@class, "mai-menu")]//td[contains(@class, "etel-leiras")]/text()')
-        remove_these = ["lavazza", "ham and eggs", "rántotta", "rántotta", "saláta"]
+        remove_these = ["lavazza", "ham and eggs", "rántotta", "rántotta", "saláta", "rizi bizi", "sült újkrumpli", "krumpli püré"]
         menu = filter(lambda n: not any(r in n.lower() for r in remove_these), menu)
     else:
         menu = []
