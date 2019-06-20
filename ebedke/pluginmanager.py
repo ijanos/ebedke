@@ -1,7 +1,7 @@
 import os
 import sys
 import importlib
-from typing import List, Set, Dict
+from typing import List, Set, Dict, Callable
 from collections import defaultdict
 from collections.abc import Iterable
 from datetime import timedelta, datetime
@@ -11,7 +11,8 @@ from ebedke.utils.text import normalize_menu
 
 class EbedkePlugin:
     # pylint: disable=redefined-builtin,protected-access,too-many-instance-attributes
-    def __init__(self, *, id, enabled, name, groups, downloader, ttl, url, cards):
+    def __init__(self, *, id: str, enabled: bool, name: str, groups: List[str],
+                 downloader: Callable[[datetime], List[str]], ttl: timedelta, url: str, cards: List[str]) -> None:
         self.id = id
         self.enabled = enabled
         self.name = name
