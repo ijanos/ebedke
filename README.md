@@ -9,8 +9,8 @@ an HTML page or in JSON format with the included Flask app.
 
 ## Architecture
 
-The `updater.py` is a standalone script that will run every 30 seconds and
-reload expired menus and then pushes them to redis. The `web.py` script is a
+The `updater.py` is a standalone script that will run a loop and update expired
+pages every 30 seconds and then pushes them to redis. The `web.py` script is a
 simple Flask app that lists daily menus read from redis.
 
 ## Development
@@ -67,9 +67,18 @@ http://test.127.0.0.1.xip.io:5000/
 
 ## Tests
 
-Some tests are provided for the utility functions, and can be run with pytest.
+Some tests are provided in the `tests` directory, they can be run with pytest.
 
 `poetry run pytest`
+
+Type hints are also provided in many places, the project can be type-checked
+with mypy checker.
+
+`poetry run mypy -p ebedke`
+
+I also recommend using the pylint python linter with my configuration file
+
+`poetry run pylint --rcfile=pylintrc ebedke`
 
 ## Plugins
 
