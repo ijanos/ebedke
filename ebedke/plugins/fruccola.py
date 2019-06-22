@@ -23,7 +23,7 @@ plugin = EbedkePlugin(
     id='frc',
     url=URL,
     downloader=getMenu,
-    ttl=timedelta(minutes=25),
+    ttl=timedelta(minutes=60),
     cards=['szep'],
     groups=["ferenciek"]
 )
