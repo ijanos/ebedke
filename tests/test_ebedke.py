@@ -24,6 +24,10 @@ def test_updater():
     assert mocked_redis.get("test1:menu") == expected_json_string
 
 def test_menus_cleared_at_midnight():
+    """
+    This test depends on the mocked plugins behavior that they return an emtpy
+    menu before 8:00
+    """
     mocked_redis.reset()
     updater.redis = mocked_redis
     updater.cache = mocked_redis
