@@ -68,7 +68,7 @@ def update_restaurants(restaurantlist: List[pluginmanager.EbedkePlugin], now: dt
     for i, place in enumerate(restaurantlist):
         current_menu = parsed_menu_list[i]
 
-        current_timestamp = current_menu.get("timestamp")
+        current_timestamp = current_menu.get("timestamp", None)
         timestamp: dt = dt.strptime(current_timestamp, DATEFORMAT) \
             if isinstance(current_timestamp, str) else dt.utcfromtimestamp(0)
 
