@@ -86,18 +86,19 @@ Plugins live in `ebedke/plugins` as single python files. To add a new plugin
 just drop a new file there following this plugin skeleton
 
 ```python
+from datetime import timedelta
 from ebedke.pluginmanager import EbedkePlugin
 
 def download_menu(today):
-    return "a menu"
+    return ["menu line 1", "menu line 2"]
 
 plugin = EbedkePlugin(
     enabled=True,
     groups=["corvin"], # which subdomains it should show up
-    name='My Restaurant', #
+    name='My Restaurant',
     id='mrr', # a short id string
     url="http://myrestarunt.myrestaruant",
-    downloader=getMenu,
+    downloader=download_menu,
     ttl=timedelta(hours=6), # how often should ebedke update the menu
     cards=['szep'] # accepted cafeteria cards
 )
