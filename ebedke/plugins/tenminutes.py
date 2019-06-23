@@ -2,7 +2,8 @@ from typing import List
 from io import BytesIO
 from datetime import timedelta
 from PIL import Image
-from ebedke.utils.utils import ocr_image, get_fresh_image, on_workdays
+from ebedke.utils.utils import ocr_image, on_workdays
+from ebedke.utils.http import get_fresh_image
 from ebedke.pluginmanager import EbedkePlugin
 
 URL = "http://www.10minutes.hu/"

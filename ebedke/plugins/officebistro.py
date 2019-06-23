@@ -1,5 +1,5 @@
 from typing import List
-from datetime import timedelta
+from datetime import timedelta, datetime
 from ebedke.utils.utils import on_workdays, days_lower, skip_empty_lines
 from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
@@ -7,7 +7,7 @@ from ebedke.pluginmanager import EbedkePlugin
 URL = "http://szepvolgyi.officebistro.hu/heti-ajanlat"
 
 @on_workdays
-def getMenu(today) -> List[str]:
+def getMenu(today: datetime) -> List[str]:
     dom = get_dom(URL)
     weekday = today.weekday()
 

@@ -63,7 +63,7 @@ class EbedkePlugin:
     def __repr__(self) -> str:
         return f"EbedkePlugin «{self.name}»"
 
-def load_plugins(plugin_dir="ebedke/plugins") -> Dict[str, List[EbedkePlugin]]:
+def load_plugins(plugin_dir: str = "ebedke/plugins") -> Dict[str, List[EbedkePlugin]]:
     groups: Dict[str, List[EbedkePlugin]] = defaultdict(list)
     ids: Set[str] = set()
     with os.scandir(plugin_dir) as direntries:

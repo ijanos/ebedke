@@ -1,10 +1,6 @@
 from base64 import b64encode
-from datetime import datetime
 import unicodedata
-
 import requests
-
-from ebedke.utils import http
 from ebedke import settings
 
 VISION_API_ROOT = "https://vision.googleapis.com/v1/images:annotate"
@@ -18,18 +14,6 @@ months_hu_capitalized = ["Január", "Február", "Március",
                          "Július", "Augusztus", "Szeptember",
                          "Október", "November", "December"]
 
-
-def get_fresh_image(url, fresh_date):
-    response = http.get(url)
-    lastmod = response.headers.get('last-modified')
-    if not lastmod:
-        print("[ebedke] image is missing last-modified header")
-        return None
-    lastmod = datetime.strptime(lastmod, '%a, %d %b %Y %H:%M:%S %Z')
-    if lastmod >= fresh_date:
-        return response.content
-    else:
-        return None
 
 def content_size_match(url, expected_size):
     response = requests.head(url)

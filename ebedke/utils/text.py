@@ -1,4 +1,4 @@
-from typing import List, Iterable
+from typing import List, Iterable, Callable
 import unicodedata
 
 from ebedke.utils.date import days_lower_ascii
@@ -58,7 +58,13 @@ def remove_accents(text):
     accentless = unicodedata.normalize('NFD', text).encode('ascii', 'ignore').decode("ascii")
     return accentless
 
-def pattern_slice(iterator, start_patterns, end_patterns, inclusive=False, modifier=str.lower):
+def pattern_slice(
+        iterator: Iterable[str],
+        start_patterns: List[str],
+        end_patterns: List[str],
+        inclusive: bool = False,
+        modifier: Callable[[str], str] = str.lower
+    ) -> List[str]:
     if not isinstance(iterator, list):
         iterator = list(iterator)
     start = [len(iterator)]
@@ -68,6 +74,6 @@ def pattern_slice(iterator, start_patterns, end_patterns, inclusive=False, modif
             start.append(i if inclusive else i + 1)
         elif any(p in modifier(line) for p in end_patterns):
             end.append(i)
-    start = start.pop()
-    end = next((x for x in end if x > start), len(iterator))
-    return iterator[start:end]
+    start_index = start.pop()
+    end_index = next((x for x in end if x > start_index), len(iterator))
+    return iterator[start_index:end_index]
