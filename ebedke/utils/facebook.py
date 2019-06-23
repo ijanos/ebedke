@@ -7,7 +7,7 @@ from ebedke import settings
 
 
 FB_TOKEN = urlencode({"access_token": settings.facebook_token})
-FB_API_ROOT = "https://graph.facebook.com/v3.1"
+FB_API_ROOT = "https://graph.facebook.com/v3.3"
 
 
 def get_filtered_post(page_id, post_filter):
