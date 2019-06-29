@@ -35,7 +35,8 @@ def load_menus(restaurants):
             "url": place.url,
             "id": place.id,
             "menu": parsed_menu_list[i].get("menu", []),
-            "cards": map(cafeteriacard, place.cards)
+            "cards": map(cafeteriacard, place.cards),
+            "coord": place.coord
         })
     return result
 
@@ -67,7 +68,8 @@ def dailymenu():
     jsonout = [{"name": menu['name'],
                 "url": menu['url'],
                 "menu": '<br>'.join(menu['menu']),
-                "cards": [card['name'] for card in menu['cards']]
+                "cards": [card['name'] for card in menu['cards']],
+                "coord": menu['coord']
                 } for menu in load_menus(restaurants)]
 
     return jsonify(jsonout)
@@ -79,7 +81,8 @@ def api_v1():
     jsonout = [{"name": menu['name'],
                 "url": menu['url'],
                 "menu": menu['menu'],
-                "cards": [card['name'] for card in menu['cards']]
+                "cards": [card['name'] for card in menu['cards']],
+                "coord": menu['coord']
                 } for menu in load_menus(restaurants)]
 
     return jsonify(jsonout)
