@@ -1,5 +1,5 @@
 from datetime import datetime as dt
-
+from typing import List, Dict, Tuple, Sequence
 from flask import Flask, jsonify, render_template, request
 
 from ebedke.utils.utils import days_lower
@@ -15,7 +15,7 @@ app.config.update(
     JSONIFY_MIMETYPE="application/json; charset=utf-8"
 )
 
-def cafeteriacard(cardname):
+def cafeteriacard(cardname: str) -> Dict[str, str]:
     tooltip = {
         "szep": "SZÉP-kártya elfogadóhely",
         "erzs": "Erzsébet kártya elfogadóhely"
@@ -26,22 +26,23 @@ def cafeteriacard(cardname):
     }
 
 
-def load_menus(restaurants):
+def load_menus(restaurants: List[pluginmanager.EbedkePlugin]) -> List[Dict[str, object]]:
     parsed_menu_list = cache.get_menu(restaurants)
     result = []
     for i, place in enumerate(restaurants):
+        menu: Sequence[str] = parsed_menu_list[i].get("menu", [])
         result.append({
             "name": place.name,
             "url": place.url,
             "id": place.id,
-            "menu": parsed_menu_list[i].get("menu", []),
-            "cards": map(cafeteriacard, place.cards),
+            "menu": menu,
+            "cards": list(map(cafeteriacard, place.cards)),
             "coord": place.coord
         })
     return result
 
 
-def load_subdomain_menu():
+def load_subdomain_menu() -> Tuple[List[pluginmanager.EbedkePlugin], bool]:
     subdomain = request.host.split(".")[0]
     if subdomain in places:
         restaurants = places[subdomain]

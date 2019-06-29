@@ -3,7 +3,7 @@
 import json
 import traceback
 from time import sleep, perf_counter
-from typing import List, Dict, Union
+from typing import List, Dict, Union, NoReturn
 from datetime import datetime as dt, time, timedelta
 from requests.exceptions import Timeout
 
@@ -85,7 +85,7 @@ def update_restaurants(restaurantlist: List[pluginmanager.EbedkePlugin], now: dt
         if empty_expired or expired:
             do_update(place, now)
 
-def main_loop() -> None:
+def main_loop() -> NoReturn:
     restaurantlist = pluginmanager.load_plugins()["all"]
     first_loop = True
 
