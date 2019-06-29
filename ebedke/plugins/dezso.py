@@ -26,5 +26,6 @@ plugin = EbedkePlugin(
     downloader=getMenu,
     ttl=timedelta(minutes=20),
     cards=[],
-    groups=["corvin"]
+    groups=["corvin"],
+    coord=(47.486810, 19.076372)
 )

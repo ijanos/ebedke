@@ -20,5 +20,6 @@ plugin = EbedkePlugin(
     url=URL,
     downloader=getMenu,
     ttl=timedelta(hours=3),
-    cards=[]
+    cards=[],
+    coord=(47.496696, 19.051125)
 )

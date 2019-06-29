@@ -101,6 +101,7 @@ plugin = EbedkePlugin(
     downloader=download_menu,
     ttl=timedelta(hours=6), # how often should ebedke update the menu
     cards=['szep'] # accepted cafeteria cards
+    coord=(47.4, 19.1) # GPS coordinates of the place
 )
 ```
 

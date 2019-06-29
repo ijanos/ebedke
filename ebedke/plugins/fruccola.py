@@ -25,5 +25,6 @@ plugin = EbedkePlugin(
     downloader=getMenu,
     ttl=timedelta(minutes=60),
     cards=['szep'],
-    groups=["ferenciek"]
+    groups=["ferenciek"],
+    coord=(47.495582, 19.051981)
 )

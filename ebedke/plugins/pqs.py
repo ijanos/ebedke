@@ -32,5 +32,6 @@ plugin = EbedkePlugin(
     url=PQS_MENU,
     downloader=getMenu,
     ttl=timedelta(hours=6),
-    cards=['szep']
+    cards=['szep'],
+    coord=(47.486182, 19.079312)
 )

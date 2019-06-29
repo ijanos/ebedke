@@ -18,7 +18,8 @@ test_plugin1 = EbedkePlugin(
     url="http://myrestarunt.myrestaruant",
     downloader=download_menu,
     ttl=timedelta(hours=24),
-    cards=['szep']
+    cards=['szep'],
+    coord=(47.5, 19)
 )
 
 test_plugin2 = EbedkePlugin(
@@ -29,5 +30,6 @@ test_plugin2 = EbedkePlugin(
     url="http://myrestarunt.myrestaruant",
     downloader=download_menu,
     ttl=timedelta(minutes=20),
-    cards=['szep']
+    cards=['szep'],
+    coord=(47.5, 19)
 )

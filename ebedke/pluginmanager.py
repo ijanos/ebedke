@@ -1,7 +1,7 @@
 import os
 import sys
 import importlib
-from typing import List, Set, Dict, Callable
+from typing import List, Set, Dict, Callable, Tuple
 from collections import defaultdict
 from collections.abc import Iterable
 from datetime import timedelta, datetime
@@ -12,7 +12,7 @@ from ebedke.utils.text import normalize_menu
 class EbedkePlugin:
     # pylint: disable=redefined-builtin,protected-access,too-many-instance-attributes
     def __init__(self, *, id: str, enabled: bool, name: str, groups: List[str],
-                 downloader: Callable[[datetime], List[str]], ttl: timedelta, url: str, cards: List[str]) -> None:
+                 downloader: Callable[[datetime], List[str]], ttl: timedelta, url: str, cards: List[str], coord: Tuple[float, float]) -> None:
         self.id = id
         self.enabled = enabled
         self.name = name
@@ -21,6 +21,7 @@ class EbedkePlugin:
         self.ttl = ttl
         self.url = url
         self.cards = cards
+        self.coord = coord
         self.check_inputs()
 
         # ugly hack... but it works, depends on cpython interals
@@ -59,6 +60,8 @@ class EbedkePlugin:
         assert self.url.startswith("http")
         assert isinstance(self.cards, list)
         assert all(c in valid_cards for c in self.cards)
+        assert 18.7 < self.coord[1] < 19.4, "Place is in Budapest"
+        assert 47.3 < self.coord[0] < 47.6, "Place is in Budapest"
 
     def __repr__(self) -> str:
         return f"EbedkePlugin «{self.name}»"

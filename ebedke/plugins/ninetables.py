@@ -28,5 +28,6 @@ plugin = EbedkePlugin(
     url=FB_PAGE,
     downloader=get_menu,
     ttl=timedelta(hours=24),
-    cards=[]
+    cards=[],
+    coord=(47.485983, 19.074895)
 )
