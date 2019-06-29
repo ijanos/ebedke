@@ -28,5 +28,5 @@ plugin = EbedkePlugin(
     ttl=timedelta(hours=23),
     cards=[],
     groups=["corvin"],
-    coord=(47.486769, 19.0798108)
+    coord=(47.486748, 19.080351)
 )
