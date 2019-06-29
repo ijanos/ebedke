@@ -14,8 +14,8 @@ pillow = "^6.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.3"
-pytest = "^4.3"
-mypy = "^0.710.0"
+pytest = "^5.0"
+mypy = "^0.711.0"
 
 [tool.poetry.scripts]
 updater = 'ebedke.updater:main'
