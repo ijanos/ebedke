@@ -12,10 +12,9 @@ def normalize_menu(menu: Iterable[str]) -> List[str]:
     if len(text) > 2000:
         text = text[0:2000]
 
-    # remove emojis, "So" -> Symbol, other
     # https://en.wikipedia.org/wiki/Template:General_Category_(Unicode)
-    emoji = lambda char: unicodedata.category(char) in ["So", "Cn", "Sk", "Cf"]
-    text = ''.join(char for char in text if not emoji(char))
+    not_emoji = lambda char: unicodedata.category(char) in ["Lu", "Ll", "Lt", "Lm", "Lo", "Zs", "Cc", "Nd", "Po", "Pe", "Pd"]
+    text = ''.join(char for char in text if not_emoji(char))
 
     lines = []
     for line in text.splitlines():

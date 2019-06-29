@@ -7,21 +7,36 @@ def test_remove_accents():
     assert text.remove_accents(HETFO) == "HETFO"
 
 def test_remove_emojis():
-    text_with_emojies = ["some 🤜🏻🍗🍔🥓🍟", "text 🔜👨🏼‍🍳 here"]
+    text_with_emojies = ["some 🤜🏻🍗🍔🥓🍟", "longer text 🔜👨🏼‍🍳 here"]
     normalized = text.normalize_menu(text_with_emojies)
-    assert normalized == ["some", "text  here"]
+    assert normalized == ["some", "longer text  here"]
+    numbermojies = ["Today is 2️⃣8️⃣th of May"]
+    assert text.normalize_menu(numbermojies) == ["Today is 28th of May"]
 
 def test_normalize():
     menu = ["", "\n\n\n", "\t\t\t\taa\t\n", "test menu"]
     assert text.normalize_menu(menu) == [], "Too short texts should be dropped"
+
     menu.append("   this is a longer test text\t\n")
     assert text.normalize_menu(menu) == ["test menu", "this is a longer test text"]
+
+    menu = ["dessert Today: cake & caKE! :)"]
+    assert text.normalize_menu(menu) == ["dessert Today: cake & caKE! :)"]
+
+    menu = ["dessert Today:", "- fruit cake", "- another cake"]
+    assert text.normalize_menu(menu) == ["dessert Today:", "- fruit cake", "- another cake"]
+
     closed_menu = ["sajnos ma zárva vagyunk"]
     assert text.normalize_menu(closed_menu) == []
+
     menu = [" test test 1 ", "1234Ft", "test test 2   ", "aa!#!!aa"]
     assert text.normalize_menu(menu) == ["test test 1", "test test 2"]
-    menu = [" test test 1 ", "1234Ft", "hétfo   ", "aa!#!!aa", "test 3"]
-    assert text.normalize_menu(menu) == ["test test 1", "test 3"]
+
+    menu = [" test test 1 TEST", "1234Ft", "hétfo   ", "aa!#!!aa", "test 3"]
+    assert text.normalize_menu(menu) == ["test test 1 TEST", "test 3"]
+
+    hungarian = ["árvíztűrő", "tükörfúrógép"]
+    assert text.normalize_menu(hungarian) == ["árvíztűrő", "tükörfúrógép"]
 
 def test_no_duplicates():
     menu = ["line 1", "line 2", "line 2"]
