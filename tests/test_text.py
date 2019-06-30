@@ -20,6 +20,9 @@ def test_normalize():
     menu.append("   this is a longer test text\t\n")
     assert text.normalize_menu(menu) == ["test menu", "this is a longer test text"]
 
+    menu = ["longer menu text\nnewline", "additional line\n"]
+    assert text.normalize_menu(menu) == ["longer menu text", "newline", "additional line"]
+
     menu = ["dessert Today: cake & caKE! :)"]
     assert text.normalize_menu(menu) == ["dessert Today: cake & caKE! :)"]
 
