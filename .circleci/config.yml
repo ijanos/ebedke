@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Run mypy type-checker
           command: |
-            poetry run mypy -p ebedke
+            poetry run mypy --warn-unreachable -p ebedke
       - run:
           name: Run pytest
           command: |
