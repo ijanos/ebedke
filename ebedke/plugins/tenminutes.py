@@ -31,7 +31,7 @@ def getMenu(today: datetime) -> List[str]:
         text = ocr_image(f)
         if text:
             menu = text.splitlines()
-            menu = dropwhile(lambda line: "menü" not in line.lower(), menu)
+            menu = list(dropwhile(lambda line: "menü" not in line.lower(), menu))
     return menu
 
 plugin = EbedkePlugin(
