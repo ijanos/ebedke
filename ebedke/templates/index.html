@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#e3e3e2">
-  <meta name="Description" content="Ebédmenük gyűjtőoldala">
+  <meta name="description" content="Budapest belvárosi napi ebéd menük Covin negyed és Ferenciek tere környékéről">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
   <title>Ebédke</title>
@@ -54,7 +54,7 @@
           <input id="box{{ menu.id }}"  type="checkbox" checked>
           <label for="box{{ menu.id }}">{{ menu.name }}</label>
         </span>
-        <span translate="no"><a href="{{ menu.url }}" target="_blank" rel="noopener">{{ menu.name }}</a></span>
+        <span translate="no"><a href="{{ menu.url }}" target="_blank" rel="noopener" rel="nofollow">{{ menu.name }}</a></span>
         {%- for card in menu.cards -%}
         <span class="card {{ card.name }}" title="{{ card.tooltip }}">{{ card.name }}</span>
         {%- endfor -%}
