@@ -1,4 +1,5 @@
 from base64 import b64encode
+from io import BytesIO
 import unicodedata
 import requests
 from ebedke import settings
@@ -25,7 +26,7 @@ def skip_empty_lines(text):
         if len(line) > 1:
             yield line
 
-def ocr_image(image, langHint="hu"):
+def ocr_image(image: BytesIO, langHint: str = "hu") -> str:
     img_request = {"requests": [{
         "image": {"content": b64encode(image.getvalue()).decode('ascii')},
         "features": [{"type": "DOCUMENT_TEXT_DETECTION"}],
@@ -38,7 +39,12 @@ def ocr_image(image, langHint="hu"):
     if response.status_code != 200 or response.json().get('error'):
         print("[ebedke] Google OCR error", response.text)
         return ""
-    return response.json()['responses'][0]['textAnnotations'][0]['description']
+    desc = response.json()['responses'][0]['textAnnotations'][0]['description']
+    if isinstance(desc, str):
+        return desc
+    else:
+        print("Description is not a string")
+        return ""
 
 
 def workday(date):
