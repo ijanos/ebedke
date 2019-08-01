@@ -74,5 +74,5 @@ def pattern_slice(
         elif any(p in modifier(line) for p in end_patterns):
             end.append(i)
     start_index = start.pop()
-    end_index = next((x for x in end if x > start_index), len(iterator))
+    end_index = next((x for x in end if x >= start_index), len(iterator))
     return iterator[start_index:end_index]
