@@ -10,17 +10,19 @@ FB_ID = "151093992248397"
 
 def fb_filter(post, today):
     created = datetime.strptime(post['created_time'], '%Y-%m-%dT%H:%M:%S%z')
-    trigger_words = ["holnapi"]
+    trigger_words = ["holnapi", "mai"]
     triggered = any(word in post["message"].lower() for word in trigger_words)
     yesterday = today.date() - timedelta(days=1)
-    return created.date() == yesterday and triggered
+    menu_posted_yesterday = created.hour >= 12 and created.date() == yesterday and triggered
+    menu_posted_today = created.hour < 12 and created.date() == today.date() and triggered
+    return menu_posted_today or menu_posted_yesterday
 
 
 @on_workdays
 def get_menu(today):
     fbfilter = lambda post: fb_filter(post, today)
     menu = facebook.get_filtered_post(FB_ID, fbfilter)
-    menu = pattern_slice(menu.splitlines(), ["holnapi"], ["tomorrow"])
+    menu = pattern_slice(menu.splitlines(), ["holnapi", "mai"], ["tomorrow"])
     return menu
 
 
