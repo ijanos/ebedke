@@ -7,6 +7,7 @@ from PIL import Image
 from ebedke.utils.utils import ocr_image, on_workdays
 from ebedke.utils.http import get_fresh_image
 from ebedke.pluginmanager import EbedkePlugin
+from ebedke.utils.text import skip_empty_lines
 
 URL = "http://www.10minutes.hu/"
 IMG_PATH = "images/home_1_06.png"
@@ -32,7 +33,7 @@ def getMenu(today: datetime) -> List[str]:
         if text:
             menu = text.splitlines()
             menu = list(dropwhile(lambda line: "menü" not in line.lower(), menu))
-    return menu
+    return skip_empty_lines(menu, ["nestea", "minden menü"])
 
 plugin = EbedkePlugin(
     enabled=True,
