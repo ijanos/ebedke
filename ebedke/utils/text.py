@@ -13,7 +13,7 @@ def normalize_menu(menu: Iterable[str]) -> List[str]:
         text = text[0:2000]
 
     # https://en.wikipedia.org/wiki/Template:General_Category_(Unicode)
-    not_emoji = lambda char: unicodedata.category(char) in ["Lu", "Ll", "Lt", "Lm", "Lo", "Zs", "Cc", "Nd", "Po", "Pe", "Pd"]
+    not_emoji = lambda char: unicodedata.category(char) in ["Lu", "Ll", "Lt", "Lm", "Lo", "Zs", "Cc", "Nd", "Po", "Pe", "Pd", "Ps", "Sm"]
     text = ''.join(char for char in text if not_emoji(char))
 
     lines = []

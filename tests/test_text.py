@@ -41,6 +41,9 @@ def test_normalize():
     hungarian = ["árvíztűrő", "tükörfúrógép"]
     assert text.normalize_menu(hungarian) == ["árvíztűrő", "tükörfúrógép"]
 
+    parens = ["(+-rececece cica kutya)"]
+    assert text.normalize_menu(parens) == ["(+-rececece cica kutya)"]
+
 def test_no_duplicates():
     menu = ["line 1", "line 2", "line 2"]
     assert text.normalize_menu(menu) == ["line 1", "line 2"]
