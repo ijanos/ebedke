@@ -105,6 +105,16 @@ plugin = EbedkePlugin(
 )
 ```
 
+## Pre-commit hook
+
+There is a `pre-commit` git hook included in the resources directory. I
+recommend using it to run all the tests and linters before commiting or if
+thats a bit annoying then using it as a `pre-push` hook.
+
+```
+ln -s ../../resources/git-hooks/pre-commit .git/hooks/
+```
+
 ## Deployment
 
 Using a production webserver with a wsgi server like gunicorn or uwsgi is

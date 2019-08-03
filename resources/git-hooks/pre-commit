@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -ev
+
+poetry run pylint --rcfile=pylintrc ebedke
+poetry run mypy --warn-unreachable -p ebedke
+poetry run pytest
