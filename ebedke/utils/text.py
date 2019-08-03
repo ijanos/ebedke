@@ -47,13 +47,16 @@ def capitalize_if_shouting(text: str) -> str:
     else:
         return text
 
-def skip_empty_lines(text, dropwords=()):
+def skip_empty_lines(text: List[str], dropwords: Iterable[str] = ()) -> List[str]:
+    ret = []
     for line in text:
         line = line.strip()
         if len(line) > 1 and not any(word in line for word in dropwords):
-            yield line
+            ret.append(line)
+    return ret
 
-def remove_accents(text):
+def remove_accents(text: str) -> str:
+
     accentless = unicodedata.normalize('NFD', text).encode('ascii', 'ignore').decode("ascii")
     return accentless
 
