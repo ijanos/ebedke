@@ -33,7 +33,7 @@ def getMenu(today: datetime) -> List[str]:
         if text:
             menu = text.splitlines()
             menu = list(dropwhile(lambda line: "menü" not in line.lower(), menu))
-    return skip_empty_lines(menu, ["nestea", "minden menü"])
+    return skip_empty_lines(menu, ["nestea", "korlátlan", "minden menü", "bármely menü"])
 
 plugin = EbedkePlugin(
     enabled=True,
