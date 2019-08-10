@@ -17,7 +17,7 @@ def fb_filter(post, today):
 def get_menu(today):
     fbfilter = lambda post: fb_filter(post, today)
     menu = facebook.get_filtered_post(FB_ID, fbfilter)
-    drop_words = ["menü!", "jó étvágyat"]
+    drop_words = ["menü!", "jó étvágyat", "kedves", "vendégeink", "menünk"]
     menu = filter(lambda line: not any(word in line.lower() for word in drop_words), menu.splitlines())
     return menu
 
