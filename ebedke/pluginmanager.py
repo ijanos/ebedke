@@ -1,18 +1,21 @@
 import os
 import sys
 import importlib
-from typing import List, Set, Dict, Callable, Tuple
+from typing import List, Set, Dict, Callable, Tuple, Union
 from collections import defaultdict
 from collections.abc import Iterable
 from datetime import timedelta, datetime
 
 from ebedke.utils.text import normalize_menu
 
+# Type aliases
+Coordinates = Union[Tuple[float, float], List[Tuple[float, float]]]
+Downloader = Callable[[datetime], List[str]]
 
 class EbedkePlugin:
     # pylint: disable=redefined-builtin,protected-access,too-many-instance-attributes
     def __init__(self, *, id: str, enabled: bool, name: str, groups: List[str],
-                 downloader: Callable[[datetime], List[str]], ttl: timedelta, url: str, cards: List[str], coord: Tuple[float, float]) -> None:
+                 downloader: Downloader, ttl: timedelta, url: str, cards: List[str], coord: Coordinates) -> None:
         self.id = id
         self.enabled = enabled
         self.name = name
@@ -60,8 +63,14 @@ class EbedkePlugin:
         assert self.url.startswith("http")
         assert isinstance(self.cards, list)
         assert all(c in valid_cards for c in self.cards)
-        assert 18.7 < self.coord[1] < 19.4, "Place is in Budapest"
-        assert 47.3 < self.coord[0] < 47.6, "Place is in Budapest"
+        list_of_tuples = all(isinstance(c, tuple) for c in self.coord) and  isinstance(self.coord, list)
+        assert  list_of_tuples or isinstance(self.coord, tuple), "Coord is either a tuple of coordinates or a list of tuples"
+        coords: List[Tuple[float, float]]
+        coords = self.coord if list_of_tuples else [self.coord] # type: ignore
+
+        for lat, long in coords:
+            assert 18.7 < long < 19.4, "Place is in Budapest"
+            assert 47.3 < lat < 47.6, "Place is in Budapest"
 
     def __repr__(self) -> str:
         return f"EbedkePlugin «{self.name}»"
