@@ -42,16 +42,12 @@ def update(place: pluginmanager.EbedkePlugin, now: dt) -> None:
 def get_refresh_time(date: dt) -> timedelta:
     minutes = lambda n: timedelta(minutes=n)
     now = date.time()
-    if now < time(8, 00):
-        wait = minutes(120)
+    if now < time(8, 30):
+        wait = minutes(70)
     elif now < time(10, 00):
         wait = minutes(20)
-    elif now < time(11, 00):
-        wait = minutes(10)
-    elif now < time(13, 00):
-        wait = minutes(5)
     else:
-        wait = minutes(60)
+        wait = minutes(10)
     return wait
 
 
