@@ -1,11 +1,12 @@
-import os
 import sys
 import importlib
-from typing import List, Set, Dict, Callable, Tuple, Union
+import pkgutil
+from typing import List, Dict, Callable, Tuple, Union
 from collections import defaultdict
 from collections.abc import Iterable
 from datetime import timedelta, datetime
 
+import ebedke.plugins
 from ebedke.utils.text import normalize_menu
 
 # Type aliases
@@ -75,20 +76,25 @@ class EbedkePlugin:
     def __repr__(self) -> str:
         return f"EbedkePlugin «{self.name}»"
 
-def load_plugins(plugin_dir: str = "ebedke/plugins") -> Dict[str, List[EbedkePlugin]]:
+
+def load_plugin(name: str) -> EbedkePlugin:
+    module = importlib.import_module(f"ebedke.plugins.{name}")
+    plugin: EbedkePlugin = module.plugin  # type: ignore
+    return plugin
+
+
+def load_plugins() -> Dict[str, List[EbedkePlugin]]:
     groups: Dict[str, List[EbedkePlugin]] = defaultdict(list)
-    ids: Set[str] = set()
-    with os.scandir(plugin_dir) as direntries:
-        for entry in direntries:
-            if entry.name.endswith('.py') and not entry.name.startswith("__") and entry.is_file():
-                module = importlib.import_module(f"ebedke.plugins.{entry.name[:-3]}")
-                plugin: EbedkePlugin = getattr(module, "plugin")
-                assert plugin.id not in ids, "IDs must be unique"
-                ids.add(plugin.id)
-                if plugin.enabled:
-                    groups["all"].append(plugin)
-                    for group in plugin.groups:
-                        groups[group].append(plugin)
+    plugin_path = ebedke.plugins.__path__ # type: ignore  # mypy issue #1422
+    modules = [name for _, name, is_pkg in pkgutil.iter_modules(plugin_path) if not is_pkg and not name.startswith('_')]
+    for name in modules:
+        plugin = load_plugin(name)
+        if plugin.enabled:
+            groups["all"].append(plugin)
+            for group in plugin.groups:
+                groups[group].append(plugin)
+        else:
+            print(f"[ebedke] {plugin} is disabled")
     for pluginlist in groups.values():
         pluginlist.sort(key=lambda plugin: plugin.name)
     return groups
@@ -97,7 +103,7 @@ def load_plugins(plugin_dir: str = "ebedke/plugins") -> Dict[str, List[EbedkePlu
 def main():
     groups = load_plugins()
     for group in groups:
-        print(group, groups[group], "\n")
+        print(f"Group {group}:\n", groups[group], "\n")
 
 
 if __name__ == "__main__":
