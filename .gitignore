@@ -10,3 +10,4 @@ dump.rdb
 .idea
 ebedke.egg-info/
 export_settings.sh
+dist/*
