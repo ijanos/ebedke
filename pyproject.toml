@@ -14,7 +14,7 @@ pillow = "^6.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.3"
-pytest = "^5.0"
+pytest = "^5.1"
 mypy = "^0.720.0"
 
 [tool.poetry.scripts]
