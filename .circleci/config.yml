@@ -32,3 +32,11 @@ jobs:
           name: Run pytest
           command: |
             poetry run pytest
+      - run:
+          name: Build python wheel
+          command: |
+            poetry -fwheel build
+      - store_artifacts:
+          path: ~/ebedke/dist/ebedke-1.0.0-py3-none-any.whl
+          destination: ebedke-py3-none-any.whl
+
