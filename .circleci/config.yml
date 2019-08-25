@@ -38,5 +38,5 @@ jobs:
             poetry -fwheel build
       - store_artifacts:
           path: ~/ebedke/dist/ebedke-1.0.0-py3-none-any.whl
-          destination: ebedke-py3-none-any.whl
+          destination: ebedke-1.0.0-py3-none-any.whl
 
