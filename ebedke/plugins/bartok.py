@@ -24,7 +24,7 @@ def get_menu(today):
 
 plugin = EbedkePlugin(
     enabled=True,
-    name='Bartok',
+    name='Bartók',
     id='brtk',
     url=FB_PAGE,
     downloader=get_menu,
