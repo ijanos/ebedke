@@ -10,7 +10,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-poetry-cache-{{ checksum "poetry.lock" }}
+            - v2-poetry-cache-{{ checksum "poetry.lock" }}
       - run:
           name: Install dependencies with poetry
           command: |
@@ -19,7 +19,7 @@ jobs:
       - save_cache:
           paths:
             - ~/ebedke/.venv
-          key: v1-poetry-cache-{{ checksum "poetry.lock" }}
+          key: v2-poetry-cache-{{ checksum "poetry.lock" }}
       - run:
           name: Run linter
           command: |
