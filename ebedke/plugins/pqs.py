@@ -25,7 +25,7 @@ def getMenu(today):
 
 
 plugin = EbedkePlugin(
-    enabled=True,
+    enabled=False,
     groups=["corvin"],
     name='PQS Skypark',
     id='pq',
