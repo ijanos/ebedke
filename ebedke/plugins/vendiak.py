@@ -9,7 +9,7 @@ URL = "https://www.vendiaketterem.hu/"
 
 @on_workdays
 def get_menu(today):
-    dom = get_dom(URL)
+    dom = get_dom(URL, verify=False)
     menu = dom.xpath("/html/body//div[@class='panel-heading' or @class='offer-item']//text()")
     drop_words = ["házi tea"]
     menu = filter(lambda line: not any(word in line.lower() for word in drop_words), menu)
