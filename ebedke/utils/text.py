@@ -1,7 +1,7 @@
 from typing import List, Iterable, Callable
 import unicodedata
 
-from ebedke.utils.date import days_lower_ascii
+from ebedke.utils.date import days_lower_ascii, days_lower
 
 def normalize_menu(menu: Iterable[str]) -> List[str]:
     text = '\n'.join(line.strip() for line in menu)
@@ -19,22 +19,29 @@ def normalize_menu(menu: Iterable[str]) -> List[str]:
     lines = []
     for line in text.splitlines():
         line = line.strip()
-        if len(line) > 2 and mostly_contains_letters(line) and not just_dayname(line):
+        useless_line = just_dayname(line) or line_is_noise(line)
+        if len(line) > 2 and mostly_contains_letters(line) and not useless_line:
             line = capitalize_if_shouting(line)
             lines.append(line)
 
     return remove_duplicates(lines)
 
+def line_is_noise(text: str) -> bool:
+    non_food_words = ["mai", "menü", "kedves", "ajánlatunk", "ajánlat", "kultúrált", "vendégeink"] + days_lower
+    line = "".join([c.lower() for c in text if c.isalpha()])
+    for word in non_food_words:
+        line = line.replace(word, "")
+    line = line.strip()
+    return len(line) < 3
+
 def remove_duplicates(lines: List[str]) -> List[str]:
     return sorted(set(lines), key=lines.index)
-
 
 def just_dayname(text: str) -> bool:
     for day in days_lower_ascii:
         if day in remove_accents(text.lower()) and len(text) <= len(day) + 4:
             return True
     return False
-
 
 def mostly_contains_letters(text: str) -> bool:
     letters = sum(1 for c in text if c.isalpha())

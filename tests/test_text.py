@@ -85,3 +85,7 @@ def test_slicer():
     assert text.pattern_slice(wordlist, ["start"], []) == ['a', 'b']
     wordlist = ["start", "a", "b"]
     assert text.pattern_slice(wordlist, ["start"], ["a"]) == []
+
+def test_noise_removal():
+    menu = ["mai menü:", "csirke csokihabbal", "fincsi desszertke"]
+    assert text.normalize_menu(menu) == ["csirke csokihabbal", "fincsi desszertke"]
