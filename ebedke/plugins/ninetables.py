@@ -10,11 +10,11 @@ FB_ID = "255153518398246"
 @on_workdays
 def get_menu(today):
     is_today = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() == today.date()
-    menu_words = ["mai menü", "napi menü"]
+    menu_words = ["mai menü", "napi menü", "ebéd"]
     menu_filter = lambda post: is_today(post['created_time']) and any(word in post['message'].lower() for word in menu_words)
     menu = facebook.get_filtered_post(FB_ID, menu_filter)
     if menu:
-        drop_words = ["#", "mai menü", "napi menü", '"', "hétvég", "590", "...", "!", "“"]
+        drop_words = ["#", "mai menü", "napi menü", '"', "hétvég", "590", "...", "!", "“", "?", "tökéletes"]
         menu = filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines())
         return list(skip_empty_lines(menu))
 
