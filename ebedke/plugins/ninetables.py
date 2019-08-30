@@ -1,3 +1,4 @@
+import re
 from datetime import datetime, timedelta
 from ebedke.utils.utils import on_workdays
 from ebedke.utils import facebook
@@ -7,16 +8,22 @@ from ebedke.pluginmanager import EbedkePlugin
 FB_PAGE = "https://www.facebook.com/Nine-Tables-Corvin-255153518398246/"
 FB_ID = "255153518398246"
 
+
+def fb_filter(post, today):
+    created = datetime.strptime(post['created_time'], '%Y-%m-%dT%H:%M:%S%z')
+    patterns = [r"mai.*menü", r"napi.*menü", r"ma.*ebéd", r"ma is.*nine tables"]
+    triggered = any(re.search(pattern, post["message"].lower()) for pattern in patterns)
+    posted_today = today.date() == created.date()
+    return posted_today and triggered
+
 @on_workdays
 def get_menu(today):
-    is_today = lambda date: datetime.strptime(date, '%Y-%m-%dT%H:%M:%S%z').date() == today.date()
-    menu_words = ["mai menü", "napi menü", "ebéd"]
-    menu_filter = lambda post: is_today(post['created_time']) and any(word in post['message'].lower() for word in menu_words)
-    menu = facebook.get_filtered_post(FB_ID, menu_filter)
+    fbfilter = lambda post: fb_filter(post, today)
+    menu = facebook.get_filtered_post(FB_ID, fbfilter)
     if menu:
-        drop_words = ["#", "mai menü", "napi menü", '"', "hétvég", "590", "...", "!", "“", "?", "tökéletes"]
-        menu = filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines())
-        return list(skip_empty_lines(menu))
+        drop_words = ["#", "mai menü", "napi menü", '"', "ma is", "hétvég", "590", "...", "!", "“", "?", "tökéletes", "terasz"]
+        #menu = filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines())
+        return list(skip_empty_lines(menu.splitlines(), drop_words))
 
     return []
 
