@@ -23,7 +23,7 @@ def get_menu(today):
     fbfilter = lambda post: fb_filter(post, today)
     menu = facebook.get_filtered_post(FB_ID, fbfilter)
     menu = pattern_slice(menu.splitlines(), ["holnapi", "mai"], ["tomorrow", "today", "offer"])
-    return menu
+    return [line.strip("+- ") for line in menu]
 
 
 plugin = EbedkePlugin(

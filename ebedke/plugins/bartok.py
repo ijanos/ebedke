@@ -19,7 +19,7 @@ def fb_filter(post, today):
 def get_menu(today):
     fbfilter = lambda post: fb_filter(post, today)
     menu = facebook.get_filtered_post(FB_ID, fbfilter)
-    menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()]], days_lower)
+    menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()]], days_lower + ["fotó"])
     return menu
 
 plugin = EbedkePlugin(
