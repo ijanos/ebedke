@@ -22,7 +22,6 @@ def get_menu(today):
     menu = facebook.get_filtered_post(FB_ID, fbfilter)
     if menu:
         drop_words = ["#", "mai menü", "napi menü", '"', "ma is", "hétvég", "590", "...", "!", "“", "?", "tökéletes", "terasz"]
-        #menu = filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines())
         return list(skip_empty_lines(menu.splitlines(), drop_words))
 
     return []
