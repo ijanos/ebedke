@@ -22,14 +22,14 @@ jobs:
         curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
     - name: Install dependencies
       run: |
-        poetry config settings.virtualenvs.in-project true
-        poetry install
+        $HOME/.poetry/bin/poetry config settings.virtualenvs.in-project true
+        $HOME/.poetry/bin/poetry install
     - name: Run linter
       run: |
-        poetry run pylint --rcfile=pylintrc ebedke
+        $HOME/.poetry/bin/poetry run pylint --rcfile=pylintrc ebedke
     - name: Run mypy type-checker
       run: |
-        poetry run mypy --warn-unreachable -p ebedke
+        $HOME/.poetry/bin/poetry run mypy --warn-unreachable -p ebedke
     - name: Test with pytest
       run: |
-        poetry run pytest
+        $HOME/.poetry/bin/poetry run pytest
