@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
-from ebedke.utils.utils import days_lower, skip_empty_lines, on_workdays, pattern_slice
+from ebedke.utils.utils import days_lower, on_workdays
+from ebedke.utils.text import pattern_slice
 from ebedke.utils import facebook
 from ebedke.pluginmanager import EbedkePlugin
 
@@ -19,9 +20,9 @@ def fb_filter(post, today):
 def getMenu(today):
     fbfilter = lambda post: fb_filter(post, today)
     menu = facebook.get_filtered_post(FB_ID, fbfilter)
-    menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()], "mai", "menü"], days_lower + ["ár:"])
+    menu = pattern_slice(menu.splitlines(), [days_lower[today.weekday()], "mai"], days_lower + ["ár:"])
 
-    return list(skip_empty_lines(menu))
+    return menu
 
 
 plugin = EbedkePlugin(
