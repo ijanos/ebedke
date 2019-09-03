@@ -7,7 +7,7 @@ def normalize_menu(menu: Iterable[str]) -> List[str]:
     text = '\n'.join(line.strip() for line in menu)
     if len(text.strip()) < 16:
         return []
-    if any(word in text.lower() for word in ("zárva", "ünnep", "nincs menü", "feltöltés")):
+    if any(word in text.lower() for word in ("zárva", "ünnep", "nincs menü", "feltöltés", "zártkörű")):
         return []
     if len(text) > 2000:
         text = text[0:2000]
