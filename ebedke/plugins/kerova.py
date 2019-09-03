@@ -25,7 +25,7 @@ def get_menu(today):
             return []
 
         menu = pattern_slice(menu, [days_lower[today.weekday()]], days_lower + ['desszert', "890"], inclusive=False)
-        menu = skip_empty_lines(menu, dropwords=["shutt", "stock"])
+        menu = skip_empty_lines(menu, dropwords=["shutt", "stock", "wow", "awesi"])
     else:
         return []
 
