@@ -23,7 +23,6 @@ def getMenu(today):
     if menu_date <= today.date() < menu_date + timedelta(days=7):
         menu = dom.xpath('/html/body//div[@id="menulist"]//text()')
         menu = pattern_slice(menu, [days_lower[today.weekday()]], days_lower)
-        menu = [line.replace("•", "") for line in menu]
         return menu
     return []
 

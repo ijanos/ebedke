@@ -42,7 +42,10 @@ def test_normalize():
     assert text.normalize_menu(hungarian) == ["árvíztűrő", "tükörfúrógép"]
 
     parens = ["(+-rececece cica kutya)"]
-    assert text.normalize_menu(parens) == ["(+-rececece cica kutya)"]
+    assert text.normalize_menu(parens) == ["rececece cica kutya)"]
+
+    parens = ["foo (+-rececece cica kutya)"]
+    assert text.normalize_menu(parens) == ["foo (+-rececece cica kutya)"]
 
 def test_no_duplicates():
     menu = ["line 1", "line 2", "line 2"]
@@ -89,3 +92,31 @@ def test_slicer():
 def test_noise_removal():
     menu = ["mai menü:", "csirke csokihabbal", "fincsi desszertke"]
     assert text.normalize_menu(menu) == ["csirke csokihabbal", "fincsi desszertke"]
+
+def test_leading_symbols():
+    menu = ["- menuline1", "- menuline2", "- menuline3"]
+    assert text.normalize_menu(menu) == ["menuline1", "menuline2", "menuline3"]
+
+    menu = ["- menuline1", "* menuline2", "- menuline3"]
+    assert text.normalize_menu(menu) == ["menuline1", "menuline2", "menuline3"]
+
+    menu = ["- menuline1", "menuline2", "- menuline3"]
+    assert text.normalize_menu(menu) == ["- menuline1", "menuline2", "- menuline3"]
+
+    menu = ["* menuline1", "* menuline2", "* menuline3"]
+    assert text.normalize_menu(menu) == ["menuline1", "menuline2", "menuline3"]
+
+    menu = ["*- menuline1", "*- menuline2", "*- menuline3"]
+    assert text.normalize_menu(menu) == ["menuline1", "menuline2", "menuline3"]
+
+    menu = ["*- menuline1", "- menuline2", "*- menuline3"]
+    assert text.normalize_menu(menu) == ["menuline1", "menuline2", "menuline3"]
+
+    menu = ["• menuline1", "• menuline2", "• menuline3"]
+    assert text.normalize_menu(menu) == ["menuline1", "menuline2", "menuline3"]
+
+    menu = [" ", "• menuline1", "• menuline2", "• menuline3"]
+    assert text.normalize_menu(menu) == ["menuline1", "menuline2", "menuline3"]
+
+    menu = ["• menuline1", "ab", "• menuline2", "• menuline3"]
+    assert text.normalize_menu(menu) == ["menuline1", "menuline2", "menuline3"]

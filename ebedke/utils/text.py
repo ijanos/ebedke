@@ -1,5 +1,6 @@
 from typing import List, Iterable, Callable
 import unicodedata
+from itertools import takewhile
 
 from ebedke.utils.date import days_lower_ascii, days_lower
 
@@ -17,14 +18,26 @@ def normalize_menu(menu: Iterable[str]) -> List[str]:
     text = ''.join(char for char in text if not_emoji(char))
 
     lines = []
+    collector = LeadingSymbolCollector()
+
     for line in text.splitlines():
         line = line.strip()
         useless_line = just_dayname(line) or line_is_noise(line)
         if len(line) > 2 and mostly_contains_letters(line) and not useless_line:
             line = capitalize_if_shouting(line)
             lines.append(line)
+            collector.add_line(line)
 
-    return remove_duplicates(lines)
+    nobullet_lines = []
+    if collector.every_line_has_leading_symbols:
+        symbols = collector.get_symbol_string()
+        for line in lines:
+            nobullet_lines.append(line.lstrip(symbols))
+    else:
+        nobullet_lines = lines
+
+    return remove_duplicates(nobullet_lines)
+
 
 def line_is_noise(text: str) -> bool:
     non_food_words = ["mai", "menü", "kedves", "ajánlatunk", "ajánlat", "kultúrált", "vendégeink"] + days_lower
@@ -85,3 +98,20 @@ def pattern_slice(
     start_index = start.pop()
     end_index = next((x for x in end if x >= start_index), len(iterator))
     return iterator[start_index:end_index]
+
+
+class LeadingSymbolCollector:
+    def __init__(self):
+        self.every_line_has_leading_symbols = True
+        self.symbols = set()
+
+    def get_symbol_string(self):
+        return "".join(self.symbols)
+
+    def add_line(self, line):
+        leading_symbols = list(takewhile(lambda c: not c.isalpha(), line))
+        if leading_symbols == []:
+            self.every_line_has_leading_symbols = False
+        elif leading_symbols:
+            for s in leading_symbols:
+                self.symbols.add(s)
