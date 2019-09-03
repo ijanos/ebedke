@@ -24,11 +24,9 @@ def getMenu(today: datetime) -> List[str]:
     if image:
         img = Image.open(BytesIO(image))
         img = img.point(lambda i: i < 251 and 255)
-        img = img.convert('1')
 
         f = BytesIO()
-        img.save(f, format="png", optimize=True, compress_level=9, bits=1)
-
+        img.save(f, format="png", optimize=True, compress_level=9)
         text = ocr_image(f)
         if text:
             menu = text.splitlines()
