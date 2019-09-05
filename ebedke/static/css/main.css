@@ -165,3 +165,9 @@ li {
   list-style: none;
   padding: 0.5em;
 }
+
+#infobox {
+  background-color: yellow;
+  padding: 1em;
+  font-weight: bold;
+}
