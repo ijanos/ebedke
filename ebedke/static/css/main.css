@@ -167,7 +167,9 @@ li {
 }
 
 #infobox {
-  background-color: yellow;
+  background-color: #fffdc6;
   padding: 1em;
-  font-weight: bold;
+  font-size: 0.9em;
+  margin-bottom: 1em;
+  margin-top: 0.5em;
 }
