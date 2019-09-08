@@ -44,10 +44,13 @@ function save_state() {
 }
 
 $(document).ready(function() {
-  if (localStorage.getItem("settings_v1") !== null) {
-    loadstate();
+  if(!localStorage_available) {
+    $("#settings").hide();
+  } else {
+    if (localStorage.getItem("settings_v1") !== null) {
+      loadstate();
+    }
   }
-
   $('main,footer').css('display', 'flex');
 });
 
@@ -90,3 +93,16 @@ $("#reset").click(function(){
   localStorage.removeItem("settings_v1");
   location.reload();
 });
+
+function localStorage_available() {
+  try {
+      var storage = window[localStorage],
+          x = '__storage_test__';
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+  }
+  catch(e) {
+      return false;
+  }
+}
