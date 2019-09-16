@@ -91,9 +91,9 @@ def pattern_slice(
     start = [len(iterator)]
     end = []
     for i, line in enumerate(iterator):
-        if any(p in modifier(line) for p in start_patterns):
+        if any(modifier(p) in modifier(line) for p in start_patterns):
             start.append(i if inclusive else i + 1)
-        elif any(p in modifier(line) for p in end_patterns):
+        elif any(modifier(p) in modifier(line) for p in end_patterns):
             end.append(i)
     start_index = start.pop()
     end_index = next((x for x in end if x >= start_index), len(iterator))

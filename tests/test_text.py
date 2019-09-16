@@ -89,6 +89,12 @@ def test_slicer():
     wordlist = ["start", "a", "b"]
     assert text.pattern_slice(wordlist, ["start"], ["a"]) == []
 
+def test_slice_casesensitivity():
+    wordlist = ["start", "one", "two", "end"]
+    assert text.pattern_slice(wordlist, ["Start"], ["END"]) == ["one", "two"]
+    wordlist = ["STart", "one", "two", "eND"]
+    assert text.pattern_slice(wordlist, ["Start"], ["end"]) == ["one", "two"]
+
 def test_noise_removal():
     menu = ["mai menü:", "csirke csokihabbal", "fincsi desszertke"]
     assert text.normalize_menu(menu) == ["csirke csokihabbal", "fincsi desszertke"]
