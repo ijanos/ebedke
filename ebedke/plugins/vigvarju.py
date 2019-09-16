@@ -1,6 +1,8 @@
 from datetime import timedelta
 from ebedke.utils.utils import on_workdays, months_hu_capitalized
+from ebedke.utils.date import months_hu_lower
 from ebedke.utils.http import get_dom
+from ebedke.utils.text import pattern_slice
 from ebedke.pluginmanager import EbedkePlugin
 
 URL = "http://vigvarju.vakvarju.com/deli-menu/"
@@ -9,9 +11,8 @@ URL = "http://vigvarju.vakvarju.com/deli-menu/"
 def getMenu(today):
     dom = get_dom(URL)
     date = f"{months_hu_capitalized[today.month - 1]} {today.day}"
-    menu = dom.xpath(f'/html/body//p[contains(preceding-sibling::p, "{date}")]/text()')
-    menu = list(dish.strip() for dish in menu)
-
+    menu = dom.xpath(f'/html/body//p//text()')
+    menu = pattern_slice(menu, [date], months_hu_lower)
     return menu
 
 plugin = EbedkePlugin(
