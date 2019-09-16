@@ -7,10 +7,13 @@ from ebedke import settings
 
 
 FB_TOKEN = urlencode({"access_token": settings.facebook_token})
-FB_API_ROOT = "https://graph.facebook.com/v3.3"
+FB_API_ROOT = "https://graph.facebook.com/v4.0"
 
 
 def get_filtered_post(page_id, post_filter):
+    facebook_disabled = True
+    if facebook_disabled:
+        return ""
     payload = {
         "limit": 10,
         "access_token": settings.facebook_token
