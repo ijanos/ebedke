@@ -3,12 +3,13 @@ import unicodedata
 from itertools import takewhile
 
 from ebedke.utils.date import days_lower_ascii, days_lower
+from ebedke.utils import corpus
 
 def normalize_menu(menu: Iterable[str]) -> List[str]:
     text = '\n'.join(line.strip() for line in menu)
     if len(text.strip()) < 16:
         return []
-    if any(word in text.lower() for word in ("zárva", "ünnep", "nincs menü", "feltöltés", "zártkörű")):
+    if any(word in text.lower() for word in corpus.closed_words):
         return []
     if len(text) > 2000:
         text = text[0:2000]
@@ -40,7 +41,7 @@ def normalize_menu(menu: Iterable[str]) -> List[str]:
 
 
 def line_is_noise(text: str) -> bool:
-    non_food_words = ["mai", "menü", "kedves", "ajánlatunk", "ajánlat", "kultúrált", "vendégeink"] + days_lower
+    non_food_words = corpus.non_food_words + days_lower
     line = "".join([c.lower() for c in text if c.isalpha()])
     for word in non_food_words:
         line = line.replace(word, "")
