@@ -9,9 +9,9 @@ from ebedke import settings
 FB_TOKEN = urlencode({"access_token": settings.facebook_token})
 FB_API_ROOT = "https://graph.facebook.com/v4.0"
 
+facebook_disabled = True
 
 def get_filtered_post(page_id, post_filter):
-    facebook_disabled = True
     if facebook_disabled:
         return ""
     payload = {
@@ -34,6 +34,8 @@ def get_post_attachments(post_id):
     return http.get(url).json()
 
 def get_post_attached_image(page_id, post_filter):
+    if facebook_disabled:
+        return ""
     payload = {
         "fields": "message,created_time,attachments{target{id}}",
         "limit": 8,
