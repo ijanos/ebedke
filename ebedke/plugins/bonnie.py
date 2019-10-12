@@ -17,7 +17,7 @@ def get_menu(today: datetime) -> List[str]:
     soup = "".join(mainbody)
     start_date_match = re.search(r"(\d{4})\.(\d+)\.(\d+)\.", soup)
 
-    menu = []
+    menu: List[str] = []
     if start_date_match:
         year, month, day = start_date_match.groups()
         start = date(int(year), int(month), int(day))
