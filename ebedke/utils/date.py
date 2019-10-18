@@ -1,4 +1,6 @@
 from datetime import datetime
+import ebedke.utils.text
+
 days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat", "vasárnap"]
 days_lower_ascii = ["hetfo", "kedd", "szerda", "csutortok", "pentek", "szombat", "vasarnap"]
 
@@ -9,8 +11,7 @@ months_hu_lower = ["január", "február", "március",
 
 
 def parse_hungarian_month(month):
-    from ebedke.utils.text import remove_accents
-    month = remove_accents(month).lower()
+    month = ebedke.utils.text.remove_accents(month).lower()
     months = {
         "januar": 1,
         "februar": 2,
