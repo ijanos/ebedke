@@ -2,7 +2,6 @@ from typing import List
 from io import BytesIO
 from datetime import timedelta
 from datetime import datetime
-from itertools import dropwhile
 from PIL import Image
 from ebedke.utils.utils import ocr_image, on_workdays
 from ebedke.utils.http import get_fresh_image
@@ -29,9 +28,9 @@ def getMenu(today: datetime) -> List[str]:
         img.save(f, format="png", optimize=True, compress_level=9)
         text = ocr_image(f)
         if text:
-            menu = text.splitlines()
-            menu = list(dropwhile(lambda line: "menü" not in line.lower(), menu))
-    return skip_empty_lines(menu, ["nestea", "korlátlan", "minden menü", "bármely menü"])
+            menu = text.capitalize().splitlines()
+            menu = skip_empty_lines(menu, ["nestea", "korlátlan", "minden menü", "bármely menü"])
+    return menu
 
 plugin = EbedkePlugin(
     enabled=True,
