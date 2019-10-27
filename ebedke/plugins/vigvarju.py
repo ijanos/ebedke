@@ -11,7 +11,8 @@ URL = "http://vigvarju.vakvarju.com/deli-menu/"
 def getMenu(today):
     dom = get_dom(URL)
     date = f"{months_hu_capitalized[today.month - 1]} {today.day}"
-    menu = dom.xpath(f'/html/body//p//text()')
+    p_tags = dom.xpath(f'/html/body//p')
+    menu = [p.text_content() for p in p_tags]
     menu = pattern_slice(menu, [date], months_hu_lower)
     return menu
 
