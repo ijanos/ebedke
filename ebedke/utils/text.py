@@ -2,7 +2,7 @@ from typing import List, Iterable, Callable
 import unicodedata
 from itertools import takewhile
 
-from ebedke.utils.date import days_lower_ascii, days_lower
+import ebedke.utils.date
 from ebedke.utils import corpus
 
 def normalize_menu(menu: Iterable[str]) -> List[str]:
@@ -41,7 +41,7 @@ def normalize_menu(menu: Iterable[str]) -> List[str]:
 
 
 def line_is_noise(text: str) -> bool:
-    non_food_words = corpus.non_food_words + days_lower
+    non_food_words = corpus.non_food_words + ebedke.utils.date.days_lower
     line = "".join([c.lower() for c in text if c.isalpha()])
     for word in non_food_words:
         line = line.replace(word, "")
@@ -52,7 +52,7 @@ def remove_duplicates(lines: List[str]) -> List[str]:
     return sorted(set(lines), key=lines.index)
 
 def just_dayname(text: str) -> bool:
-    for day in days_lower_ascii:
+    for day in ebedke.utils.date.days_lower_ascii:
         if day in remove_accents(text.lower()) and len(text) <= len(day) + 4:
             return True
     return False
