@@ -92,6 +92,7 @@ def pattern_slice(
     start = [len(iterator)]
     end = []
     for i, line in enumerate(iterator):
+        line = line.replace("\xa0", " ") # non-breaking space
         if any(modifier(p) in modifier(line) for p in start_patterns):
             start.append(i if inclusive else i + 1)
         elif any(modifier(p) in modifier(line) for p in end_patterns):

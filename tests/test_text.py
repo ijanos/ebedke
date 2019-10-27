@@ -89,6 +89,10 @@ def test_slicer():
     wordlist = ["start", "a", "b"]
     assert text.pattern_slice(wordlist, ["start"], ["a"]) == []
 
+def test_non_breaking_space_in_pattern():
+    words = ["c", "a\xa0b", "x", "x", "b", "c"]
+    assert text.pattern_slice(words, ["a b"], ["b"]) == ["x", "x"]
+
 def test_slice_casesensitivity():
     wordlist = ["start", "one", "two", "end"]
     assert text.pattern_slice(wordlist, ["Start"], ["END"]) == ["one", "two"]
