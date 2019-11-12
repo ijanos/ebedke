@@ -52,7 +52,28 @@ $(document).ready(function() {
     }
   }
   $('main,footer').css('display', 'flex');
+  initFacebookPlugins();
 });
+
+function initFacebookPlugins() {
+  $("main section").each(function() {
+    const a = $("a", this).get(0);
+    const isFacebookPage = a.host == "www.facebook.com";
+    if (isFacebookPage) {
+      const section = $(this);
+      const href = a.href;
+      const text = a.text;
+      var fbdiv = $('<div class="fb-frame"> <div class="fb-page" data-href=' + href + '" data-tabs="timeline" data-width="500" data-height="" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false" data-hide-cta="false"><blockquote cite="' + href + '" class="fb-xfbml-parse-ignore"><a href="'+ href +'">' + text + '</a></blockquote></div></div>').hide();
+      var button = $('<button>mutasd a facebook oldalt</button>').click(function () {
+        fbdiv.slideToggle()
+        section.append(fbdiv);
+        FB.XFBML.parse();
+        $(this).remove();
+      });
+      section.append(button);
+    }
+  });
+}
 
 $(".left-controls input[type='checkbox']").change(function(){
   save_state();
