@@ -4,8 +4,8 @@ from ebedke.utils import facebook
 from ebedke.pluginmanager import EbedkePlugin
 
 
-FB_PAGE = "https://www.facebook.com/pg/ezisbudai/posts"
-FB_ID = "291700778001319"
+FB_PAGE = "https://www.facebook.com/pg/B33BISTRO/posts"
+FB_ID = "107533123949374"
 
 @on_workdays
 def getMenu(today):
@@ -20,7 +20,7 @@ def getMenu(today):
 
 plugin = EbedkePlugin(
     enabled=True,
-    name='EZ is BUDAI',
+    name='Budai 33',
     id='eb',
     url=FB_PAGE,
     downloader=getMenu,
