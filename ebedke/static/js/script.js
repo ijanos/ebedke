@@ -52,7 +52,14 @@ $(document).ready(function() {
     }
   }
   $('main,footer').css('display', 'flex');
-  initFacebookPlugins();
+  $.ajaxSetup({ cache: true });
+  $.getScript('https://connect.facebook.net/hu_HU/sdk.js', function() {
+    FB.init({
+      appId: '1478465105546610',
+      version: 'v5.0'
+    });
+    initFacebookPlugins();
+  });
 });
 
 function initFacebookPlugins() {
@@ -65,9 +72,9 @@ function initFacebookPlugins() {
       const text = a.text;
       var fbdiv = $('<div class="fb-frame"> <div class="fb-page" data-href=' + href + '" data-tabs="timeline" data-width="500" data-height="" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false" data-hide-cta="false"><blockquote cite="' + href + '" class="fb-xfbml-parse-ignore"><a href="'+ href +'">' + text + '</a></blockquote></div></div>').hide();
       var button = $('<button>mutasd a facebook oldalt</button>').click(function () {
-        fbdiv.slideToggle()
         section.append(fbdiv);
-        FB.XFBML.parse();
+        fbdiv.slideToggle()
+        FB.XFBML.parse(fbdiv.get(0));
         $(this).remove();
       });
       section.append(button);
