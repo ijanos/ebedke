@@ -33,6 +33,7 @@ body > header {
   background-color: inherit;
   font-weight: bold;
   margin-bottom: 0.7em;
+  z-index: 2;
 }
 
 #settings {
