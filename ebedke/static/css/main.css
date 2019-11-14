@@ -5,9 +5,7 @@ html {
 body {
   line-height: 1.2;
   margin: 0;
-  background-color: #ecf0f1;
-  background-image: url('../bg.png');
-  background-attachment: fixed;
+  background-color: #f1f2f1;
   min-height: 100%;
   display: flex;
   flex-direction: column;
