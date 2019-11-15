@@ -3,7 +3,7 @@ from ebedke.utils.utils import on_workdays, pattern_slice
 from ebedke.utils import facebook
 from ebedke.pluginmanager import EbedkePlugin
 
-FB_PAGE = "https://www.facebook.com/pg/lanubecafe/posts"
+FB_PAGE = "https://www.facebook.com/pg/lanubetapas/posts"
 FB_ID = "1652899941600571"
 
 @on_workdays
