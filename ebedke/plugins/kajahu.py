@@ -16,8 +16,8 @@ def getMenu(today: datetime) -> List[str]:
     menu: List[str] = []
     for day in menujson['jdata']:
         if day['ddate'] == date:
-            menu = [day['line1'], day['line2'], day['line3']]
-            break
+            menukeys = ["line1", "line2", "line3", "soup", "main", "drink", "dessert"]
+            menu += [day[key] for key in day.keys() if key in menukeys and day[key] is not None]
 
     return menu
 
