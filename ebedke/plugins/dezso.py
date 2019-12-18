@@ -4,6 +4,7 @@ from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
 
 URL = "http://dezsoba.hu/hu/heti-menue"
+FACEBOOK_URL = "https://www.facebook.com/Dezs%C5%91B%C3%A1-Falatoz%C3%B3ja-124533944254228/"
 
 @on_workdays
 def getMenu(today):
@@ -22,8 +23,8 @@ plugin = EbedkePlugin(
     enabled=True,
     name='Dezső bá',
     id='db',
-    url=URL,
-    downloader=getMenu,
+    url=FACEBOOK_URL,
+    downloader=lambda n: [""],
     ttl=timedelta(minutes=20),
     cards=[],
     groups=["corvin"],
