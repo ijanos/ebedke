@@ -33,9 +33,9 @@
     </div>
   </header>
   <main>
-    {%- if welcome -%}
     <header>
-      <h1>ebéd 🍽 today</h1>
+      <h1><a href="https://ebed.today">ebéd 🍽 today</a></h1>
+      {%- if welcome -%}
       <ul>
         <li><a href="https://szell.ebed.today">Széll Kálmán tér</a></li>
         <li><a href="https://corvin.ebed.today">Corvin negyed</a></li>
@@ -43,8 +43,8 @@
         <li><a href="https://szepvolgyi.ebed.today">Szépvölgyi út</a></li>
         <li><a href="https://ferenciek.ebed.today">Ferenciek tere</a></li>
       </ul>
+      {%- endif %}
     </header>
-    {%- endif %}
     {%- for menu in menus %}
     <section data-id="{{ menu.id }}">
       <header>
