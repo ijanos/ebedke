@@ -1,6 +1,6 @@
 from typing import List
 from datetime import timedelta, datetime
-from ebedke.utils.utils import on_workdays
+from ebedke.utils.date import on_workdays
 from ebedke.utils import http
 from ebedke.pluginmanager import EbedkePlugin
 

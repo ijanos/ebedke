@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
-from ebedke.utils.utils import on_workdays, days_lower, pattern_slice
+from ebedke.utils.date import on_workdays, days_lower
+from ebedke.utils.text import pattern_slice
 from ebedke.utils import facebook
 from ebedke.pluginmanager import EbedkePlugin
 

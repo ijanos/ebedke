@@ -3,7 +3,7 @@ from typing import List
 from datetime import timedelta
 from datetime import date, datetime
 from ebedke.pluginmanager import EbedkePlugin
-from ebedke.utils.utils import on_workdays
+from ebedke.utils.date import on_workdays
 from ebedke.utils.text import pattern_slice
 from ebedke.utils.http import get_dom
 from ebedke.utils.date import days_lower

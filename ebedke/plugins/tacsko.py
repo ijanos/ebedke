@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from ebedke.utils.utils import on_workdays, skip_empty_lines
+from ebedke.utils.date import on_workdays
 from ebedke.utils import facebook
 from ebedke.pluginmanager import EbedkePlugin
 
@@ -14,7 +14,7 @@ def get_menu(today):
         any(word in post['message'].lower() for word in ["ebédmenü", "ebéd menü", "mai menü", "déli menü", "mai ebéd", "ajánlat"])
     menu = facebook.get_filtered_post(FB_ID, menu_filter)
     drop_words = ["ajánlat", "tacskó", "ebéd", "menü", "="]
-    menu = list(skip_empty_lines(filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines())))
+    menu = list(filter(lambda l: not any(word in l.lower() for word in drop_words), menu.splitlines()))
     return menu
 
 

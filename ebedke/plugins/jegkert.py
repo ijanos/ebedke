@@ -1,5 +1,5 @@
 from datetime import timedelta
-from ebedke.utils.utils import on_workdays, skip_empty_lines
+from ebedke.utils.date import on_workdays
 from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
 
@@ -11,7 +11,7 @@ def getMenu(today):
     date = today.strftime("%Y-%m-%d")
     menu = dom.xpath(f'/html/body//div[@id="NapiEbedMenu"]//tr[.//div[contains(text(), "{ date }")]]/td[position()=2 or position()=3]//text()')
     if menu:
-        menu = list(skip_empty_lines(menu))
+        menu = list(menu)
     else:
         menu = []
 

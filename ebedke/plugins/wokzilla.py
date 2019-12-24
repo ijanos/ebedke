@@ -1,14 +1,14 @@
 from typing import List
 from io import BytesIO
 from datetime import timedelta, datetime as dt
-from ebedke.utils import image, http, utils, text, date
+from ebedke.utils import image, http, text, date
 from ebedke.pluginmanager import EbedkePlugin
 
 URL = "https://www.wokzilla.hu/weeklymenu"
 API = "https://onemin-prod.herokuapp.com/api/restaurants/42"
 
 
-@utils.on_workdays
+@date.on_workdays
 def getMenu(today: dt) -> List[str]:
     out: List[str] = []
     infojson = http.get(API).json()

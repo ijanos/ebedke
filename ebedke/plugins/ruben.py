@@ -1,6 +1,6 @@
 import re
 from datetime import timedelta, date
-from ebedke.utils.utils import on_workdays
+from ebedke.utils.date import on_workdays
 from ebedke.utils.date import parse_hungarian_month, days_lower
 from ebedke.utils.http import get_dom
 from ebedke.utils.text import pattern_slice

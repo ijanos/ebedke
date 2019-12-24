@@ -3,7 +3,8 @@ from io import BytesIO
 from datetime import timedelta
 from datetime import datetime
 from PIL import Image
-from ebedke.utils.utils import ocr_image, on_workdays
+from ebedke.utils.utils import ocr_image
+from ebedke.utils.date import on_workdays
 from ebedke.utils.http import get_fresh_image
 from ebedke.pluginmanager import EbedkePlugin
 from ebedke.utils.text import skip_empty_lines

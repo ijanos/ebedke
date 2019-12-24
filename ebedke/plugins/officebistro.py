@@ -1,6 +1,6 @@
 from typing import List
 from datetime import timedelta, datetime
-from ebedke.utils.utils import on_workdays, days_lower, skip_empty_lines
+from ebedke.utils.date import on_workdays, days_lower
 from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
 
@@ -23,7 +23,7 @@ def getMenu(today: datetime) -> List[str]:
     menu: List[str] = []
     for column in table:
         if days_lower[weekday] in column[0].lower():
-            menu = list(skip_empty_lines(column[1:]))
+            menu = list(column[1:])
             break
 
     return menu

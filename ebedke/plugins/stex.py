@@ -1,5 +1,6 @@
 from datetime import timedelta
-from ebedke.utils.utils import skip_empty_lines, days_lower, on_workdays, pattern_slice
+from ebedke.utils.date import days_lower, on_workdays
+from ebedke.utils.text import pattern_slice
 from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
 
@@ -12,7 +13,7 @@ def get_menu(today):
     dom = get_dom(URL_ROOT)
     menu = dom.xpath("/html/body//article//text()")
     menu = pattern_slice(menu, [days_lower[today.weekday()]], days_lower + ['ára', 'előfizetés', 'ajánlat'], inclusive=False)
-    return list(skip_empty_lines(menu))
+    return list(menu)
 
 
 plugin = EbedkePlugin(

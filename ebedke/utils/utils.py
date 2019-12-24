@@ -6,15 +6,6 @@ from ebedke import settings
 
 VISION_API_ROOT = "https://vision.googleapis.com/v1/images:annotate"
 
-days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat", "vasárnap"]
-days_lower_ascii = ["hetfo", "kedd", "szerda", "csutortok", "pentek", "szombat", "vasarnap"]
-days_upper = [day.upper() for day in days_lower]
-
-months_hu_capitalized = ["Január", "Február", "Március",
-                         "Április", "Május", "Június",
-                         "Július", "Augusztus", "Szeptember",
-                         "Október", "November", "December"]
-
 
 def content_size_match(url, expected_size):
     response = requests.head(url)
@@ -46,34 +37,6 @@ def ocr_image(image: BytesIO, langHint: str = "hu") -> str:
         print("Description is not a string")
         return ""
 
-
-def workday(date):
-    datestr = date.strftime("%Y-%m-%d")
-    extra_workdays = [
-        "2019-08-10", "2019-12-07", "2019-12-14"
-    ]
-
-    if datestr in extra_workdays:
-        return True
-
-    holidays = [
-        "2018-12-31", "2019-01-01", "2019-03-15", "2019-04-19", "2019-04-22", "2019-05-01",
-        "2019-06-10", "2019-08-19", "2019-08-20", "2019-10-23", "2019-11-01", "2019-12-24",
-        "2019-12-25", "2019-12-26", "2019-12-27"
-    ]
-
-    if datestr in holidays:
-        return False
-
-    return date.weekday() < 5
-
-def on_workdays(func):
-    def wrapper(*args, **kwargs):
-        if not workday(args[0]):
-            return []
-        else:
-            return func(*args, **kwargs)
-    return wrapper
 
 def pattern_slice(iterator, start_patterns, end_patterns, inclusive=False, modifier=str.lower):
     drop = True

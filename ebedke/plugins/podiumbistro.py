@@ -3,7 +3,8 @@ from datetime import datetime, timedelta
 from io import BytesIO
 from PIL import Image
 
-from ebedke.utils.utils import on_workdays, ocr_image
+from ebedke.utils.date import on_workdays
+from ebedke.utils.utils import ocr_image
 from ebedke.utils import facebook
 from ebedke.pluginmanager import EbedkePlugin
 

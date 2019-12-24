@@ -2,7 +2,7 @@ import re
 from typing import List
 from datetime import timedelta, date, datetime
 from ebedke.utils.date import parse_hungarian_month
-from ebedke.utils.utils import on_workdays
+from ebedke.utils.date import on_workdays
 from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
 

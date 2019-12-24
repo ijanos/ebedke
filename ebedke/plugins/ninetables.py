@@ -1,6 +1,6 @@
 import re
 from datetime import datetime, timedelta
-from ebedke.utils.utils import on_workdays
+from ebedke.utils.date import on_workdays
 from ebedke.utils import facebook
 from ebedke.utils.text import skip_empty_lines
 from ebedke.pluginmanager import EbedkePlugin

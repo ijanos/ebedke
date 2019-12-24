@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 from io import BytesIO
 from PIL import Image
-from ebedke.utils.utils import on_workdays, ocr_image, days_lower, pattern_slice
+from ebedke.utils.date import on_workdays, days_lower
+from ebedke.utils.utils import ocr_image, pattern_slice
 from ebedke.utils import facebook
 from ebedke.utils.text import skip_empty_lines
 from ebedke.pluginmanager import EbedkePlugin

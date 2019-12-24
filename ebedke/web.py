@@ -2,7 +2,7 @@ from datetime import datetime as dt
 from typing import List, Dict, Tuple, Sequence
 from flask import Flask, jsonify, render_template, request
 
-from ebedke.utils.utils import days_lower
+from ebedke.utils.date import days_lower
 import ebedke.utils.cache as cache
 from ebedke import pluginmanager
 
