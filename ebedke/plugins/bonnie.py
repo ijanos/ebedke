@@ -15,11 +15,12 @@ def get_menu(today: datetime) -> List[str]:
     dom = get_dom(URL)
     mainbody = dom.xpath('/html/body//section[contains(@id, "mainbody")]//text()')
     soup = "".join(mainbody)
-    start_date_match = re.search(r"(\d{4})\.(\d+)\.(\d+)\.", soup)
+    start_date_match = re.search(r"(\d{4})\.(\d+)\.(\d+)", soup)
 
     menu: List[str] = []
     if start_date_match:
         year, month, day = start_date_match.groups()
+        year = "2020" if year == "2019" else year # they forgot to update :)
         start = date(int(year), int(month), int(day))
         if start <= today.date() <= start + timedelta(days=6):
             menu = pattern_slice(soup.splitlines(), [days_lower[today.weekday()]], days_lower + ["chef", "ajánlat"])
