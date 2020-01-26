@@ -74,16 +74,12 @@
     <p> <a href="/privacy.html">Privacy policy</a> </p>
   </footer>
   <script>
-    (function() {
-      window.counter = 'https://ebedke.goatcounter.com/count'
-
-      var script = document.createElement('script');
-      script.async = 1;
-      script.src = '//gc.zgo.at/count.js';
-      var ins = document.getElementsByTagName('script')[0];
-      ins.parentNode.insertBefore(script, ins)
-    })();
+    window.goatcounter = {
+      path: location.hostname || '/',
+    };
   </script>
+  <script data-goatcounter="https://ebedke.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
 </body>
 
 </html>
