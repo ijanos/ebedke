@@ -56,13 +56,16 @@ $(document).ready(function() {
   $.getScript('https://connect.facebook.net/hu_HU/sdk.js', function() {
     FB.init({
       appId: '1478465105546610',
-      version: 'v5.0'
+      version: 'v6.0'
     });
-    initFacebookPlugins();
+    initFacebookPlugins(false);
+  }).fail(function() {
+    initFacebookPlugins(true);
   });
 });
 
-function initFacebookPlugins() {
+function initFacebookPlugins(noFB) {
+  var noFBparagraph = $('<p class="noFBwarning">A böngésződ nem tölti be a beágyazott facebook tartalmakat. Ezt okozhatja átlagosnál szigorúbb biztonsági beállítás vagy egy reklámblokkoló is. Az étterem facebook oldalát eléred a nevére kattintva.</p>');
   $("main section").each(function() {
     const a = $("a", this).get(0);
     const isFacebookPage = a.host == "www.facebook.com";
@@ -70,11 +73,15 @@ function initFacebookPlugins() {
       const section = $(this);
       const href = a.href;
       const text = a.text;
-      var fbdiv = $('<div class="fb-frame"> <div class="fb-page" data-href=' + href + '" data-tabs="timeline" data-width="500" data-height="" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false" data-hide-cta="false"><blockquote cite="' + href + '" class="fb-xfbml-parse-ignore"><a href="'+ href +'">' + text + '</a></blockquote></div></div>').hide();
-      var button = $('<button>mutasd a facebook oldalt</button>').click(function () {
-        section.append(fbdiv);
-        fbdiv.slideToggle()
-        FB.XFBML.parse(fbdiv.get(0));
+      var fbdiv = $('<div class="fb-frame"><div class="fb-page" data-href=' + href + '" data-tabs="timeline" data-width="500" data-height="" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false" data-hide-cta="false"><blockquote cite="' + href + '" class="fb-xfbml-parse-ignore"><a href="'+ href +'">' + text + '</a></blockquote></div></div>').hide();
+      var button = $('<button>facebook oldal betöltése</button>').click(function() {
+        if (noFB) {
+          section.append(noFBparagraph.clone());
+        } else {
+          section.append(fbdiv);
+          fbdiv.slideToggle()
+          FB.XFBML.parse(fbdiv.get(0));
+        }
         $(this).remove();
       });
       section.append(button);

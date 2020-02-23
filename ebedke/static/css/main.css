@@ -18,6 +18,10 @@ p {
   margin: .3em 0;
 }
 
+p.noFBwarning {
+  font-style: italic;
+}
+
 body > header {
   display: flex;
   position: sticky;
