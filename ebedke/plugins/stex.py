@@ -12,6 +12,7 @@ URL_ROOT = "http://stexhaz.hu/index.php/hu/etl/deli-ajanlat"
 def get_menu(today):
     dom = get_dom(URL_ROOT)
     menu = dom.xpath("/html/body//article//text()")
+    menu = "".join(menu).replace("hétfőig", "").replace("csütörtökétől", "").splitlines()
     menu = pattern_slice(menu, [days_lower[today.weekday()]], days_lower + ['ára', 'előfizetés', 'ajánlat'], inclusive=False)
     return list(menu)
 
