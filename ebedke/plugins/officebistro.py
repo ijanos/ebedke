@@ -11,7 +11,7 @@ def getMenu(today: datetime) -> List[str]:
     dom = get_dom(URL)
     weekday = today.weekday()
 
-    rows = iter(dom.xpath(f'/html/body//table//tr'))
+    rows = iter(dom.xpath('/html/body//table//tr'))
 
     table = []
     for row in rows:
