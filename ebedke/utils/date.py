@@ -1,5 +1,5 @@
+import unicodedata
 from datetime import datetime
-import ebedke.utils.text
 
 days_lower = ["hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat", "vasárnap"]
 days_lower_ascii = ["hetfo", "kedd", "szerda", "csutortok", "pentek", "szombat", "vasarnap"]
@@ -12,10 +12,8 @@ months_hu_lower = ["január", "február", "március",
 
 months_hu_capitalized = [month.capitalize() for month in months_hu_lower]
 
-
-
 def parse_hungarian_month(month):
-    month = ebedke.utils.text.remove_accents(month).lower()
+    month = unicodedata.normalize('NFD', month).encode('ascii', 'ignore').decode("ascii").lower()
     months = {
         "januar": 1,
         "februar": 2,

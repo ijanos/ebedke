@@ -1,6 +1,5 @@
 from base64 import b64encode
 from io import BytesIO
-import unicodedata
 import requests
 from ebedke import settings
 
@@ -49,7 +48,3 @@ def pattern_slice(iterator, start_patterns, end_patterns, inclusive=False, modif
             break
         elif not drop:
             yield i
-
-def remove_accents(text):
-    nfkd = unicodedata.normalize('NFKD', text)
-    return "".join(c for c in nfkd if not unicodedata.combining(c))

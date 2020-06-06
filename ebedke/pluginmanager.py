@@ -13,7 +13,7 @@ Coordinates = Union[Tuple[float, float], List[Tuple[float, float]]]
 Downloader = Callable[[datetime], List[str]]
 
 class EbedkePlugin:
-    # pylint: disable=redefined-builtin,protected-access,too-many-instance-attributes
+    # pylint: disable=redefined-builtin,too-many-instance-attributes
     def __init__(self, *, id: str, enabled: bool, name: str, groups: List[str],
                  downloader: Downloader, ttl: timedelta, url: str, cards: List[str], coord: Coordinates) -> None:
         self.id = id

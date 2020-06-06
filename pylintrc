@@ -6,7 +6,7 @@ ignore=.git
 
 # Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
 # number of processors available to use.
-jobs=0
+jobs=1
 
 # Pickle collected data for later comparisons.
 persistent=no
@@ -27,6 +27,7 @@ disable=no-else-return,
       invalid-name,
       too-many-locals,
       line-too-long,
+      duplicate-code,
 
 [REPORTS]
 
