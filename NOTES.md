@@ -4,6 +4,38 @@ This is a diary-like file to keep notes, ideas and record things that I liked
 or surprised me. There is no guarantee I will ever add anything again to this
 file.
 
+## 2020-05-27
+
+Upgrading Fedora on the server upgraded python from 3.7 to 3.8. I run 3.8 on my
+laptop already and I knew it was working just fine. I had to redeploy the
+virtual env so it links to the new python. I did quick smoke test after the
+upgrade, everything looked OK. I also have monitoring set up that checks if the
+server responds 200 on HTTP. At this point I was pretty sure the upgrade went
+fine. Except I have this line in the deploy script:
+
+```
+STATIC_DIR={{active_env}}/lib/python3.7/site-packages/ebedke/static
+ln -fsn $STATIC_DIR {{static_files}}
+```
+
+I symlink the static files directory from the virtual env to a fixed location
+where nginx is pointed. Smoketest was most likely fine because of the browser
+cache. After the caches expired static assets were all 404. By sheer luck I
+noticed the issue pretty early next day so the downtime wasn't too bad.
+
+I did know that `ln` creates symlinks to non-existent things but I didn't think
+it was an issue until now. I added a test to the script.
+
+```
+test -d $STATIC_DIR
+```
+
+The bash script has `set -eux` so it will stop if this test fails. Maybe I
+should expand the monitoring as well to keep an eye on the static assets of the
+site in future. The deploy script cannot roll back by itself, that would also
+be a nice feature.
+
+
 ## 2019-11-16
 
 Two months ago facebook decided to close down its API that allowed access to
