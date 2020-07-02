@@ -1,23 +1,27 @@
-from datetime import timedelta, datetime
-from ebedke.utils.date import on_workdays
+import re
+from datetime import timedelta, date, datetime
+from typing import List
+
+from ebedke.utils.date import on_workdays, days_lower
 from ebedke.utils.text import pattern_slice
-from ebedke.utils.date import days_lower
 from ebedke.utils.http import get_dom
 from ebedke.pluginmanager import EbedkePlugin
 
 URL = "http://muzikum.hu/heti-menu/"
 
 @on_workdays
-def getMenu(today):
+def getMenu(today: datetime) -> List[str]:
     dom = get_dom(URL)
-    date = dom.xpath('//div[@class="content-right"]//h2/text()')
-    date = date[0].strip().split('|')[1].strip()[:5]
-    date = datetime.strptime(f'{ today.year }.{ date }', '%Y.%m.%d').date()
-    if date > today.date() - timedelta(days=7):
-        menu = dom.xpath('/html/body//div[@class="content-right"]//div/*[self::h3 or self::p]/text()')
-    else:
-        menu = []
+    page_content = dom.xpath('//div[@class="content-right"]//text()')
+    soup = "".join(page_content)
+    start_date_match = re.search(r"(\d{4})\.(\d+)\.(\d+)", soup)
 
+    menu: List[str] = []
+    if start_date_match:
+        year, month, day = start_date_match.groups()
+        start = date(int(year), int(month), int(day))
+        if start <= today.date() <= start + timedelta(days=6):
+            menu = dom.xpath('/html/body//div[@class="content-right"]//*[not(self::em)]/text()')
     return pattern_slice(menu, [days_lower[today.weekday()]], days_lower + ["asztalfoglalás", "dolgozóknak"])
 
 
