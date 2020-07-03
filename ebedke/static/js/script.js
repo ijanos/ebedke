@@ -56,7 +56,7 @@ $(document).ready(function() {
   $.getScript('https://connect.facebook.net/hu_HU/sdk.js', function() {
     FB.init({
       appId: '1478465105546610',
-      version: 'v6.0'
+      version: 'v7.0'
     });
     initFacebookPlugins(false);
   }).fail(function() {
