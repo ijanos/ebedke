@@ -73,7 +73,7 @@ function initFacebookPlugins(noFB) {
       const section = $(this);
       const href = a.href;
       const text = a.text;
-      var fbdiv = $('<div class="fb-frame"><div class="fb-page" data-href=' + href + '" data-tabs="timeline" data-width="500" data-height="" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false" data-hide-cta="false"><blockquote cite="' + href + '" class="fb-xfbml-parse-ignore"><a href="'+ href +'">' + text + '</a></blockquote></div></div>').hide();
+      var fbdiv = $('<div class="fb-frame"><div class="fb-page" data-href="' + href + '" data-tabs="timeline" data-width="900" data-height="" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="false" data-hide-cta="false"><blockquote cite="' + href + '" class="fb-xfbml-parse-ignore"><a href="'+ href +'">' + text + '</a></blockquote></div></div>').hide();
       var button = $('<button>facebook oldal betöltése</button>').click(function() {
         if (noFB) {
           section.append(noFBparagraph.clone());
