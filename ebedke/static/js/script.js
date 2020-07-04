@@ -129,6 +129,22 @@ $("#reset").click(function(){
   location.reload();
 });
 
+jQuery.expr[':'].contains = function(a, i, m) {
+  return jQuery(a).text().toUpperCase()
+      .indexOf(m[3].toUpperCase()) >= 0;
+};
+
+$("#search").on('input', function() {
+  const searchText = $(this).val();
+  $("section").each(function() {
+    if ($(this).is(":contains('" +  searchText + "')")) {
+      $(this).stop().slideDown(250);
+    } else {
+      $(this).stop().slideUp(250);
+    }
+  });
+});
+
 function localStorage_available() {
   try {
       var storage = window[localStorage],

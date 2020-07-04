@@ -17,7 +17,7 @@
   <link rel="manifest" href="manifest.webmanifest">
 
   <script src="js/jquery-3.5.1.min.js"></script>
-  <script defer src="js/script.js?20200703"></script>
+  <script defer src="js/script.js?20200704"></script>
 
   <noscript>
     <link rel="stylesheet" href="css/nojs.css">
@@ -45,6 +45,7 @@
       </ul>
       {%- endif %}
     </header>
+    <input type="search" id="search" autocomplete="off" placeholder="🔎 Keresés pl: étterem neve, hambuger, leves...">
     {%- for menu in menus %}
     <section data-id="{{ menu.id }}">
       <header>
