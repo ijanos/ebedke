@@ -169,17 +169,18 @@ li {
   padding: 0.5em;
 }
 
-#infobox {
-  background-color: #fffdc6;
-  padding: 1em;
-  font-size: 0.9em;
-  margin-bottom: 1em;
-  margin-top: 0.5em;
-}
-
 #search {
   padding: 6px;
   font-size: 1.1em;
   margin-top: 1em;
   margin-bottom: 1em;
+}
+
+#noresult {
+  display: none;
+  text-align: center;
+  background: #fefefe;
+  padding: 1em;
+  border-radius: 5px;
+  font-size: 1.3em;
 }

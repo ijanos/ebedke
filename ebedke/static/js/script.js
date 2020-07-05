@@ -136,13 +136,20 @@ jQuery.expr[':'].contains = function(a, i, m) {
 
 $("#search").on('input', function() {
   const searchText = $(this).val();
+  var noresult = true;
   $("section").each(function() {
     if ($(this).is(":contains('" +  searchText + "')")) {
-      $(this).stop().slideDown(250);
+      $(this).stop(true, true).slideDown(250);
+      noresult = false;
     } else {
-      $(this).stop().slideUp(250);
+      $(this).stop(true, true).slideUp(250);
     }
   });
+  if (noresult) {
+    $("#noresult").show();
+  } else {
+    $("#noresult").hide();
+  }
 });
 
 function localStorage_available() {
