@@ -10,12 +10,12 @@ flask = "^1.0"
 requests = "^2.21"
 redis = "^3.2"
 lxml = "^4.3"
-pillow = "^7.0"
+pillow = "^8.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.3"
 pytest = "^6.0"
-mypy = "^0.782.0"
+mypy = "^0.790.0"
 
 [tool.poetry.scripts]
 updater = 'ebedke.updater:main_loop'
