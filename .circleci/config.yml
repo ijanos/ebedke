@@ -31,7 +31,7 @@ jobs:
       - run:
           name: Run pytest
           command: |
-            poetry run pytest
+            poetry run python3 -B -Werror -m pytest
       - run:
           name: Build python wheel
           command: |
