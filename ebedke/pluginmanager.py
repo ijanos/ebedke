@@ -8,8 +8,8 @@ from datetime import timedelta, datetime
 import ebedke.plugins
 from ebedke.utils.text import normalize_menu
 
-# Type aliases
-Coordinates = Union[Tuple[float, float], List[Tuple[float, float]]]
+# Type aliases, pylint doesn't fully support python 3.9 yet
+Coordinates = Union[Tuple[float, float], List[Tuple[float, float]]] # pylint: disable=unsubscriptable-object
 Downloader = Callable[[datetime], List[str]]
 
 class EbedkePlugin:

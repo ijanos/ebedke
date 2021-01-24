@@ -44,7 +44,7 @@ def get_bytes(url: str) -> bytes:
     response = get(url)
     return response.content
 
-def get_fresh_image(url: str, fresh_date: datetime) -> Optional[bytes]:
+def get_fresh_image(url: str, fresh_date: datetime) -> Optional[bytes]: # pylint: disable=unsubscriptable-object
     response = get(url)
     lastmod = response.headers.get('last-modified')
     if not lastmod:

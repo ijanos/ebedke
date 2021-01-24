@@ -60,7 +60,7 @@ def do_update(place: pluginmanager.EbedkePlugin, now: dt) -> None:
 
 def update_restaurants(restaurantlist: List[pluginmanager.EbedkePlugin], now: dt) -> None:
     refresh_time = get_refresh_time(now)
-    parsed_menu_list: List[Dict[str, Union[str, List[str]]]] = cache.get_menu(restaurantlist)
+    parsed_menu_list: List[Dict[str, Union[str, List[str]]]] = cache.get_menu(restaurantlist) # pylint: disable=unsubscriptable-object
     for i, place in enumerate(restaurantlist):
         current_menu = parsed_menu_list[i]
 
