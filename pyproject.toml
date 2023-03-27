@@ -8,7 +8,7 @@ authors = ["János Illés <ijanos@gmail.com>"]
 python = "^3.6"
 flask = "^1.0"
 requests = "^2.21"
-redis = "^3.2"
+redis = "^4.3"
 lxml = "^4.3"
 pillow = "^8.0"
 
